@@ -2,22 +2,25 @@
 #' BDLIM for glm
 #'
 #' This estimates the model for a single group or the overall effect
-#' @param y Outcome vector
+#' @param Y Outcome vector
 #' @param X Exposure matrix
 #' @param Z Matrix of covariates. An intercept will be added
+#' @param G Vector indicating group membership
 #' @param B Basis object from build.basis
+#' @param model Indicator of how G enters the model. If 'bw' both the betas and weight functions will vary between groups. If 'b' then only the betas will vary between groups. If 'w' then only the wieght function will vary by group. If "n" then neither beta or the wieght function will vary by group. If a vector of any combination of the four choices is provided then those models will be run and compared. The option 'all' runs all four models and compares them.
 #' @param niter Number of MCMC iterations
 #' @param nburn Number of MCMC iterations to be discarded as burning
-#' @param nthin Number of draws taken to obtainone sampl
-#' @param prior A vector of lenght 2 whose elements (a,b) are the hyper parameters of a Gamma prior on sigma^(-2) with mean a/b.
-#' @author Ander Wilson
+#' @param nthin Number of draws taken to obtain one sample
+#' @param prior List with the entries:  betavar = the prior variance for beta; and gamma = the prior variance for the covarites. The priors on beta and gamma are iid normal mean zero.
+#' @param post Relating to the posterior likelihood
+#' #' @author Ander Wilson
 #'
 
 
 
 
 
-bdlimglmoall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,post){
+bdlimglmall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,post){
 
   #usefull stuff
   px = ncol(X)

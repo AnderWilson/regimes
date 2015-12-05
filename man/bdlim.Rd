@@ -18,6 +18,8 @@ bdlim(Y, X, Z, G = NULL, inter.model = "all", family = gaussian,
 
 \item{inter.model}{Indicator of how G enters the model. If 'bw' both the betas and weight functions will vary between groups. If 'b' then only the betas will vary between groups. If 'w' then only the wieght function will vary by group. If "n" then neither beta or the wieght function will vary by group. If a vector of any combination of the four choices is provided then those models will be run and compared. The option 'all' runs all four models and compares them.}
 
+\item{family}{A description of the error distribution and link function to be used in the model. Currently, gaussian and binomial are supported.}
+
 \item{niter}{Number of MCMC iterations including burnin.}
 
 \item{nburn}{Number of MCMC iterations to be discarded as burnin.}
