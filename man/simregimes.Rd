@@ -7,7 +7,7 @@
 simregimes(scenario, seed, ...)
 }
 \arguments{
-\item{scenario}{Model to be simulated from. Options include: acpme1, and acpme2.}
+\item{scenario}{Model to be simulated from. Options include: acpme1, acpme2, bdlim1, ..., bdlim5.}
 
 \item{seed}{An optional random seed.}
 
@@ -22,5 +22,6 @@ Simulate data to demonstrate methods in regimes package.
 \examples{
 dat_acpme1 <- simregimes(scenario="acpme1", seed=1234, n=200, p=100)
 dat_acpme2 <- simregimes(scenario="acpme2", seed=1234, n=200, p=100, m.main=3)
+dat_bdlim1 <- simregimes(scenario="bdlim1", seed=1234, n=200)
 }
 

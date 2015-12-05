@@ -29,7 +29,7 @@ simACPME <- function(n, model=1,p,m.main){
     beta <- runif(ncol(X),0.2,0.5)
     eta <- runif(30,0.2,0.5)
     Y <- X%*%beta + C[,1:30]%*%eta + rnorm(n)
-    return(list(Y=Y, Z=X, C=C, beta=beta, eta=eta, opts=list(n=n,p=p, formulation="y=Z*beta+C[,1:30]*eta+C[,31:p]*0 + epsilon")))
+    return(list(Y=Y, Z=X, C=C, beta=beta, eta=eta, opts=list(n=n,p=p, formulation="y = Z*beta+C[,1:30]*eta + C[,31:p]*0 + epsilon")))
 
   }else if(model==2){
 
@@ -52,6 +52,6 @@ simACPME <- function(n, model=1,p,m.main){
     beta <- runif(ncol(X),0.2,0.5)
     eta <- runif(30,0.2,0.5)
     Y <- X%*%beta + C[,1:30]%*%eta + rnorm(n)
-    return(list(Y=Y, Z=X, C=C, beta=beta, eta=eta, opts=list(n=n,p=p,m.main=m.main, formulation="y=Z*beta+C[,1:30]*eta+C[,31:p]*0 + epsilon")))
+    return(list(Y=Y, Z=X, C=C, beta=beta, eta=eta, opts=list(n=n,p=p,m.main=m.main, formulation="y = Z*beta + C[,1:30]*eta + C[,31:p]*0 + epsilon")))
   }
 }
