@@ -8,6 +8,7 @@
 #' @param Z Design matrix of covariates. The design matrix for G will be added automatically, including an intercept.
 #' @param G Vector indicating group membership. This should be a factor.
 #' @param inter.model Indicator of how G enters the model. If 'bw' both the betas and weight functions will vary between groups. If 'b' then only the betas will vary between groups. If 'w' then only the wieght function will vary by group. If "n" then neither beta or the wieght function will vary by group. If a vector of any combination of the four choices is provided then those models will be run and compared. The option 'all' runs all four models and compares them.
+#' @param family A description of the error distribution and link function to be used in the model. Currently supported options are gaussian and binomial.
 #' @param niter Number of MCMC iterations including burnin.
 #' @param nburn Number of MCMC iterations to be discarded as burnin.
 #' @param nthin Number of draws taken to obtain one sample.
@@ -95,7 +96,7 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
       for(Gmodel in runmods){
         if(!missing(seed)) set.seed(seed)
         cat(paste0("\nFitting: BDLIM-",substring(Gmodel,7,15),"\n"))
-        fit[[Gmodel]] <- bdlimglmoall(Y,x,z1,drop(G),model=substring(Gmodel,7,15),B,niter,nburn,nthin,prior,post)
+        fit[[Gmodel]] <- bdlimglmall(Y,x,z1,drop(G),model=substring(Gmodel,7,15),B,niter,nburn,nthin,prior,post)
 
         fit[[Gmodel]]$model <- Gmodel
 

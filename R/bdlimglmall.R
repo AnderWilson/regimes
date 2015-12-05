@@ -2,14 +2,17 @@
 #' BDLIM for glm
 #'
 #' This estimates the model for a single group or the overall effect
-#' @param y Outcome vector
+#' @param Y Outcome vector
 #' @param X Exposure matrix
 #' @param Z Matrix of covariates. An intercept will be added
+#' @param G Vector indicating group membership. This should be a factor.
 #' @param B Basis object from build.basis
+#' @param model The inter.model.
 #' @param niter Number of MCMC iterations
 #' @param nburn Number of MCMC iterations to be discarded as burning
 #' @param nthin Number of draws taken to obtainone sampl
 #' @param prior A vector of lenght 2 whose elements (a,b) are the hyper parameters of a Gamma prior on sigma^(-2) with mean a/b.
+#' @param post Relating to the likelihood functions.
 #' @author Ander Wilson
 #'
 
@@ -17,7 +20,7 @@
 
 
 
-bdlimglmoall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,post){
+bdlimglmall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,post){
 
   #usefull stuff
   px = ncol(X)

@@ -4,11 +4,10 @@
 \alias{summary.bdlim}
 \title{Title}
 \usage{
-\method{summary}{bdlim}(fit, inter.model, ciprob = 0.95,
-  hpd.interval = FALSE, ...)
+\method{summary}{bdlim}(object, inter.model, ciprob, hpd.interval, ...)
 }
 \arguments{
-\item{fit}{An object of class 'bdlim'.}
+\item{object}{An object of class 'bdlim'.}
 
 \item{inter.model}{Model to be summarized.  The default is \code{inter.model}=1 indicating to summarize the best fitting model.  \code{inter.model}=2, 3, or 4 indicates to summarized the second, third, or fourth best fitting model respectively. Model fit is determined by posterior probability. Alternative, 'BDLIM_n', 'BDLIM_bw', 'BDLIM_b', or 'BDLIM_w' can be entered to return a specific model.}
 
@@ -16,7 +15,7 @@
 
 \item{hpd.interval}{Logical indicating if highest posterior density intervals should be computed (TRUE) or symmetric intervals (FALSE, default)}
 
-\item{...}{}
+\item{...}{other things to be specificed.}
 }
 \value{
 A object of class 'summary.bdlim'.

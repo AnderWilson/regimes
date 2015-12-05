@@ -6,6 +6,11 @@
 \usage{
 \method{print}{summary.bdlim}(x, ...)
 }
+\arguments{
+\item{x}{object}
+
+\item{...}{other options.}
+}
 \description{
 Default print for bdlim.summary object
 }

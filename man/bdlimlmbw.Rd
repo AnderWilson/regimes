@@ -7,6 +7,8 @@
 bdlimlmbw(Y, X, Z, G, B, niter, nburn, nthin, prior)
 }
 \arguments{
+\item{Y}{Outcome vector}
+
 \item{X}{Exposure matrix}
 
 \item{Z}{Matrix of covariates. An intercept will be added}
@@ -21,9 +23,7 @@ bdlimlmbw(Y, X, Z, G, B, niter, nburn, nthin, prior)
 
 \item{nthin}{Number of draws taken to obtainone sampl}
 
-\item{prior}{A vector of lenght 2 whose elements (a,b) are the hyper parameters of a Gamma prior on sigma^(-2) with mean a/b.}
-
-\item{y}{Outcome vector}
+\item{prior}{List with the entries: sigma = a numeric 2-vector with the shape and rate paramters for the pirior in the error precision (1/sigma^2); betavar = the prior variance for beta; and gamma = the prior variance for the covarites. The priors on beta and gamma are iid normal mean zero.}
 }
 \description{
 This estimates the model for a group specific weight funciton and group specific effects
