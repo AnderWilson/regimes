@@ -25,8 +25,8 @@ bdlimbasis <- function(X,knots=NULL, df=NULL,pve=.99, type="face"){
 
 
   #account for missing input in basis function
-  if(is.null(df) & is.null(knots) & toupper(type)=="NS") basis.opts$df <- round(ncol(X)/5)
-  if(is.null(knots) & toupper(type)=="FACE") basis.opts$knots <- round(ncol(X)/3)
+  if(is.null(df) & is.null(knots) & toupper(type)=="NS") df <- round(ncol(X)/5)
+  if(is.null(knots) & toupper(type)=="FACE") knots <- round(ncol(X)/3)
 
   #correct pve if needed.
   if(!is.numeric(pve)){
