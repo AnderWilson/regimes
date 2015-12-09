@@ -9,11 +9,12 @@
 
 simBDLIM <- function(n,design){
   
-  data('PMweekly', package='regimes', envir=environment())
-  PMweekly <- get("PMweekly", envir=environment()) 
+  data('AirPollWeekly', package='regimes', envir=environment())
+  AirPollWeekly <- get("AirPollWeekly", envir=environment()) 
+  
   if(missing(n)) n <- 500
   nstar <- min(max(n,100),1000)
-  X <- as.matrix(PMweekly[1:nstar,2+1:37])
+  X <- as.matrix(AirPollWeekly[1:nstar,2+1:37])
   G <- floor(runif(nstar)*2)
   Z <- matrix(rnorm(nstar*10),nstar,10)
   t <- seq(0,1,length=ncol(X))
