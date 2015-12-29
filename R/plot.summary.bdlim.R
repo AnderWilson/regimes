@@ -1,5 +1,4 @@
 
-
 #' Plot for bdlim
 #'
 #' @param x An object of class 'summary.bdlim'.
@@ -8,7 +7,8 @@
 #' @return If print=FALSE then a list of plots is returned.
 #' @import ggplot2
 #' @export
-
+#' 
+#' 
 plot.summary.bdlim <- function(x,print=TRUE){
 
 theme_regimes <- function (base_size = 20, base_family = "", ...){
@@ -64,7 +64,7 @@ if(print){
   out$bw <- p.bw
 }
 
-p.w <- ggplot(x$bw, aes(x=t,y=mean,ymin=lower,ymax=upper)) +geom_line()
+p.w <- ggplot(x$w, aes(x=t,y=mean,ymin=lower,ymax=upper)) +geom_line()
 p.w <- p.w + geom_ribbon(fill="lightgrey", color="lightgrey", alpha=.5)
 p.w <- p.w + theme_regimes()
 p.w <- p.w + ylab("Estimated weight function, w(t)") + xlab("time, t")+ ggtitle("Estimated Weight Function, w(t)")
