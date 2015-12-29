@@ -10,7 +10,7 @@
 #' @param hpd.interval Logical indicating if highest posterior density intervals should be computed (TRUE) or symmetric intervals (FALSE, default)
 #' @param ... other things to be specificed.
 #'
-#' @return A object of class 'summary.bdlim'.
+#' @return An object of class 'summary.bdlim'.
 #' @export
 #'
 #'

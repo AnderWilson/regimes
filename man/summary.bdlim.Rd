@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.bdlim.R
 \name{summary.bdlim}
 \alias{summary.bdlim}
-\title{Title}
+\title{summary for bdlim}
 \usage{
 \method{summary}{bdlim}(object, inter.model, ciprob, hpd.interval, ...)
 }
@@ -18,9 +18,9 @@
 \item{...}{other things to be specificed.}
 }
 \value{
-A object of class 'summary.bdlim'.
+An object of class 'summary.bdlim'.
 }
 \description{
-Title
+summary for bdlim
 }
 
