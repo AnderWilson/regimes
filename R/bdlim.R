@@ -33,6 +33,8 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
 
 
   #account for missing input in priors
+  if(missing(prior)) prior <- NULL
+  if(is.null(prior$sigma)) prior$sigma <- c(0.001,0.001)
   if(is.null(prior$beta)) prior$beta <- Inf
   if(is.null(prior$gamma)) prior$gamma <- Inf
 
