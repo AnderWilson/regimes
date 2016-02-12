@@ -123,8 +123,13 @@ acpme <- function(Z,C,y,int=TRUE,niter,burnin=round(niter/2), pen.lambda=NA, pen
     weights <- sum(1*(rowSums(abs(all.models-matrix(rep(unique.models[i,],nrow(all.models)),nrow(all.models), ncol(all.models),byrow=TRUE)))==0))
     beta <- rbind(beta,drawpost(weights,y.scale,X.scale,C.scale[,which(unique.models[i,]==1)],int,scale=sd.y/sd.X, phi,nu,lambda))
   }
+  
+  out <- list(alpha=alpha[(burnin+1):niter,], beta=beta, post.prob=colMeans(all.models), pen.lambda=pen.lambda, omega=omega, BMA.parms=list(phi=phi,lambda=lambda,nu=nu))
+  
+  out$call <- match.call()
+  class(out) <- "acpme"
 
-  return( list(alpha=alpha, beta=beta, post.prob=colMeans(all.models), pen.lambda=pen.lambda, omega=omega, BMA.parms=list(phi=phi,lambda=lambda,nu=nu)) )
+  return( out )
 }
 
 

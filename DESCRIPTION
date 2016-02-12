@@ -1,8 +1,8 @@
 Package: regimes
 Type: Package
 Title: Regression in Multivariate Exposure Settings
-Version: 0.1
-Date: 2015-12-03
+Version: 0.2
+Date: 2016-2-12
 Author: Ander Wilson, Francesca Dominici, and Brent Coull
 Maintainer: Ander Wilson <awilson@hsph.harvard.edu>
 Description: Regression methods for estimating the relationship between a multivariate exposure and an outcome. The package is oriented toward environmental health and environmental epidemiology research but is applicable in a variety of settings. The three main areas that are addressed in the the package are: 1) exposure to multiple agents; 2) exposure to one or more agents over time (e.g. over the course of pregnancy); and 3) confounder adjustment when estimate the effect of a multivariate exposure.
