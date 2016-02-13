@@ -7,8 +7,7 @@
 #' @return If print=FALSE then a list of plots is returned.
 #' @import ggplot2
 #' @export
-#' 
-#' 
+#'
 plot.summary.acpme <- function(x,print=TRUE){
 
 theme_regimes <- function (base_size = 20, base_family = "", ...){
