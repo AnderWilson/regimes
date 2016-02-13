@@ -52,7 +52,7 @@ temp2$Type <- "Prior"
 colnames(temp1)[2] <- colnames(temp2)[2] <- "Probability"
 p.covar <- ggplot(rbind(temp1,temp2), aes(x=reorder(Covariate,num), y=Probability, color=Type)) + geom_point() 
 p.covar <- p.covar + theme_regimes()
-p.covar <- p.covar + theme(axis.text.x = element_text(angle=90, hjust=1))
+p.covar <- p.covar + theme(axis.text.x = element_text(angle=90, hjust=1), axis.title.x=element_blank())
 p.covar <- p.covar + scale_color_manual(values=c("black","gray"))
 
 if(print){
