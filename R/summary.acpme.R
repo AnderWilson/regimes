@@ -62,6 +62,6 @@ print.summary.acpme <- function(x, minpr=.5, ...) {
   cat("\nEstimates:\n")
   print(round(x$estimate,3))
   cat("\n\nCovariate inclusion probabilities:\n")
-  print(round(subset(x$confounders, Posterior>=minpr),3))
+  print(round(subset(x$confounders, posterior>=minpr),3))
 
 }
