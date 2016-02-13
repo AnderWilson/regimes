@@ -2,16 +2,18 @@
 % Please edit documentation in R/summary.acpme.R
 \name{print.summary.acpme}
 \alias{print.summary.acpme}
-\title{Default print for bdlim.summary object}
+\title{Default print for acpme.summary object}
 \usage{
-\method{print}{summary.acpme}(x, ...)
+\method{print}{summary.acpme}(x, minpr = 0.5, ...)
 }
 \arguments{
-\item{x}{bdlim.summary object to print}
+\item{x}{acpme.summary object to print}
+
+\item{minpr}{The confounder inclusion probabilities for covariates with posterior inclusion probability at least minpr will be printed.}
 
 \item{...}{additional arguments}
 }
 \description{
-Default print for bdlim.summary object
+Default print for acpme.summary object
 }
 

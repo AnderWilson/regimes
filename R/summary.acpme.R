@@ -21,11 +21,11 @@ summary.acpme <- function(object, ciprob=.95, hpd.interval=FALSE, estimate, ...)
   }else{
     betaest <- object$beta
   }
-  
-  
+
+
   estimate <- data.frame(mean=colMeans(betaest))
-  
-  
+
+
   if(hpd.interval){
     temp <- apply(as.matrix(betaest),2,hpd,ciprob)
     estimate$lower=temp["lower",]
@@ -34,8 +34,8 @@ summary.acpme <- function(object, ciprob=.95, hpd.interval=FALSE, estimate, ...)
     estimate$lower=apply(as.matrix(betaest),2,quantile,(1-ciprob)/2)
     estimate$upper=apply(as.matrix(betaest),2,quantile,1-(1-ciprob)/2)
   }
-  
-  
+
+
   confounders <- data.frame(posterior=colMeans(object$alpha), prior=1/(1+exp(-object$omega*object$pen.lambda)))
 
   out <- list(estimate=estimate,
@@ -49,18 +49,19 @@ summary.acpme <- function(object, ciprob=.95, hpd.interval=FALSE, estimate, ...)
 }
 
 
-#' Default print for bdlim.summary object
-#' @param x bdlim.summary object to print
+#' Default print for acpme.summary object
+#' @param x acpme.summary object to print
+#' @param minpr The confounder inclusion probabilities for covariates with posterior inclusion probability at least minpr will be printed.
 #' @param ... additional arguments
 #' @export
 #'
-print.summary.acpme <- function(x, ...) {
+print.summary.acpme <- function(x, minpr=.5, ...) {
 
   cat("Call:\n")
   print(x$call)
   cat("\nEstimates:\n")
   print(round(x$estimate,3))
   cat("\n\nCovariate inclusion probabilities:\n")
-  print(round(x$confounders,3))
-  
+  print(round(subset(x$confounders, Posterior>=minpr),3))
+
 }

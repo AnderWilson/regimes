@@ -7,20 +7,18 @@
 #' @return If print=FALSE then a list of plots is returned.
 #' @import ggplot2
 #' @export
-#' 
-#' 
+#'
+#'
 plot.summary.bdlim <- function(x,print=TRUE){
 
-theme_regimes <- function (base_size = 20, base_family = "", ...){
-  modifyList (theme_grey (base_size = base_size),
-              list (axis.title = element_text(size = base_size),
-              axis.text = element_text(size = base_size),
-              panel.background = element_rect(fill=NA, colour=NA),
-              panel.grid = element_blank(),
-              panel.border = element_blank(),
-              ribbon = element_blank()
-
-              ))
+  theme_regimes <- function (base_size = 20, base_family = "", ...){
+    theme_grey (base_size = base_size) +
+      theme (axis.title = element_text(size = base_size),
+             axis.text = element_text(size = base_size),
+             panel.background = element_rect(fill=NA, colour=NA),
+             panel.grid = element_blank(),
+             panel.border = element_blank()
+      )
 }
 
 
@@ -34,7 +32,7 @@ if(print){
 
 
 x$beta$Group <- row.names(x$beta)
-p.beta <- ggplot(x$beta, aes(x=Group, y=mean, ymin=lower,ymax=upper)) + geom_point() + geom_errorbar()
+p.beta <- ggplot(x$beta, aes(x=Group, y=mean, ymin=lower,ymax=upper)) + geom_point() + geom_errorbar(width=.1)
 p.beta <- p.beta + theme_regimes()
 p.beta <- p.beta+ylab("Mean effect size, \u03B2") + xlab("") + ggtitle("Estimated Mean Effect Size, \u03B2")
 if(print){
@@ -44,7 +42,7 @@ if(print){
 }
 
 x$cumulative$Group <- row.names(x$cumulative)
-p.cumulative <- ggplot(x$cumulative, aes(x=Group, y=mean, ymin=lower,ymax=upper)) + geom_point() + geom_errorbar()
+p.cumulative <- ggplot(x$cumulative, aes(x=Group, y=mean, ymin=lower,ymax=upper)) + geom_point() + geom_errorbar(width=.1)
 p.cumulative <- p.cumulative + theme_regimes()
 p.cumulative <- p.cumulative+ylab("Cumulative effect") + xlab("")+ ggtitle("Estimated Cumulative Effect")
 if(print){
