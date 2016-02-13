@@ -44,12 +44,13 @@ if(print){
 }
 
 x$confounders$Covariate <- row.names(x$confounders)
-temp1 <- x$confounders[,c("Covariate","posterior")]
-temp2 <- x$confounders[,c("Covariate","prior")]
+x$confounders$num <- 1:nrow(x$confounders)
+temp1 <- x$confounders[,c("Covariate","posterior","num")]
+temp2 <- x$confounders[,c("Covariate","prior","num")]
 temp1$Type <- "Posterior"
 temp2$Type <- "Prior"
 colnames(temp1)[2] <- colnames(temp2)[2] <- "Probability"
-p.covar <- ggplot(rbind(temp1,temp2), aes(x=Covariate, y=Probability, color=Type)) + geom_point() 
+p.covar <- ggplot(rbind(temp1,temp2), aes(x=reorder(Covariate,num), y=Probability, color=Type)) + geom_point() 
 p.covar <- p.covar + theme_regimes()
 p.covar <- p.covar + theme(axis.text.x = element_text(angle=90, hjust=1))
 p.covar <- p.covar + scale_color_manual(values=c("black","gray"))
