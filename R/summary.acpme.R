@@ -2,15 +2,15 @@
 
 
 
-#' Default summary for bldim
+#' Default summary for acpme
 #'
-#' @param object An object of class 'bdlim'.
-#' @param inter.model Model to be summarized.  The default is \code{inter.model}=1 indicating to summarize the best fitting model.  \code{inter.model}=2, 3, or 4 indicates to summarized the second, third, or fourth best fitting model respectively. Model fit is determined by posterior probability. Alternative, 'BDLIM_n', 'BDLIM_bw', 'BDLIM_b', or 'BDLIM_w' can be entered to return a specific model.
+#' @param object An object of class 'acpme'.
 #' @param ciprob The probability contained by the posterior intervals.
 #' @param hpd.interval Logical indicating if highest posterior density intervals should be computed (TRUE) or symmetric intervals (FALSE, default)
+#' @param estimate A covtor or matrix defining a linear combination of the regression coeficients for the exposure.
 #' @param ... additional arguments
 #'
-#' @return A object of class 'summary.bdlim'.
+#' @return A object of class 'summary.acpme'.
 #' @export
 #'
 #'

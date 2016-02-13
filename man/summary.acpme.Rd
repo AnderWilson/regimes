@@ -2,26 +2,26 @@
 % Please edit documentation in R/summary.acpme.R
 \name{summary.acpme}
 \alias{summary.acpme}
-\title{Default summary for bldim}
+\title{Default summary for acpme}
 \usage{
 \method{summary}{acpme}(object, ciprob = 0.95, hpd.interval = FALSE,
   estimate, ...)
 }
 \arguments{
-\item{object}{An object of class 'bdlim'.}
+\item{object}{An object of class 'acpme'.}
 
 \item{ciprob}{The probability contained by the posterior intervals.}
 
 \item{hpd.interval}{Logical indicating if highest posterior density intervals should be computed (TRUE) or symmetric intervals (FALSE, default)}
 
-\item{...}{additional arguments}
+\item{estimate}{A covtor or matrix defining a linear combination of the regression coeficients for the exposure.}
 
-\item{inter.model}{Model to be summarized.  The default is \code{inter.model}=1 indicating to summarize the best fitting model.  \code{inter.model}=2, 3, or 4 indicates to summarized the second, third, or fourth best fitting model respectively. Model fit is determined by posterior probability. Alternative, 'BDLIM_n', 'BDLIM_bw', 'BDLIM_b', or 'BDLIM_w' can be entered to return a specific model.}
+\item{...}{additional arguments}
 }
 \value{
-A object of class 'summary.bdlim'.
+A object of class 'summary.acpme'.
 }
 \description{
-Default summary for bldim
+Default summary for acpme
 }
 
