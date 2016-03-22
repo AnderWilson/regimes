@@ -8,7 +8,7 @@
 #' @import ggplot2
 #' @export
 #'
-plot.summary.acpme <- function(x,print=TRUE){
+plot.summary.acpme <- function(x,print=TRUE, ...){
 
 theme_regimes <- function (base_size = 20, base_family = "", ...){
    theme_grey (base_size = base_size) + 
@@ -28,9 +28,6 @@ if(print){
   out <- list()
 }
 
-
-
-names(x)
 
 
 x$estimate$Group <- row.names(x$estimate)

@@ -9,7 +9,7 @@
 #' @export
 #'
 #'
-plot.summary.bdlim <- function(x,print=TRUE){
+plot.summary.bdlim <- function(x,print=TRUE, ...){
 
   theme_regimes <- function (base_size = 20, base_family = "", ...){
     theme_grey (base_size = base_size) +
