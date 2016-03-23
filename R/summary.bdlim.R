@@ -52,8 +52,6 @@ summary.bdlim <- function(object, inter.model, ciprob=.95, hpd.interval=FALSE, .
 #'
 print.summary.bdlim <- function(x, ...) {
 
-  cat("Call:\n")
-  print(x$call)
   cat("\nModel fit statistics:\n")
   print(round(x$modelfit,3))
   cat(paste0("\n\nResults for ",x$model,":\n"))
@@ -63,3 +61,7 @@ print.summary.bdlim <- function(x, ...) {
   print(x$cumulative,...)
 
 }
+
+
+
+

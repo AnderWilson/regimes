@@ -1,5 +1,5 @@
 
-#' Plot for bdlim
+#' Plot for bdlim summary
 #'
 #' @param x An object of class 'summary.bdlim'.
 #' @param print A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.
