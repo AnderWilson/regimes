@@ -40,7 +40,7 @@ bdlimbasis <- function(X,knots=NULL, df=NULL,pve=.99, type="face"){
     lambda <- fitted$evalues
     return(list(psi=fitted$efunctions, lambda=lambda, knots=knots,pve=pve,type=type))
   }else if(toupper(type)%in%c("NS","N")){
-    B1 <- ns(seq(1,ncol(X)),df=df, knots=knots, intercept=TRUE)
+    B1 <- ns(seq(1,ncol(X)),df=df, intercept=TRUE)
     fitted <- B1 %*% qr.solve(B1,t(X))
     svd <- svd(fitted)
     return(list(psi=svd$u[,1:ncol(B1)], lambda=svd$d[1:ncol(B1)], df=df,type=type))
