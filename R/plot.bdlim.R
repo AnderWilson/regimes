@@ -3,6 +3,7 @@
 #'
 #' @param x An object of class 'bdlim'.
 #' @param print A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.
+#' @param ... additional arguments for ggplot theme.
 #'
 #' @return If print=FALSE then an object of class ggplot is returned.
 #' @import ggplot2
@@ -39,10 +40,9 @@ plot.bdlim <- function(x, print=TRUE, ...){
 
 #' Default print for bdlim object
 #' @param x bdlim.summary object to print
-#' @param ... additional arguments
 #' @export
 #'
-print.bdlim <- function(x, ...) {
+print.bdlim <- function(x) {
   
   cat("Call:\n")
   print(x$call)

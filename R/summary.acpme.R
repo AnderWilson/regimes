@@ -65,3 +65,19 @@ print.summary.acpme <- function(x, minpr=.5, ...) {
   print(round(subset(x$confounders, posterior>=minpr),3))
 
 }
+
+
+
+
+#' Default print for acpme object
+#' @param x object of class acpme.
+#' @export
+#'
+print.acpme <- function(x) {
+  
+  cat("Call:\n")
+  print(x$call)
+  cat("\nEstimates:\n")
+  print(round(colMeans(object$beta),3))
+
+}

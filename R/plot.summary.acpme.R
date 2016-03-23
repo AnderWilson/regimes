@@ -3,6 +3,7 @@
 #'
 #' @param x An object of class 'summary.acpme'.
 #' @param print A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.
+#' @param ... additional arguments for ggplot theme.
 #'
 #' @return If print=FALSE then a list of plots is returned.
 #' @import ggplot2
