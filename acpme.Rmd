@@ -1,0 +1,51 @@
+---
+title: "acpme {regimes}"
+output:
+  html_document:
+    css: style.css
+    theme: cerulean
+    highlight: tango
+    includes:
+      before_body: doc_suffix.html
+---
+
+
+
+## Adjustment for Confounding in the Presence of Multivariate Exposures
+
+Part of the [regimes](http://anderwilson.github.io/regimes/) R package
+
+### An Example
+Load the **regimes** package, simulate data, and fit ACPME.
+```{r, message=FALSE, results='hide'}
+#load package
+library(regimes)
+
+#simulate data
+dat <- simregimes(scenario="acpme1", seed=1234)
+
+#estimate model
+fit <- acpme(Z=dat$Z,C=dat$C,y=dat$Y, niter=1000)
+```
+
+Summarize results
+```{r}
+#summerize
+summer <- summary(fit)
+summer
+
+#summerize with a specific linear combination of the exposures
+summer_e <- summary(fit, estimate=c(1,1,1))
+summer_e$estimate
+
+#or multiple estimates
+summer_e2 <- summary(fit, estimate=cbind(c(1,1,1),c(1,1,0)))
+summer_e2$estimate
+
+```
+
+Now display some results.
+```{r}
+#plot estimtes
+plts <- plot(summer)
+```

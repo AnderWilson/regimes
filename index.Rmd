@@ -1,0 +1,35 @@
+---
+title: "regimes"
+output:
+  html_document:
+    css: style.css
+    theme: cerulean
+    highlight: tango
+    includes:
+      after_body: doc_suffix.html
+---
+
+
+## Regression in Multivariate Exposure Settings
+
+### Overview
+
+The **regimes** R packages contains regression methods for estimating the relationship between a multivariate exposure and an outcome. The package is oriented toward environmental health and environmental epidemiology research but is applicable in a variety of settings. 
+
+
+### Installation
+
+The **regimes** package can be installed using **devtools**.
+```{r, message=FALSE, warning=FALSE}
+library(devtools)
+install_github(repo="AnderWilson/regimes")
+library(regimes)
+```
+
+Note: You may need to install the [**graph**](http://bioconductor.org/packages/release/bioc/html/graph.html) and [**Rgraphviz**](http://bioconductor.org/packages/release/bioc/html/Rgraphviz.html) packages from [Bioconductor](http://bioconductor.org).
+
+### Methods
+
+[acpme](http://anderwilson.github.io/regimes/acpme.html): adjustment for confounding in the presence of multivariate exposures
+
+[bdlim](http://anderwilson.github.io/regimes/bdlim.html): Bayesian distributed lag interaction models
