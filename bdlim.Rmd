@@ -39,10 +39,6 @@ sfit
 
 ```
 
-
-
-
-
 Now display some results via plots.
 ```{r}
 plot(sfit, print=TRUE)
