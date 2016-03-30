@@ -10,6 +10,8 @@
 \item{x}{An object of class 'summary.bdlim'.}
 
 \item{print}{A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.}
+
+\item{...}{additional arguments for ggplot theme.}
 }
 \value{
 If print=FALSE then a list of plots is returned.

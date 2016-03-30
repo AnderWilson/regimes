@@ -25,7 +25,7 @@ plot.bdlim <- function(x, print=TRUE, ...){
   
 
   x$modelfit$name <- row.names((x$modelfit))
-  p.prob <- ggplot(x$modelfit) + geom_bar(aes(x=name, y=modelprob), stat="identity")
+  p.prob <- ggplot(x$modelfit) + geom_bar(aes_string(x="name", y="modelprob"), stat="identity")
   p.prob <- p.prob + theme_regimes() + xlab("")
   p.prob <- p.prob + ylab("Model Probability") + scale_y_continuous(limits=c(0,1))
   
@@ -40,9 +40,10 @@ plot.bdlim <- function(x, print=TRUE, ...){
 
 #' Default print for bdlim object
 #' @param x bdlim.summary object to print
+#' @param ... additional arguments
 #' @export
 #'
-print.bdlim <- function(x) {
+print.bdlim <- function(x, ...) {
   
   cat("Call:\n")
   print(x$call)

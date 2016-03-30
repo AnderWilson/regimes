@@ -4,10 +4,12 @@
 \alias{print.bdlim}
 \title{Default print for bdlim object}
 \usage{
-\method{print}{bdlim}(x)
+\method{print}{bdlim}(x, ...)
 }
 \arguments{
 \item{x}{bdlim.summary object to print}
+
+\item{...}{additional arguments}
 }
 \description{
 Default print for bdlim object

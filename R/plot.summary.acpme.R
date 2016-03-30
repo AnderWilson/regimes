@@ -32,7 +32,7 @@ if(print){
 
 
 x$estimate$Group <- row.names(x$estimate)
-p.beta <- ggplot(x$estimate, aes(x=Group, y=mean, ymin=lower,ymax=upper)) + geom_point() + geom_errorbar(width=.1)
+p.beta <- ggplot(x$estimate, aes_string(x="Group", y="mean", ymin="lower", ymax="upper")) + geom_point() + geom_errorbar(width=.1)
 p.beta <- p.beta + theme_regimes()
 p.beta <- p.beta+ylab("Estimated Exposure Effect") + xlab("") + ggtitle("Estimated Exposure Effect")
 if(print){
@@ -48,7 +48,7 @@ temp2 <- x$confounders[,c("Covariate","prior","num")]
 temp1$Type <- "Posterior"
 temp2$Type <- "Prior"
 colnames(temp1)[2] <- colnames(temp2)[2] <- "Probability"
-p.covar <- ggplot(rbind(temp1,temp2), aes(x=reorder(Covariate,num), y=Probability, color=Type)) + geom_point() 
+p.covar <- ggplot(rbind(temp1,temp2), aes_string(x=reorder("Covariate","num"), y="Probability", color="Type")) + geom_point() 
 p.covar <- p.covar + theme_regimes()
 p.covar <- p.covar + theme(axis.text.x = element_text(angle=90, hjust=1), axis.title.x=element_blank())
 p.covar <- p.covar + scale_color_manual(values=c("black","gray"))

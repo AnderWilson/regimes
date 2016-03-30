@@ -3,6 +3,7 @@
 #'
 #' @param x An object of class 'summary.bdlim'.
 #' @param print A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.
+#' @param ... additional arguments for ggplot theme.
 #'
 #' @return If print=FALSE then a list of plots is returned.
 #' @import ggplot2
@@ -32,7 +33,7 @@ if(print){
 
 
 x$beta$Group <- row.names(x$beta)
-p.beta <- ggplot(x$beta, aes(x=Group, y=mean, ymin=lower,ymax=upper)) + geom_point() + geom_errorbar(width=.1)
+p.beta <- ggplot(x$beta, aes_string(x="Group", y="mean", ymin="lower", ymax="upper")) + geom_point() + geom_errorbar(width=.1)
 p.beta <- p.beta + theme_regimes()
 p.beta <- p.beta+ylab("Mean effect size, \u03B2") + xlab("") + ggtitle("Estimated Mean Effect Size, \u03B2")
 if(print){
@@ -42,7 +43,7 @@ if(print){
 }
 
 x$cumulative$Group <- row.names(x$cumulative)
-p.cumulative <- ggplot(x$cumulative, aes(x=Group, y=mean, ymin=lower,ymax=upper)) + geom_point() + geom_errorbar(width=.1)
+p.cumulative <- ggplot(x$cumulative, aes_string(x="Group", y="mean", ymin="lower", ymax="upper")) + geom_point() + geom_errorbar(width=.1)
 p.cumulative <- p.cumulative + theme_regimes()
 p.cumulative <- p.cumulative+ylab("Cumulative effect") + xlab("")+ ggtitle("Estimated Cumulative Effect")
 if(print){
@@ -51,7 +52,7 @@ if(print){
   out$cumulative <- p.cumulative
 }
 
-p.bw <- ggplot(x$bw, aes(x=t,y=mean,ymin=lower,ymax=upper)) +geom_line()
+p.bw <- ggplot(x$bw, aes_string(x="t",y="mean",ymin="lower",ymax="upper")) +geom_line()
 p.bw <- p.bw + geom_ribbon(fill="lightgrey", color="lightgrey", alpha=.5)
 p.bw <- p.bw + theme_regimes()
 p.bw <- p.bw + ylab("Estimated effect, \u03B2 w(t)") + xlab("time, t") + ggtitle("Estimated Time-Varying Exposure, \u03B2 w(t)")
@@ -62,7 +63,7 @@ if(print){
   out$bw <- p.bw
 }
 
-p.w <- ggplot(x$w, aes(x=t,y=mean,ymin=lower,ymax=upper)) +geom_line()
+p.w <- ggplot(x$w, aes_string(x="t",y="mean",ymin="lower",ymax="upper")) +geom_line()
 p.w <- p.w + geom_ribbon(fill="lightgrey", color="lightgrey", alpha=.5)
 p.w <- p.w + theme_regimes()
 p.w <- p.w + ylab("Estimated weight function, w(t)") + xlab("time, t")+ ggtitle("Estimated Weight Function, w(t)")

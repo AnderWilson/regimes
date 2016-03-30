@@ -4,10 +4,12 @@
 \alias{print.acpme}
 \title{Default print for acpme object}
 \usage{
-\method{print}{acpme}(x)
+\method{print}{acpme}(x, ...)
 }
 \arguments{
 \item{x}{object of class acpme.}
+
+\item{...}{additional arguments}
 }
 \description{
 Default print for acpme object

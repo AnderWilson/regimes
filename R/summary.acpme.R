@@ -62,7 +62,7 @@ print.summary.acpme <- function(x, minpr=.5, ...) {
   cat("\nEstimates:\n")
   print(round(x$estimate,3))
   cat("\n\nCovariate inclusion probabilities:\n")
-  print(round(subset(x$confounders, posterior>=minpr),3))
+  print(round(x$confounders[x$posterior>=minpr,],3))
 
 }
 
@@ -71,13 +71,14 @@ print.summary.acpme <- function(x, minpr=.5, ...) {
 
 #' Default print for acpme object
 #' @param x object of class acpme.
+#' @param ... additional arguments
 #' @export
 #'
-print.acpme <- function(x) {
+print.acpme <- function(x, ...) {
   
   cat("Call:\n")
   print(x$call)
   cat("\nEstimates:\n")
-  print(round(colMeans(object$beta),3))
+  print(round(colMeans(x$beta),3))
 
 }
