@@ -13,6 +13,7 @@ output:
 
 ## Adjustment for Confounding in the Presence of Multivariate Exposures
 
+See tech report for here: [Model-Averaged Confounder Adjustment for Estimating Multivariate Exposure Effects](http://anderwilson.github.io/regimes/papers/ACPME_tech.pdf).
 Part of the [regimes](http://anderwilson.github.io/regimes/) R package
 
 ### An Example
