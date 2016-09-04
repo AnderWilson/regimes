@@ -1,7 +1,5 @@
 
 
-
-
 #' Adjustment for confounding in the presence of multivariate exposure
 #'
 #' This function simulates the posterier exposure effect using the Bayesian adjustment for confounding in the presence of multivariate exposures (ACPME) meethod.
