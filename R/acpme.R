@@ -9,7 +9,6 @@
 #' @param Z Matrix of exposures. This should include any interactions of other functions of exposures.
 #' @param C A n x p matrix of covaraites.
 #' @param y An n-vector of observed outcomes.
-#' @param int Logical indicating if an intercept is added to the model. Default is TRUE.
 #' @param niter Integer number of MCMC iterations to compute including burnin.
 #' @param burnin Integer number of MCMC iterations to discard as burning.
 #' @param pen.lambda Non-negative tuning parameter lambda to control the strength of confounder adjustment (strength of prior or size of penalty). A value of NA (defailt) uses BIC to choose the value.
@@ -20,7 +19,7 @@
 #' fit <- acpme(Z=dat_acpme1$Z,C=dat_acpme1$C,y=dat_acpme1$Y, niter=1000)
 
 
-acpme <- function(Z,C,y,int=TRUE,niter,burnin=round(niter/2), pen.lambda=NA, pen.type="eigen"){
+acpme <- function(Z,C,y,niter,burnin=round(niter/2), pen.lambda=NA, pen.type="eigen"){
 
   if(missing(niter) | missing(Z) | missing(C) | missing(y)){
     message("Error: Z, C, y, and niter must be provided in ACPME ")
@@ -32,10 +31,13 @@ acpme <- function(Z,C,y,int=TRUE,niter,burnin=round(niter/2), pen.lambda=NA, pen
   }
 
 
+  
+  
   #scale data
-  sd.X <- apply(Z,2,sd)
+  Z <- model.matrix(~Z)
+  sd.X <- apply(Z[,-1],2,sd)  #except for the intercept
   sd.y <- sd(y)
-  X.scale <- scale(Z)
+  X.scale.int <- cbind(Z[,1],scale(Z[,-1]))
   y.scale <- scale(y)
   C.scale <- scale(C)
   n <- nrow(X.scale)
@@ -45,12 +47,7 @@ acpme <- function(Z,C,y,int=TRUE,niter,burnin=round(niter/2), pen.lambda=NA, pen
   madepen <- makepen(X.scale,C.scale,pen.type)
   omega <- madepen$omega
 
-  #add intercept
-  if(int){
-    X.scale.int <- cbind(X.scale,1)
-  }else{
-    X.scale.int <- X.scale
-  }
+  
 
   #BMA parameters
   lm.summary <- summary(lm(y.scale~X.scale.int+C.scale-1))
@@ -75,7 +72,7 @@ acpme <- function(Z,C,y,int=TRUE,niter,burnin=round(niter/2), pen.lambda=NA, pen
   #do model averaging
   alpha <- matrix(NA,niter,p)
   alpha[1,] <- 0
-  alpha[1,which(abs(lm.summary$coef[-c(1:(ncol(Z)+int)),3])>1)] <- 1 #starting values
+  alpha[1,which(abs(lm.summary$coef[-c(1:(ncol(Z)+1)),3])>1)] <- 1 #starting values
   WW0 <- diag(n) + X.scale.int%*%t(X.scale.int)*phi^2 + C.scale[,which(alpha[1,]==1)]%*%t(C.scale[,which(alpha[1,]==1)])*phi^2
 
   cholWW0 <- chol(WW0)
@@ -121,7 +118,7 @@ acpme <- function(Z,C,y,int=TRUE,niter,burnin=round(niter/2), pen.lambda=NA, pen
   beta <- NULL
   for(i in 1:nrow(unique.models)){
     weights <- sum(1*(rowSums(abs(all.models-matrix(rep(unique.models[i,],nrow(all.models)),nrow(all.models), ncol(all.models),byrow=TRUE)))==0))
-    beta <- rbind(beta,drawpost(weights,y.scale,X.scale,C.scale[,which(unique.models[i,]==1)],int,scale=sd.y/sd.X, phi,nu,lambda))
+    beta <- rbind(beta,drawpost(weights,y.scale,X.scale,C.scale[,which(unique.models[i,]==1)],1,scale=sd.y/sd.X, phi,nu,lambda))
   }
   
   out <- list(alpha=alpha[(burnin+1):niter,], beta=beta, post.prob=colMeans(all.models), pen.lambda=pen.lambda, omega=omega, BMA.parms=list(phi=phi,lambda=lambda,nu=nu))
