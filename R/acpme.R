@@ -19,7 +19,7 @@
 #' fit <- acpme(Z=dat_acpme1$Z,C=dat_acpme1$C,y=dat_acpme1$Y, niter=1000)
 
 
-acpme <- function(Z,C,y,niter,burnin=round(niter/2), pen.lambda=NA, pen.type="eigen"){
+acpme <- function(Z,C,y,int=TRUE,niter,burnin=round(niter/2), pen.lambda=NA, pen.type="eigen"){
 
   if(missing(niter) | missing(Z) | missing(C) | missing(y)){
     message("Error: Z, C, y, and niter must be provided in ACPME ")
@@ -31,14 +31,12 @@ acpme <- function(Z,C,y,niter,burnin=round(niter/2), pen.lambda=NA, pen.type="ei
   }
 
 
-  
-  
   #scale data
-  Z <- model.matrix(~Z)
-  sd.X <- apply(Z[,-1],2,sd)  #except for the intercept
+  sd.X <- apply(Z,2,sd)
   sd.y <- sd(y)
-  X.scale.int <- cbind(Z[,1],scale(Z[,-1]))
+  X.scale <- scale(Z)
   y.scale <- scale(y)
+  C <- model.matrix(formula(paste("~",paste(colnames(dat_acpme1$C),collapse="+"))),dat_acpme1$C)[,-1]
   C.scale <- scale(C)
   n <- nrow(X.scale)
   p <- ncol(C.scale)
@@ -47,8 +45,9 @@ acpme <- function(Z,C,y,niter,burnin=round(niter/2), pen.lambda=NA, pen.type="ei
   madepen <- makepen(X.scale,C.scale,pen.type)
   omega <- madepen$omega
 
+  #add intercept
+  X.scale.int <- cbind(X.scale,1)
   
-
   #BMA parameters
   lm.summary <- summary(lm(y.scale~X.scale.int+C.scale-1))
   if (lm.summary$r.squared < 0.9) {
@@ -121,7 +120,18 @@ acpme <- function(Z,C,y,niter,burnin=round(niter/2), pen.lambda=NA, pen.type="ei
     beta <- rbind(beta,drawpost(weights,y.scale,X.scale,C.scale[,which(unique.models[i,]==1)],1,scale=sd.y/sd.X, phi,nu,lambda))
   }
   
-  out <- list(alpha=alpha[(burnin+1):niter,], beta=beta, post.prob=colMeans(all.models), pen.lambda=pen.lambda, omega=omega, BMA.parms=list(phi=phi,lambda=lambda,nu=nu))
+  out <- list(alpha=alpha[(burnin+1):niter,], 
+              beta=beta, 
+              post.prob=colMeans(all.models), 
+              pen.lambda=pen.lambda, 
+              omega=omega, 
+              BMA.parms=list(phi=phi,lambda=lambda,nu=nu))
+  colnames(out$alpha) <- colnames(C.scale)
+  colnames(out$beta) <- colnames(X.scale)
+  names(out$post.prob) <- colnames(C.scale)
+  names(out$omega) <- colnames(C.scale)
+  
+  
   
   out$call <- match.call()
   class(out) <- "acpme"

@@ -48,7 +48,7 @@ temp2 <- x$confounders[,c("Covariate","prior","num")]
 temp1$Type <- "Posterior"
 temp2$Type <- "Prior"
 colnames(temp1)[2] <- colnames(temp2)[2] <- "Probability"
-p.covar <- ggplot(rbind(temp1,temp2), aes_string(x=reorder("Covariate","num"), y="Probability", color="Type")) + geom_point() 
+p.covar <- ggplot(rbind(temp1,temp2), aes_string(x="reorder(Covariate,num)", y="Probability", color="Type")) + geom_point() 
 p.covar <- p.covar + theme_regimes()
 p.covar <- p.covar + theme(axis.text.x = element_text(angle=90, hjust=1), axis.title.x=element_blank())
 p.covar <- p.covar + scale_color_manual(values=c("black","gray"))
@@ -63,3 +63,18 @@ if(!print){
   return(out)
 }
 }
+
+
+
+
+#' Plot for acpme
+#'
+#' @param x An object of class 'acpme'.
+#'
+#' @return message that there is no plot for an object of class acpme.
+#' @export
+#'
+plot.acpme <- function(x){
+  message("There is no plot function for an object of class acpme. Please use plot on an object of class summary.appme.")
+}
+  
