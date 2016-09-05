@@ -5,7 +5,7 @@
 #' This function simulates the posterier exposure effect using the Bayesian adjustment for confounding in the presence of multivariate exposures (ACPME) meethod.
 #'
 #' @param Z Matrix of exposures. This should include any interactions of other functions of exposures.
-#' @param C A n x p matrix of covaraites.
+#' @param C A n x p matrix or data.frame of covaraites.
 #' @param y An n-vector of observed outcomes.
 #' @param niter Integer number of MCMC iterations to compute including burnin.
 #' @param burnin Integer number of MCMC iterations to discard as burning.
@@ -17,7 +17,7 @@
 #' fit <- acpme(Z=dat$Z,C=dat$C,y=dat$Y, niter=1000)
 
 
-acpme <- function(Z,C,y,int=TRUE,niter,burnin=round(niter/2), pen.lambda=NA, pen.type="eigen"){
+acpme <- function(Z,C,y,niter,burnin=round(niter/2), pen.lambda=NA, pen.type="eigen"){
 
   if(missing(niter) | missing(Z) | missing(C) | missing(y)){
     message("Error: Z, C, y, and niter must be provided in ACPME ")
@@ -34,7 +34,8 @@ acpme <- function(Z,C,y,int=TRUE,niter,burnin=round(niter/2), pen.lambda=NA, pen
   sd.y <- sd(y)
   X.scale <- scale(Z)
   y.scale <- scale(y)
-  C <- model.matrix(formula(paste("~",paste(colnames(C),collapse="+"))),C)[,-1]
+  if(is.null(colnames(C))) colnames(C) <- paste0("C",1:ncol(C))
+  C <- model.matrix(as.formula(paste("~",paste(colnames(C),collapse="+"))),data=as.data.frame(C))[,-1]
   C.scale <- scale(C)
   n <- nrow(X.scale)
   p <- ncol(C.scale)

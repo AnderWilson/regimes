@@ -4,17 +4,15 @@
 \alias{acpme}
 \title{Adjustment for confounding in the presence of multivariate exposure}
 \usage{
-acpme(Z, C, y, int = TRUE, niter, burnin = round(niter/2),
-  pen.lambda = NA, pen.type = "eigen")
+acpme(Z, C, y, niter, burnin = round(niter/2), pen.lambda = NA,
+  pen.type = "eigen")
 }
 \arguments{
 \item{Z}{Matrix of exposures. This should include any interactions of other functions of exposures.}
 
-\item{C}{A n x p matrix of covaraites.}
+\item{C}{A n x p matrix or data.frame of covaraites.}
 
 \item{y}{An n-vector of observed outcomes.}
-
-\item{int}{Logical indicating if an intercept is added to the model. Default is TRUE.}
 
 \item{niter}{Integer number of MCMC iterations to compute including burnin.}
 
@@ -28,7 +26,7 @@ acpme(Z, C, y, int = TRUE, niter, burnin = round(niter/2),
 This function simulates the posterier exposure effect using the Bayesian adjustment for confounding in the presence of multivariate exposures (ACPME) meethod.
 }
 \examples{
-dat_acpme1 <- simregimes(scenario="acpme1", seed=1234, n=200, p=100)
-fit <- acpme(Z=dat_acpme1$Z,C=dat_acpme1$C,y=dat_acpme1$Y, niter=1000)
+dat <- simregimes(scenario="acpme1", seed=1234, n=200, p=100)
+fit <- acpme(Z=dat$Z,C=dat$C,y=dat$Y, niter=1000)
 }
 

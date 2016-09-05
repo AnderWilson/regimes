@@ -70,11 +70,12 @@ if(!print){
 #' Plot for acpme
 #'
 #' @param x An object of class 'acpme'.
+#' @param ... additional arguments for ggplot theme.
 #'
 #' @return message that there is no plot for an object of class acpme.
 #' @export
 #'
-plot.acpme <- function(x){
+plot.acpme <- function(x, ...){
   message("There is no plot function for an object of class acpme. Please use plot on an object of class summary.appme.")
 }
   
