@@ -13,8 +13,8 @@
 #' @param pen.type Choice of penalty. The default is "eigen." Other options are "correlation" and "projection."
 #' @export
 #' @examples
-#' dat_acpme1 <- simregimes(scenario="acpme1", seed=1234, n=200, p=100)
-#' fit <- acpme(Z=dat_acpme1$Z,C=dat_acpme1$C,y=dat_acpme1$Y, niter=1000)
+#' dat <- simregimes(scenario="acpme1", seed=1234, n=200, p=100)
+#' fit <- acpme(Z=dat$Z,C=dat$C,y=dat$Y, niter=1000)
 
 
 acpme <- function(Z,C,y,int=TRUE,niter,burnin=round(niter/2), pen.lambda=NA, pen.type="eigen"){
@@ -34,7 +34,7 @@ acpme <- function(Z,C,y,int=TRUE,niter,burnin=round(niter/2), pen.lambda=NA, pen
   sd.y <- sd(y)
   X.scale <- scale(Z)
   y.scale <- scale(y)
-  C <- model.matrix(formula(paste("~",paste(colnames(dat_acpme1$C),collapse="+"))),dat_acpme1$C)[,-1]
+  C <- model.matrix(formula(paste("~",paste(colnames(C),collapse="+"))),C)[,-1]
   C.scale <- scale(C)
   n <- nrow(X.scale)
   p <- ncol(C.scale)
