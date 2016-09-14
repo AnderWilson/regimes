@@ -140,13 +140,12 @@ $(document).ready(function () {
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-45863795-4', 'auto');
-ga('send', 'pageview');
-
+  ga('create', '{{ site.google_analytics }}', 'auto');
+  ga('send', 'pageview');
 
 </script>
 
@@ -156,14 +155,15 @@ ga('send', 'pageview');
 
 
 
-<h1 class="title toc-ignore">acpme {regimes}</h1>
+<h1 class="title toc-ignore">acpme {<a href="http://anderwilson.github.io/regimes/">regimes</a>}</h1>
 
 </div>
 
 
 <div id="adjustment-for-confounding-in-the-presence-of-multivariate-exposures" class="section level2">
 <h2>Adjustment for Confounding in the Presence of Multivariate Exposures</h2>
-<p>See tech report for here: <a href="http://anderwilson.github.io/regimes/papers/ACPME_tech.pdf">Model-Averaged Confounder Adjustment for Estimating Multivariate Exposure Effects</a>. Part of the <a href="http://anderwilson.github.io/regimes/">regimes</a> R package</p>
+<p><a href="http://anderwilson.github.io/">Ander Wilson</a></p>
+<p>See tech report for here: <a href="http://anderwilson.github.io/regimes/papers/ACPME_tech.pdf">Model-Averaged Confounder Adjustment for Estimating Multivariate Exposure Effects</a>.</p>
 <div id="an-example" class="section level3">
 <h3>An Example</h3>
 <p>Load the <strong>regimes</strong> package, simulate data, and fit ACPME.</p>

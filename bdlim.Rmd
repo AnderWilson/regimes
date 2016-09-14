@@ -1,5 +1,5 @@
 ---
-title: "bdlim {regimes}"
+title: "bdlim {[regimes](http://anderwilson.github.io/regimes/)}"
 output:
   html_document:
     css: style.css
@@ -12,8 +12,7 @@ output:
 
 
 ## Bayesian Distributed Lag Interaction Models
-
-Part of the [regimes](http://anderwilson.github.io/regimes/) R package
+[Ander Wilson](http://anderwilson.github.io/)
 
 ### An Example
 Load the **regimes** package, simulate data, and fit BDLIM with all four options (BDLIM-n, BDLIM-b, BSLIM-w, BDLIM-bw).
@@ -43,4 +42,5 @@ Now display some results via plots.
 ```{r}
 plot(sfit, print=TRUE)
 ```
+
 

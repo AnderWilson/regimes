@@ -1,5 +1,5 @@
 ---
-title: "regimes"
+title: "[regimes](http://anderwilson.github.io/regimes/)"
 output:
   html_document:
     css: style.css
@@ -10,7 +10,8 @@ output:
 ---
 
 
-## Regression in Multivariate Exposure Settings
+## REGression In Multivariate Exposure Settings
+[Ander Wilson](http://anderwilson.github.io/)
 
 ### Overview
 
