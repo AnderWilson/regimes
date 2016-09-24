@@ -3,6 +3,7 @@
 #'
 #' @param x An object of class 'summary.bdlim'.
 #' @param print A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.
+#' @param blackwhite A logical.  If TRUE the credible regrion ribbons are grey. If FALSE (default) then they are different colors for each group.
 #' @param ... additional arguments for ggplot theme.
 #'
 #' @return If print=FALSE then a list of plots is returned.
@@ -10,7 +11,7 @@
 #' @export
 #'
 #'
-plot.summary.bdlim <- function(x,print=TRUE, ...){
+plot.summary.bdlim <- function(x,print=TRUE, blackwhite=FALSE,...){
 
   theme_regimes <- function (base_size = 20, base_family = "", ...){
     theme_grey (base_size = base_size) +
@@ -52,8 +53,17 @@ if(print){
   out$cumulative <- p.cumulative
 }
 
-p.bw <- ggplot(x$bw, aes_string(x="t",y="mean",ymin="lower",ymax="upper")) +geom_line()
-p.bw <- p.bw + geom_ribbon(fill="lightgrey", color="lightgrey", alpha=.5)
+p.bw <- ggplot(x$bw, aes_string(x="t",y="mean",ymin="lower",ymax="upper")) 
+if(blackwhite){
+  p.w <- p.bw + geom_ribbon(fill="lightgrey", color=NA, alpha=.6)
+}else{
+  if(any(colnames(x$w)=="G")){
+    p.bw <- p.bw + geom_ribbon(aes_string(fill="G"), color=NA, alpha=.6)+ scale_fill_brewer(palette = "Set1")
+  }else{
+    p.bw <- p.bw + geom_ribbon(fill="blue", color=NA, alpha=.6)
+  }
+}
+p.bw <- p.bw + geom_line(size=1)
 p.bw <- p.bw + theme_regimes()
 p.bw <- p.bw + ylab("Estimated effect, \u03B2 w(t)") + xlab("time, t") + ggtitle("Estimated Time-Varying Exposure, \u03B2 w(t)")
 if(any(colnames(x$bw)=="G")) p.bw <- p.bw + facet_wrap(~G)
@@ -63,8 +73,17 @@ if(print){
   out$bw <- p.bw
 }
 
-p.w <- ggplot(x$w, aes_string(x="t",y="mean",ymin="lower",ymax="upper")) +geom_line()
-p.w <- p.w + geom_ribbon(fill="lightgrey", color="lightgrey", alpha=.5)
+p.w <- ggplot(x$w, aes_string(x="t",y="mean",ymin="lower",ymax="upper")) 
+if(blackwhite){
+  p.w <- p.w + geom_ribbon(fill="lightgrey", color=NA, alpha=.6)
+}else{
+  if(any(colnames(x$w)=="G")){
+    p.w <- p.w + geom_ribbon(aes_string(fill="G"), color=NA, alpha=.6)+ scale_fill_brewer(palette = "Set1")
+  }else{
+    p.w <- p.w + geom_ribbon(fill="blue", color=NA, alpha=.6)
+  }
+}
+p.w <- p.w + geom_line(size=1)
 p.w <- p.w + theme_regimes()
 p.w <- p.w + ylab("Estimated weight function, w(t)") + xlab("time, t")+ ggtitle("Estimated Weight Function, w(t)")
 if(any(colnames(x$w)=="G")) p.w <- p.w + facet_wrap(~G)

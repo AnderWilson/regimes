@@ -4,12 +4,14 @@
 \alias{plot.summary.bdlim}
 \title{Plot for bdlim summary}
 \usage{
-\method{plot}{summary.bdlim}(x, print = TRUE, ...)
+\method{plot}{summary.bdlim}(x, print = TRUE, blackwhite = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class 'summary.bdlim'.}
 
 \item{print}{A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.}
+
+\item{blackwhite}{A logical.  If TRUE the credible regrion ribbons are grey. If FALSE (default) then they are different colors for each group.}
 
 \item{...}{additional arguments for ggplot theme.}
 }
