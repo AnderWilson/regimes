@@ -57,7 +57,7 @@ p.bw <- ggplot(x$bw, aes_string(x="t",y="mean",ymin="lower",ymax="upper"))
 if(blackwhite){
   p.w <- p.bw + geom_ribbon(fill="lightgrey", color=NA, alpha=.6)
 }else{
-  if(any(colnames(x$w)=="G")){
+  if(any(colnames(x$bw)=="G")){
     p.bw <- p.bw + geom_ribbon(aes_string(fill="G"), color=NA, alpha=.6)+ scale_fill_brewer(palette = "Set1")
   }else{
     p.bw <- p.bw + geom_ribbon(fill="blue", color=NA, alpha=.6)
