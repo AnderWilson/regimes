@@ -4,6 +4,8 @@
 #' @param x An object of class 'summary.bdlim'.
 #' @param print A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.
 #' @param blackwhite A logical.  If TRUE the credible regrion ribbons are grey. If FALSE (default) then they are different colors for each group.
+#' @param grid If missing then each plot will appear seperate. Otherwise, numbers between 1 and 5 correspond to different combinations of figures printed together.
+#' @param bs Base font size
 #' @param ... additional arguments for ggplot theme.
 #'
 #' @return If print=FALSE then a list of plots is returned.
@@ -11,11 +13,30 @@
 #' @export
 #'
 #'
-plot.summary.bdlim <- function(x,print=TRUE, blackwhite=FALSE,...){
+plot.summary.bdlim <- function(x,print=TRUE, blackwhite=FALSE, grid, bs,...){
 
-  theme_regimes <- function (base_size = 20, base_family = "", ...){
+  
+  if(missing(bs)){
+    if(missing(grid)){
+      bs <- 20
+    }else{
+      bs <- 10
+    }
+  }
+  if(!missing(grid)){
+    if(grid%in%1:5){
+      #print must be true if grid
+      print <- TRUE
+    }else{
+      grid <- 2
+    }
+    out <- list()
+  }
+  
+  theme_regimes <- function (base_size = bs, base_family = "", ...){
     theme_grey (base_size = base_size) +
       theme (axis.title = element_text(size = base_size),
+             plot.title = element_text(size = base_size),
              axis.text = element_text(size = base_size),
              panel.background = element_rect(fill=NA, colour=NA),
              panel.grid = element_blank(),
@@ -37,7 +58,7 @@ x$beta$Group <- row.names(x$beta)
 p.beta <- ggplot(x$beta, aes_string(x="Group", y="mean", ymin="lower", ymax="upper")) + geom_point() + geom_errorbar(width=.1)
 p.beta <- p.beta + theme_regimes()
 p.beta <- p.beta+ylab("Mean effect size, \u03B2") + xlab("") + ggtitle("Estimated Mean Effect Size, \u03B2")
-if(print){
+if(print & missing(grid)){
   print(p.beta)
 }else{
   out$beta <- p.beta
@@ -47,7 +68,7 @@ x$cumulative$Group <- row.names(x$cumulative)
 p.cumulative <- ggplot(x$cumulative, aes_string(x="Group", y="mean", ymin="lower", ymax="upper")) + geom_point() + geom_errorbar(width=.1)
 p.cumulative <- p.cumulative + theme_regimes()
 p.cumulative <- p.cumulative+ylab("Cumulative effect") + xlab("")+ ggtitle("Estimated Cumulative Effect")
-if(print){
+if(print & missing(grid)){
   print(p.cumulative)
 }else{
   out$cumulative <- p.cumulative
@@ -67,7 +88,7 @@ p.bw <- p.bw + geom_line(size=1)
 p.bw <- p.bw + theme_regimes()
 p.bw <- p.bw + ylab("Estimated effect, \u03B2 w(t)") + xlab("time, t") + ggtitle("Estimated Time-Varying Exposure, \u03B2 w(t)")
 if(any(colnames(x$bw)=="G")) p.bw <- p.bw + facet_wrap(~G)
-if(print){
+if(print & missing(grid)){
   print(p.bw)
 }else{
   out$bw <- p.bw
@@ -87,12 +108,77 @@ p.w <- p.w + geom_line(size=1)
 p.w <- p.w + theme_regimes()
 p.w <- p.w + ylab("Estimated weight function, w(t)") + xlab("time, t")+ ggtitle("Estimated Weight Function, w(t)")
 if(any(colnames(x$w)=="G")) p.w <- p.w + facet_wrap(~G)
-if(print){
+if(print & missing(grid)){
   print(p.w)
 }else{
   out$w <- p.w
 }
 
+if(!missing(grid)){
+  if(grid==1){  # cumulative and bw
+    par(ask=FALSE)
+    plot.new()
+    pushViewport(viewport(layout = grid.layout(1, 5)))
+    define_region <- function(row, col){
+      viewport(layout.pos.row = row, layout.pos.col = col)
+    } 
+    
+    print(p.cumulative, vp=define_region(1, 1))
+    print(p.bw, vp=define_region(1, 2:5))
+    
+  }else if(grid==2){  # beta and w
+    par(ask=FALSE)
+    plot.new()
+    pushViewport(viewport(layout = grid.layout(1, 5)))
+    define_region <- function(row, col){
+      viewport(layout.pos.row = row, layout.pos.col = col)
+    } 
+    
+    print(p.beta, vp=define_region(1, 1))
+    print(p.w, vp=define_region(1, 2:5))
+    
+  }else if(grid==3){ #beta, cumulative, and b
+    par(ask=FALSE)
+    plot.new()
+    pushViewport(viewport(layout = grid.layout(1, 6)))
+    define_region <- function(row, col){
+      viewport(layout.pos.row = row, layout.pos.col = col)
+    } 
+    
+    print(p.beta, vp=define_region(1, 1))
+    print(p.cumulative, vp=define_region(1, 2))
+    print(p.w, vp = define_region(1, 3:6))
+    
+  }else if(grid==4){ #beta, cumulative, w, and bw
+    par(ask=FALSE)
+    plot.new()
+    pushViewport(viewport(layout = grid.layout(2, 5)))
+    define_region <- function(row, col){
+      viewport(layout.pos.row = row, layout.pos.col = col)
+    } 
+    
+    print(p.beta, vp=define_region(1, 1))
+    print(p.cumulative, vp=define_region(2, 1))
+    print(p.w, vp = define_region(1, 2:5))
+    print(p.bw, vp = define_region(2, 2:5))
+    
+  }else if(grid==5){ #beta, cumulative,  bw
+    par(ask=FALSE)
+    plot.new()
+    pushViewport(viewport(layout = grid.layout(1, 6)))
+    define_region <- function(row, col){
+      viewport(layout.pos.row = row, layout.pos.col = col)
+    } 
+    
+    print(p.beta, vp=define_region(1, 1))
+    print(p.cumulative, vp=define_region(1, 2))
+    print(p.bw, vp = define_region(1, 3:6))
+    
+  }
+    
+  
+}
+          
 if(!print){
   return(out)
 }
