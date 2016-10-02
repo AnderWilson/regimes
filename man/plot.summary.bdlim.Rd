@@ -4,7 +4,8 @@
 \alias{plot.summary.bdlim}
 \title{Plot for bdlim summary}
 \usage{
-\method{plot}{summary.bdlim}(x, print = TRUE, blackwhite = FALSE, ...)
+\method{plot}{summary.bdlim}(x, print = TRUE, blackwhite = FALSE, grid, bs,
+  ...)
 }
 \arguments{
 \item{x}{An object of class 'summary.bdlim'.}
@@ -12,6 +13,10 @@
 \item{print}{A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.}
 
 \item{blackwhite}{A logical.  If TRUE the credible regrion ribbons are grey. If FALSE (default) then they are different colors for each group.}
+
+\item{grid}{If missing then each plot will appear seperate. Otherwise, numbers between 1 and 5 correspond to different combinations of figures printed together.}
+
+\item{bs}{Base font size}
 
 \item{...}{additional arguments for ggplot theme.}
 }
