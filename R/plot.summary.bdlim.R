@@ -9,7 +9,7 @@
 #' @param ... additional arguments for ggplot theme.
 #'
 #' @return If print=FALSE then a list of plots is returned.
-#' @import ggplot2, grid
+#' @import ggplot2 grid
 #' @export
 #'
 #'
