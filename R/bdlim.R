@@ -57,8 +57,15 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
 
   #scaled data
   x <- X%*%B$psi
-  if(!is.factor(G)) G <- as.factor(G)
-  z1 <- model.matrix(~G+Z)
+  # print(G)
+  if(is.null(G)){
+    z1 <- model.matrix(~Z)
+    inter.model <- c("n")
+  }else{
+    if(!is.factor(G)) G <- as.factor(G)
+    z1 <- model.matrix(~G+Z-1)
+  }
+  # print(head(z1))
   z1 <- z1[,qr(z1)$pivot[1:qr(z1)$rank]]
   colnames(x) <- paste0("x",1:ncol(x))
 

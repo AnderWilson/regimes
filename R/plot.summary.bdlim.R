@@ -55,9 +55,9 @@ if(print){
 
 
 x$beta$Group <- row.names(x$beta)
-p.beta <- ggplot(x$beta, aes_string(x="Group", y="mean", ymin="lower", ymax="upper")) + geom_point() + geom_errorbar(width=.1)
-p.beta <- p.beta + theme_regimes()
-p.beta <- p.beta+ylab("Mean effect size, \u03B2") + xlab("") + ggtitle("Estimated Mean Effect Size, \u03B2")
+p.beta <- ggplot(x$beta, aes_string(x="Group", y="mean", ymin="lower", ymax="upper")) + geom_point(size=2) + geom_errorbar(size=1,width=.1)
+p.beta <- p.beta + theme_regimes()+ theme(axis.text.x = element_text(angle = 90, hjust = 1))
+p.beta <- p.beta+ylab("Mean effect size, \u03B2") + xlab("") + ggtitle("Mean Effect Size, \u03B2")
 if(print & missing(grid)){
   print(p.beta)
 }else{
@@ -65,9 +65,9 @@ if(print & missing(grid)){
 }
 
 x$cumulative$Group <- row.names(x$cumulative)
-p.cumulative <- ggplot(x$cumulative, aes_string(x="Group", y="mean", ymin="lower", ymax="upper")) + geom_point() + geom_errorbar(width=.1)
-p.cumulative <- p.cumulative + theme_regimes()
-p.cumulative <- p.cumulative+ylab("Cumulative effect") + xlab("")+ ggtitle("Estimated Cumulative Effect")
+p.cumulative <- ggplot(x$cumulative, aes_string(x="Group", y="mean", ymin="lower", ymax="upper")) + geom_point(size=2) + geom_errorbar(size=1,width=.1)
+p.cumulative <- p.cumulative + theme_regimes() + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+p.cumulative <- p.cumulative+ylab("Cumulative effect") + xlab("")+ ggtitle("Cumulative Effect")
 if(print & missing(grid)){
   print(p.cumulative)
 }else{
@@ -86,7 +86,7 @@ if(blackwhite){
 }
 p.bw <- p.bw + geom_line(size=1)
 p.bw <- p.bw + theme_regimes()
-p.bw <- p.bw + ylab("Estimated effect, \u03B2 w(t)") + xlab("time, t") + ggtitle("Estimated Time-Varying Exposure, \u03B2 w(t)")
+p.bw <- p.bw + ylab("Estimated effect, \u03B2 w(t)") + xlab("time, t") + ggtitle("Time-Varying Exposure, \u03B2 w(t)")
 if(any(colnames(x$bw)=="G")) p.bw <- p.bw + facet_wrap(~G)
 if(print & missing(grid)){
   print(p.bw)
@@ -106,7 +106,7 @@ if(blackwhite){
 }
 p.w <- p.w + geom_line(size=1)
 p.w <- p.w + theme_regimes()
-p.w <- p.w + ylab("Estimated weight function, w(t)") + xlab("time, t")+ ggtitle("Estimated Weight Function, w(t)")
+p.w <- p.w + ylab("Estimated weight function, w(t)") + xlab("time, t")+ ggtitle("Weight Function, w(t)")
 if(any(colnames(x$w)=="G")) p.w <- p.w + facet_wrap(~G)
 if(print & missing(grid)){
   print(p.w)
@@ -129,13 +129,13 @@ if(!missing(grid)){
   }else if(grid==2){  # beta and w
     par(ask=FALSE)
     plot.new()
-    pushViewport(viewport(layout = grid.layout(1, 5)))
+    pushViewport(viewport(layout = grid.layout(1, 6)))
     define_region <- function(row, col){
       viewport(layout.pos.row = row, layout.pos.col = col)
     } 
     
-    print(p.beta, vp=define_region(1, 1))
-    print(p.w, vp=define_region(1, 2:5))
+    print(p.beta, vp=define_region(1, 1:2))
+    print(p.w, vp=define_region(1, 3:6))
     
   }else if(grid==3){ #beta, cumulative, and b
     par(ask=FALSE)
