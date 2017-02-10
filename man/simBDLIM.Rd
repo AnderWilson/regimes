@@ -14,4 +14,3 @@ simBDLIM(n, design)
 \description{
 This function uses a simular design to scenario 2 in the BDLIM paper but with different data.
 }
-

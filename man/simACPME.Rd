@@ -18,4 +18,3 @@ simACPME(n, model = 1, p, m.main)
 \description{
 This function simulated data used in the paper.
 }
-

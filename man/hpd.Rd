@@ -17,4 +17,3 @@ lower and upper bounds
 \description{
 Highest posterior density posterior intervals of a distribution
 }
-

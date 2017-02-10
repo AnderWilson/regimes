@@ -31,4 +31,3 @@ This estimates the model for a group specific weight funciton and group specific
 \author{
 Ander Wilson
 }
-

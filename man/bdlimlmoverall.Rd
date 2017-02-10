@@ -31,4 +31,3 @@ This estimates the model for a single group or the overall effect
 \author{
 Ander Wilson
 }
-

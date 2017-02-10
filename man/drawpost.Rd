@@ -31,4 +31,3 @@ A posterior sample of regression coeficiences for X
 \description{
 Draw posterior samples for acpme
 }
-

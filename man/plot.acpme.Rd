@@ -17,4 +17,3 @@ message that there is no plot for an object of class acpme.
 \description{
 Plot for acpme
 }
-

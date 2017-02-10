@@ -29,4 +29,3 @@ This function simulates the posterier exposure effect using the Bayesian adjustm
 dat <- simregimes(scenario="acpme1", seed=1234, n=200, p=100)
 fit <- acpme(Z=dat$Z,C=dat$C,y=dat$Y, niter=1000)
 }
-

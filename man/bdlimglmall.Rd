@@ -33,4 +33,3 @@ bdlimglmall(Y, X, Z, G, B, model, niter, nburn, nthin, prior, post)
 \description{
 This estimates the model for a single group or the overall effect
 }
-

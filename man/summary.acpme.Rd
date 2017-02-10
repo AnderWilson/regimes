@@ -24,4 +24,3 @@ A object of class 'summary.acpme'.
 \description{
 Default summary for acpme
 }
-

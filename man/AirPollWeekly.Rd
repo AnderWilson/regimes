@@ -19,4 +19,3 @@ data(AirPollWeekly)
 matplot(t(AirPollWeekly[1:5,-c(1:2)]),type="l")
 }
 \keyword{datasets}
-

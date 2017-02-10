@@ -24,4 +24,3 @@ plot(omega$omega)
 pr <- exp(omega$omega*omega$lambda)/(1+exp(omega$omega*omega$lambda))
 plot(pr)
 }
-

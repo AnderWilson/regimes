@@ -24,4 +24,3 @@ dat_acpme1 <- simregimes(scenario="acpme1", seed=1234, n=200, p=100)
 dat_acpme2 <- simregimes(scenario="acpme2", seed=1234, n=200, p=100, m.main=3)
 dat_bdlim1 <- simregimes(scenario="bdlim1", seed=1234, n=200)
 }
-

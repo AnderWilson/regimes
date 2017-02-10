@@ -21,4 +21,3 @@ Data.frame summarizing the posterior distribution.
 \description{
 Summary of the weight function for BDLIM
 }
-

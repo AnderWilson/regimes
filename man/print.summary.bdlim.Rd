@@ -14,4 +14,3 @@
 \description{
 Default print for bdlim.summary object
 }
-

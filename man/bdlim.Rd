@@ -41,4 +41,3 @@ This estimates the Bayesian distributed lag interaction model (BDLIM).
 \author{
 Ander Wilson
 }
-

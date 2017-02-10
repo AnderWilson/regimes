@@ -28,10 +28,9 @@ A list with elements:
 \description{
 \code{bdlimbasis} builds the basis for thge BDLIM model using either FACE of natural cubic splines.
 }
-\author{
-Ander Wilson
-}
 \seealso{
 \code{\link{fpca.face}} and \code{\link{ns}} for details on the methods called.
 }
-
+\author{
+Ander Wilson
+}

@@ -31,4 +31,3 @@ This estimates the model for group specific weight funcitons but a common effect
 \author{
 Ander Wilson
 }
-

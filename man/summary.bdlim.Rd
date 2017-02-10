@@ -24,4 +24,3 @@ A object of class 'summary.bdlim'.
 \description{
 Default summary for bldim
 }
-

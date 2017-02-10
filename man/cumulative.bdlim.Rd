@@ -22,4 +22,3 @@ Data.frame summarizing the posterior distribution.
 \description{
 Summary of the cumulative effect for BDLIM
 }
-
