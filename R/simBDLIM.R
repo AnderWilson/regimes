@@ -14,7 +14,7 @@ simBDLIM <- function(n,design){
   
   if(missing(n)) n <- 500
   nstar <- min(max(n,100),1000)
-  X <- as.matrix(AirPollWeekly[1:nstar,2+1:37])
+  X <- as.matrix(AirPollWeekly[1:nstar,paste0("PM25_",1:37)])
   G <- floor(runif(nstar)*2)
   Z <- matrix(rnorm(nstar*10),nstar,10)
   t <- seq(0,1,length=ncol(X))
