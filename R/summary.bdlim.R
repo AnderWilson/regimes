@@ -100,8 +100,8 @@ summary.bdlim <- function(object, inter.model, alphalevel=.05, hpd.interval=FALS
 }
 
 
-#' Default print for bdlim.summary object
-#' @param x bdlim.summary object to print
+#' Default print for summary.bdlim object
+#' @param x summary.bdlim object to print
 #' @param ... additional arguments
 #' @export
 #'
