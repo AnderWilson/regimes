@@ -4,14 +4,15 @@
 \alias{bw.bdlim}
 \title{Summary of the time-varying effect for BDLIM}
 \usage{
-\method{bw}{bdlim}(fit, inter.model, ciprob = 0.95, hpd.interval = FALSE)
+\method{bw}{bdlim}(fit, inter.model, alphalevel = 0.05,
+  hpd.interval = FALSE)
 }
 \arguments{
 \item{fit}{An object of class 'bdlim'.}
 
 \item{inter.model}{Model to be summarized.  The default is \code{inter.model}=1 indicating to summarize the best fitting model.  \code{inter.model}=2, 3, or 4 indicates to summarized the second, third, or fourth best fitting model respectively. Model fit is determined by posterior probability. Alternative, 'BDLIM_n', 'BDLIM_bw', 'BDLIM_b', or 'BDLIM_w' can be entered to return a specific model.}
 
-\item{ciprob}{The probability contained by the posterior intervals.}
+\item{alphalevel}{The alpha level for the posterior intervals.}
 
 \item{hpd.interval}{Logical indicating if highest posterior density intervals should be computed (TRUE) or symmetric intervals (FALSE, default)}
 }

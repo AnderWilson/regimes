@@ -1,17 +1,17 @@
-bw <- function(x, inter.model, ciprob, hpd.interval) UseMethod("bw")
+bw <- function(x, inter.model, alphalevel, hpd.interval) UseMethod("bw")
 
 #' Summary of the time-varying effect for BDLIM
 #'
 #' @param fit An object of class 'bdlim'.
 #' @param inter.model Model to be summarized.  The default is \code{inter.model}=1 indicating to summarize the best fitting model.  \code{inter.model}=2, 3, or 4 indicates to summarized the second, third, or fourth best fitting model respectively. Model fit is determined by posterior probability. Alternative, 'BDLIM_n', 'BDLIM_bw', 'BDLIM_b', or 'BDLIM_w' can be entered to return a specific model.
-#' @param ciprob The probability contained by the posterior intervals.
+#' @param alphalevel The alpha level for the posterior intervals.
 #' @param hpd.interval Logical indicating if highest posterior density intervals should be computed (TRUE) or symmetric intervals (FALSE, default)
 #'
 #' @return Data.frame summarizing the posterior distribution.
 #' @export
 #'
 #'
-bw.bdlim <- function(fit, inter.model, ciprob=.95, hpd.interval=FALSE){
+bw.bdlim <- function(fit, inter.model, alphalevel=0.05, hpd.interval=FALSE){
 
   if(missing(inter.model)) inter.model <- 1
   m <- NULL
@@ -34,12 +34,12 @@ bw.bdlim <- function(fit, inter.model, ciprob=.95, hpd.interval=FALSE){
       bwhat <- scale(what, center=FALSE, scale=1/fit[[m]]$beta)
 
       if(hpd.interval){
-        temp <- apply(bwhat,1,hpd,ciprob)
+        temp <- apply(bwhat,1,hpd,alphalevel)
         lower=temp["lower",]
         upper=temp["upper",]
       }else{
-        lower=apply(bwhat,1,quantile,(1-ciprob)/2)
-        upper=apply(bwhat,1,quantile,1-(1-ciprob)/2)
+        lower=apply(bwhat,1,quantile,alphalevel/2)
+        upper=apply(bwhat,1,quantile,1-alphalevel/2)
       }
 
 
@@ -61,12 +61,12 @@ bw.bdlim <- function(fit, inter.model, ciprob=.95, hpd.interval=FALSE){
       bwhat <- scale(what, center=FALSE, scale=1/fit[[m]]$beta[,g])
 
       if(hpd.interval){
-        temp <- apply(bwhat,1,hpd,ciprob)
+        temp <- apply(bwhat,1,hpd,1-alphalevel)
         lower=temp["lower",]
         upper=temp["upper",]
       }else{
-        lower=apply(bwhat,1,quantile,(1-ciprob)/2)
-        upper=apply(bwhat,1,quantile,1-(1-ciprob)/2)
+        lower=apply(bwhat,1,quantile,alphalevel/2)
+        upper=apply(bwhat,1,quantile,1-alphalevel/2)
       }
 
 
