@@ -2,15 +2,15 @@
 % Please edit documentation in R/summary.bdlim.R
 \name{print.summary.bdlim}
 \alias{print.summary.bdlim}
-\title{Default print for bdlim.summary object}
+\title{Default print for summary.bdlim object}
 \usage{
 \method{print}{summary.bdlim}(x, ...)
 }
 \arguments{
-\item{x}{bdlim.summary object to print}
+\item{x}{summary.bdlim object to print}
 
 \item{...}{additional arguments}
 }
 \description{
-Default print for bdlim.summary object
+Default print for summary.bdlim object
 }

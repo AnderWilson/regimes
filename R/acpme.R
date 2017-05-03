@@ -12,6 +12,7 @@
 #' @param pen.lambda Non-negative tuning parameter lambda to control the strength of confounder adjustment (strength of prior or size of penalty). A value of NA (defailt) uses BIC to choose the value.
 #' @param pen.type Choice of penalty. The default is "eigen." Other options are "correlation" and "projection."
 #' @export
+#' @import stats
 #' @examples
 #' dat <- simregimes(scenario="acpme1", seed=1234, n=200, p=100)
 #' fit <- acpme(Z=dat$Z,C=dat$C,y=dat$Y, niter=1000)

@@ -11,6 +11,7 @@
 #' @param nburn Number of MCMC iterations to be discarded as burning
 #' @param nthin Number of draws taken to obtainone sampl
 #' @param prior List with the entries: sigma = a numeric 2-vector with the shape and rate paramters for the pirior in the error precision (1/sigma^2); betavar = the prior variance for beta; and gamma = the prior variance for the covarites. The priors on beta and gamma are iid normal mean zero.
+#' @importFrom utils txtProgressBar setTxtProgressBar
 #' @author Ander Wilson
 #' @importFrom GIGrvg rgig
 #'

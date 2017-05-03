@@ -6,6 +6,7 @@
 #'
 #' @param n Number of observations must be between 100 and 1000
 #' @param design Scenario from paper, simulation B, scenarios 1-5.
+#' @importFrom utils data
 
 simBDLIM <- function(n,design){
   

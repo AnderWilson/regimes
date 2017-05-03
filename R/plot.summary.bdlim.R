@@ -10,6 +10,8 @@
 #'
 #' @return If print=FALSE then a list of plots is returned.
 #' @import ggplot2 grid
+#' @importFrom grDevices devAskNewPage
+#' @importFrom graphics par plot.new
 #' @export
 #'
 #'

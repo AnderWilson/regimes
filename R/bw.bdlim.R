@@ -86,12 +86,12 @@ bw.bdlim <- function(fit, inter.model, alphalevel=0.05, hpd.interval=FALSE){
       bwhat <- scale(what, center=FALSE, scale=1/fit[[m]]$beta[,g])
 
     if(hpd.interval){
-      temp <- apply(bwhat,1,hpd,ciprob)
+      temp <- apply(bwhat,1,hpd,1-alphalevel)
       lower=temp["lower",]
       upper=temp["upper",]
     }else{
-      lower=apply(bwhat,1,quantile,(1-ciprob)/2)
-      upper=apply(bwhat,1,quantile,1-(1-ciprob)/2)
+      lower=apply(bwhat,1,quantile,alphalevel/2)
+      upper=apply(bwhat,1,quantile,1-alphalevel/2)
     }
 
       out <- rbind(out,data.frame(G=g,
@@ -108,12 +108,12 @@ bw.bdlim <- function(fit, inter.model, alphalevel=0.05, hpd.interval=FALSE){
     bwhat <- scale(what, center=FALSE, scale=1/fit[[m]]$beta)
 
     if(hpd.interval){
-      temp <- apply(bwhat,1,hpd,ciprob)
+      temp <- apply(bwhat,1,hpd,alphalevel)
       lower=temp["lower",]
       upper=temp["upper",]
     }else{
-      lower=apply(bwhat,1,quantile,(1-ciprob)/2)
-      upper=apply(bwhat,1,quantile,1-(1-ciprob)/2)
+      lower=apply(bwhat,1,quantile,alphalevel/2)
+      upper=apply(bwhat,1,quantile,1-alphalevel/2)
     }
 
     out <- data.frame(t=1:nrow(bwhat),

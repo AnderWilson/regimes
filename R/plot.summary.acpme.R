@@ -7,6 +7,7 @@
 #'
 #' @return If print=FALSE then a list of plots is returned.
 #' @import ggplot2
+#' @importFrom grDevices devAskNewPage
 #' @export
 #'
 plot.summary.acpme <- function(x,print=TRUE, ...){

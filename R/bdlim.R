@@ -17,6 +17,7 @@
 #' @param seed A seed to be set before each model is run.
 #' @return An object of class 'bdlim'.
 #' @author Ander Wilson
+#' @import stats
 #' @export
 
 

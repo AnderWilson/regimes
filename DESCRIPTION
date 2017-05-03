@@ -1,7 +1,7 @@
 Package: regimes
 Type: Package
 Title: Regression in Multivariate Exposure Settings
-Version: 0.2.1
+Version: 0.2.2
 Date: 2016-2-12
 Author: Ander Wilson, Francesca Dominici, and Brent Coull
 Maintainer: Ander Wilson <awilson@hsph.harvard.edu>
@@ -14,6 +14,7 @@ Description: Regression methods for estimating the relationship between
     estimate the effect of a multivariate exposure.
 License: GPL (>= 2)
 LazyData: TRUE
+Depends: R (>= 2.10)
 Imports:
     GIGrvg,
     refund,

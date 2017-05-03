@@ -13,7 +13,8 @@
 #' @param nthin Number of draws taken to obtain one sample
 #' @param prior List with the entries:  betavar = the prior variance for beta; and gamma = the prior variance for the covarites. The priors on beta and gamma are iid normal mean zero.
 #' @param post Relating to the posterior likelihood
-#' #' @author Ander Wilson
+#' @importFrom utils txtProgressBar setTxtProgressBar
+#' @author Ander Wilson
 #'
 
 
@@ -82,7 +83,7 @@ bdlimglmall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,post){
 
 
   pb <- txtProgressBar(min=0,max=niter, style=3, width=20)
-
+  
   #MCMC
   for(i in 1:niter){
     setTxtProgressBar(pb, i)

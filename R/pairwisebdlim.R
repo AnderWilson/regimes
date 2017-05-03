@@ -76,29 +76,29 @@ pairwisebdlim <- function(object, inter.model, alphalevel=.05, hpd.interval=FALS
   
   temp <- NULL
   if(m=="BDLIM_w"){
-    for(g in names(fit[[m]]$theta)){
-      what <- fit$B$psi%*%t(fit[[m]]$theta[[g]])
-      bwhat <- scale(what, center=FALSE, scale=1/fit[[m]]$beta)
+    for(g in names(object[[m]]$theta)){
+      what <- object$B$psi%*%t(object[[m]]$theta[[g]])
+      bwhat <- scale(what, center=FALSE, scale=1/object[[m]]$beta)
       temp <- cbind(temp,colSums(bwhat))
     }
   }else if(m=="BDLIM_bw"){
-    for(g in names(fit[[m]]$theta)){
-      what <- fit$B$psi%*%t(fit[[m]]$theta[[g]])
-      bwhat <- scale(what, center=FALSE, scale=1/fit[[m]]$beta[,g])
+    for(g in names(object[[m]]$theta)){
+      what <- object$B$psi%*%t(object[[m]]$theta[[g]])
+      bwhat <- scale(what, center=FALSE, scale=1/object[[m]]$beta[,g])
       temp <- cbind(temp,colSums(bwhat))
     }
   }else if(m=="BDLIM_b"){
-    what <- fit$B$psi%*%t(fit[[m]]$theta)
-    for(g in colnames(fit[[m]]$beta)){
-      bwhat <- scale(what, center=FALSE, scale=1/fit[[m]]$beta[,g])
+    what <- object$B$psi%*%t(object[[m]]$theta)
+    for(g in colnames(object[[m]]$beta)){
+      bwhat <- scale(what, center=FALSE, scale=1/object[[m]]$beta[,g])
       temp <- cbind(temp,colSums(bwhat))
     }
   }
   
  if(m%in%c("BDLIM_bw","BDLIM_b")){
-    colnames(temp) <- colnames(fit[[m]]$beta)
+    colnames(temp) <- colnames(object[[m]]$beta)
   }else if(m%in%c("BDLIM_w")){
-    colnames(temp) <- names(fit[[m]]$theta)
+    colnames(temp) <- names(object[[m]]$theta)
   }
   
   
