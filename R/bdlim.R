@@ -25,6 +25,7 @@
 
 bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nburn=500,nthin=1,basis.opts,prior,seed){
 
+  # make family a function
   if(is.character(family)){
     family <- get(family, mode = "function", envir = parent.frame())
   }
@@ -70,6 +71,9 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
   z1 <- z1[,qr(z1)$pivot[1:qr(z1)$rank]]
   colnames(x) <- paste0("x",1:ncol(x))
 
+  # make y a vector
+  Y <- drop(Y)
+  G <- drop(G)
 
   if(inter.model=="all"){
     runmods <- c("bw","b","w","n")
@@ -83,24 +87,22 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
 
   #fit normal linear model
   if(family$family=="gaussian"){
-    # y <- drop(scale(Y))
-    y <- drop(Y)
     if(is.null(prior$sigma)) prior$sigma <- c(1/2,0)
 
     for(Gmodel in runmods){
       if(!missing(seed)) set.seed(seed)
       cat(paste0("\nFitting: BDLIM-",substring(Gmodel,7,15),"\n"))
         if(Gmodel=="BDLIM_bw"){
-          fit[[Gmodel]] <- bdlimlmbw(y,x,z1,drop(G),B,niter,nburn,nthin,prior)
+          fit[[Gmodel]] <- bdlimlmbw(Y,x,z1,G,B,niter,nburn,nthin,prior)
           fit[[Gmodel]]$model <- "BDLIM_bw"
         }else if(Gmodel=="BDLIM_b"){
-          fit[[Gmodel]] <- bdlimlmb(y,x,z1,drop(G),B,niter,nburn,nthin,prior)
+          fit[[Gmodel]] <- bdlimlmb(Y,x,z1,G,B,niter,nburn,nthin,prior)
           fit[[Gmodel]]$model <- "BDLIM_b"
         }else if(Gmodel=="BDLIM_w"){
-          fit[[Gmodel]] <- bdlimlmw(y,x,z1,drop(G),B,niter,nburn,nthin,prior)
+          fit[[Gmodel]] <- bdlimlmw(Y,x,z1,G,B,niter,nburn,nthin,prior)
           fit[[Gmodel]]$model <- "BDLIM_w"
         }else if(Gmodel=="BDLIM_n"){
-          fit[[Gmodel]] <- bdlimlmoverall(y,x,z1,drop(G),B,niter,nburn,nthin,prior)
+          fit[[Gmodel]] <- bdlimlmoverall(Y,x,z1,G,B,niter,nburn,nthin,prior)
           fit[[Gmodel]]$model <- "BDLIM_n"
         }
 
@@ -109,11 +111,10 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
 
   #run for binomial regression.
   if(family$family=="binomial"){
-      post <- function(Y,mu){ -.5*family$dev.resids(c(0,1,1,0,0,1),family$linkinv(mu),1) }
       for(Gmodel in runmods){
         if(!missing(seed)) set.seed(seed)
         cat(paste0("\nFitting: BDLIM-",substring(Gmodel,7,15),"\n"))
-        fit[[Gmodel]] <- bdlimglmall(Y,x,z1,drop(G),model=substring(Gmodel,7,15),B,niter,nburn,nthin,prior,post)
+        fit[[Gmodel]] <- bdlimglmall(Y=Y,X=x,Z=z1,G=G,B=B,model=substring(Gmodel,7,15),niter=niter,nburn=nburn,nthin=nthin,prior=prior,family=family)
 
         fit[[Gmodel]]$model <- Gmodel
 
