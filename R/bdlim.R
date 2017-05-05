@@ -29,7 +29,7 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
     family <- get(family, mode = "function", envir = parent.frame())
   }
   if(is.function(family)){
-    family <- family()
+      family <- family()
   }
 
 
@@ -109,7 +109,7 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
 
   #run for binomial regression.
   if(family$family=="binomial"){
-      post <- function(Y,mu){ dbinom(Y,1,family$linkinv(mu),log=TRUE) }
+      post <- function(Y,mu){ -.5*family$dev.resids(c(0,1,1,0,0,1),family$linkinv(mu),1) }
       for(Gmodel in runmods){
         if(!missing(seed)) set.seed(seed)
         cat(paste0("\nFitting: BDLIM-",substring(Gmodel,7,15),"\n"))
@@ -142,7 +142,7 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
 
 
 
-  fit$family <- "gaussian"
+  fit$family <- family
 
 
 
