@@ -1,5 +1,11 @@
 .Rproj.user
 .Rhistory
 .RData
+<<<<<<< Updated upstream
 .Ruserdata
 testcode/*
+=======
+src/*.o
+src/*.so
+src/*.dll
+>>>>>>> Stashed changes
