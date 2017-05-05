@@ -64,7 +64,7 @@ bdlimglmall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,family=family){
   ng <- max(ngb,ngw)
 
   #starting values
-  theta <- unname(glm(rep(1,nrow(B$psi), family = family)~B$psi-1)$coef)  # start with flat weight
+  theta <- unname(glm(rep(1,nrow(B$psi))~B$psi-1, family = family)$coef)  # start with flat weight
   theta <- theta/sqrt(sum(theta^2))  #scale starting weights
   theta <- rep(theta,ngw)  # repeat it needed nuber of times  ( should have  ncol(B$psi)*ngw columns )
   Xtheta <- matrix(0,n,ngb)  # weighted exposures ( should have ng columns )
