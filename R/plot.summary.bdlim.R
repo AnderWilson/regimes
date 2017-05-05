@@ -56,10 +56,9 @@ if(print){
 
 
 
-colnames(x$beta) <- gsub(" ","",colnames(x$beta))
 x$beta$Group <- row.names(x$beta)
-p.beta <- ggplot(x$beta, aes_string(x="Group", y="Post.Mean", ymin=colnames(x$beta)[3], ymax=colnames(x$beta)[4])) + geom_point(size=2) + geom_errorbar(size=1,width=.1)
-p.beta <- p.beta + theme_regimes()+ theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
+p.beta <- ggplot(x$beta, aes_string(x="Group", y="mean", ymin="lower", ymax="upper")) + geom_point(size=2) + geom_errorbar(size=1,width=.1)
+p.beta <- p.beta + theme_regimes()+ theme(axis.text.x = element_text(angle = 90, hjust = 1))
 p.beta <- p.beta+ylab("Mean effect size, \u03B2") + xlab("") + ggtitle("Mean Effect Size, \u03B2")
 if(print & missing(grid)){
   print(p.beta)
@@ -67,9 +66,8 @@ if(print & missing(grid)){
   out$beta <- p.beta
 }
 
-colnames(x$cumulative) <- gsub(" ","",colnames(x$cumulative))
 x$cumulative$Group <- row.names(x$cumulative)
-p.cumulative <- ggplot(x$cumulative, aes_string(x="Group", y="Post.Mean", ymin=colnames(x$cumulative)[3], ymax=colnames(x$cumulative)[4])) + geom_point(size=2) + geom_errorbar(size=1,width=.1)
+p.cumulative <- ggplot(x$cumulative, aes_string(x="Group", y="mean", ymin="lower", ymax="upper")) + geom_point(size=2) + geom_errorbar(size=1,width=.1)
 p.cumulative <- p.cumulative + theme_regimes() + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 p.cumulative <- p.cumulative+ylab("Cumulative effect") + xlab("")+ ggtitle("Cumulative Effect")
 if(print & missing(grid)){
@@ -78,10 +76,9 @@ if(print & missing(grid)){
   out$cumulative <- p.cumulative
 }
 
-colnames(x$bw) <- gsub(" ","",colnames(x$bw))
-p.bw <- ggplot(x$bw, aes_string(x="t",y="Post.Mean", ymin=colnames(x$bw)[ncol(x$bw)-1], ymax=colnames(x$bw)[ncol(x$bw)])) 
+p.bw <- ggplot(x$bw, aes_string(x="t",y="mean",ymin="lower",ymax="upper")) 
 if(blackwhite){
-  p.bw <- p.bw + geom_ribbon(fill="lightgrey", color=NA, alpha=.6)
+  p.w <- p.bw + geom_ribbon(fill="lightgrey", color=NA, alpha=.6)
 }else{
   if(any(colnames(x$bw)=="G")){
     p.bw <- p.bw + geom_ribbon(aes_string(fill="G"), color=NA, alpha=.6)+ scale_fill_brewer(palette = "Set1")
@@ -99,8 +96,7 @@ if(print & missing(grid)){
   out$bw <- p.bw
 }
 
-colnames(x$w) <- gsub(" ","",colnames(x$w))
-p.w <- ggplot(x$w, aes_string(x="t",y="Post.Mean", ymin=colnames(x$w)[ncol(x$w)-1], ymax=colnames(x$w)[ncol(x$w)])) 
+p.w <- ggplot(x$w, aes_string(x="t",y="mean",ymin="lower",ymax="upper")) 
 if(blackwhite){
   p.w <- p.w + geom_ribbon(fill="lightgrey", color=NA, alpha=.6)
 }else{
