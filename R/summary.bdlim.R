@@ -92,6 +92,13 @@ summary.bdlim <- function(object, inter.model, alphalevel=.05, hpd.interval=FALS
     out$coefficients$lower <- apply(object[[m]]$gamma,2,quantile,alphalevel/2)
   }
   colnames(out$coefficients) <- c("Post. Mean", "Post. SD", paste0("q",100*alphalevel/2), paste0("q",100-100*alphalevel/2), "Pr>0")
+  colnames(out$w)[which(colnames(out$w)=="mean")] <- "Post. Mean"
+  colnames(out$w)[which(colnames(out$w)=="lower")] <- paste0("q",100*alphalevel/2)
+  colnames(out$w)[which(colnames(out$w)=="upper")] <- paste0("q",100-100*alphalevel/2)
+  colnames(out$bw)[which(colnames(out$bw)=="mean")] <- "Post. Mean"
+  colnames(out$bw)[which(colnames(out$bw)=="lower")] <- paste0("q",100*alphalevel/2)
+  colnames(out$bw)[which(colnames(out$bw)=="upper")] <- paste0("q",100-100*alphalevel/2)
+  
   
   
   class(out) <- "summary.bdlim"
