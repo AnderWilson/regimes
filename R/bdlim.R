@@ -107,10 +107,8 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
         }
 
     }
-  }
-
-  #run for binomial regression.
-  if(family$family=="binomial"){
+  }else{
+      # for GLM
       for(Gmodel in runmods){
         if(!missing(seed)) set.seed(seed)
         cat(paste0("\nFitting: BDLIM-",substring(Gmodel,7,15),"\n"))
