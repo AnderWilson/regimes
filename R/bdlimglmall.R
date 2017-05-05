@@ -64,12 +64,12 @@ bdlimglmall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,family=family){
   ng <- max(ngb,ngw)
 
   #starting values
-  theta <- unname(lm(rep(1,nrow(B$psi))~B$psi-1)$coef)  # start with flat weight
-  theta <- theta*sqrt(nrow(B$psi)/sum(theta^2))  #scale starting weights
+  theta <- unname(glm(rep(1,nrow(B$psi), family = family)~B$psi-1)$coef)  # start with flat weight
+  theta <- theta/sqrt(sum(theta^2))  #scale starting weights
   theta <- rep(theta,ngw)  # repeat it needed nuber of times  ( should have  ncol(B$psi)*ngw columns )
   Xtheta <- matrix(0,n,ngb)  # weighted exposures ( should have ng columns )
   for(g in 1:ng) Xtheta[Gb==g,ugb[g]] <- X[Gb==g,] %*% theta[(ugw[g]-1)*px+1:px]  #populate matrix
-  glmfit <- glm(Y~Xtheta+Z-1)  # starting values
+  glmfit <- glm(Y~Xtheta+Z-1, family = family)  # starting values
   kappa <- glmfit$coef[1:ngb]   # starting values for 
   gamma <- glmfit$coef[-c(1:ngb)]  # coef for covariates
   mu <-  Z%*%gamma + Xtheta%*%kappa  # predictor
@@ -116,14 +116,14 @@ bdlimglmall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,family=family){
       for(g in 1:ngw){
         yslice <- -sum(family$dev.resids(Y[Gw==g],family$linkinv(mu[Gw==g]),1))/2 - sum(theta[(ugw[g]-1)*px+1:px]^2)/2 + log(runif(1))
         vtheta <- rnorm(px)
-        vtheta <- vtheta*sqrt(nrow(B$psi)/sum(vtheta^2))
+        vtheta <- vtheta/sqrt(sum(vtheta^2))
         ang <- slicemax <- runif(1)*2*pi
         slicemin <- slicemax-2*pi
         notaccepted <- TRUE
         Xtheta0 <- Xtheta
         while(notaccepted){
           theta0 = theta[(ugw[g]-1)*px+1:px]*cos(ang) + vtheta*sin(ang)
-          theta0 <- theta0*sqrt(nrow(B$psi)/sum(theta0^2))
+          theta0 <- theta0/sqrt(sum(theta0^2))
           if(hyperplane%*%theta0 > 0){
 
             for(gb in ugb[which(ugw==g)]) Xtheta0[Gb==gb & Gw==g,ugb[gb]] <- X[Gb==gb & Gw==g,] %*% theta0
@@ -191,17 +191,17 @@ bdlimglmall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,family=family){
   if(ngw>1){
     theta <- list()
     for(g in 1:ngw){
-      theta[[as.character(ug[g])]] <- theta_keep[(nburn+1):niter,(which(ug==ug[g])-1)*px+1:px]
+      theta[[as.character(ug[g])]] <- theta_keep[(nburn+1):niter,(which(ug==ug[g])-1)*px+1:px]*sqrt(nrow(B$psi))
     }
   }else{
-    theta <- theta_keep[(nburn+1):niter,]
+    theta <- theta_keep[(nburn+1):niter,]*sqrt(nrow(B$psi))
   }
   # format kappa_keep
   if(ngb>1) colnames(kappa_keep) <- ug
   colnames(gamma_keep) <- colnames(Z)
 
   #save output
-  out <- list(beta=kappa_keep[(nburn+1):niter,],
+  out <- list(beta=kappa_keep[(nburn+1):niter,]/sqrt(nrow(B$psi)),
               theta=theta,
               gamma=gamma_keep[(nburn+1):niter,]
   )
