@@ -4,7 +4,7 @@
 \alias{bdlimglmall}
 \title{BDLIM for glm}
 \usage{
-bdlimglmall(Y, X, Z, G, B, model, niter, nburn, nthin, prior, post)
+bdlimglmall(Y, X, Z, G, B, model, niter, nburn, nthin, prior, family = family)
 }
 \arguments{
 \item{Y}{Outcome vector}
@@ -27,7 +27,7 @@ bdlimglmall(Y, X, Z, G, B, model, niter, nburn, nthin, prior, post)
 
 \item{prior}{List with the entries:  betavar = the prior variance for beta; and gamma = the prior variance for the covarites. The priors on beta and gamma are iid normal mean zero.}
 
-\item{post}{Relating to the posterior likelihood}
+\item{family}{Family as a funciton for glm}
 }
 \description{
 This estimates the model for a single group or the overall effect
