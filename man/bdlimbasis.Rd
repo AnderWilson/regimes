@@ -4,32 +4,18 @@
 \alias{bdlimbasis}
 \title{Build BDLIM basis}
 \usage{
-bdlimbasis(X, knots = NULL, df = NULL, pve = 0.99, type = "face")
+bdlimbasis(X, basis.opts)
 }
 \arguments{
 \item{X}{A n x p matrix of observations. Each row has the observations for one individual. The observations should be evenly spaced over a grid.}
 
-\item{knots}{The number of knots to use or a vector of knots.}
-
-\item{df}{Degrees of freedom for the natrual spline basis.}
-
-\item{pve}{Proportion of variance explained by the PC basis using FACE. Must be in (0,1].}
-
-\item{type}{The type of basis expansion to use.  Default is 'face' corresponding the the FACE method. Alternative method is 'ns' for a natrual cubic spline basis.}
-}
-\value{
-A list with elements:
-\item{psi}{Matrix with eigenfunctions in the columns.}
-\item{lambda}{Vector of eigen values.}
-\item{knots}{Knots used (if applicable).}
-\item{df}{Degrees of freedom used (if applicable).}
-\item{type}{The type of basis constructed.}
+\item{basis.opts}{List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.}
 }
 \description{
 \code{bdlimbasis} builds the basis for thge BDLIM model using either FACE of natural cubic splines.
 }
 \seealso{
-\code{\link{fpca.face}} and \code{\link{ns}} for details on the methods called.
+\code{\link{fpca.face}}, \code{\link{ns}}, \code{\link{bs}}, and \code{\link{gam}} for details on the methods called.
 }
 \author{
 Ander Wilson

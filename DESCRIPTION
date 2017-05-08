@@ -19,5 +19,6 @@ Imports:
     GIGrvg,
     refund,
     splines,
-    ggplot2
+    ggplot2,
+    mgcv
 RoxygenNote: 6.0.1

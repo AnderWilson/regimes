@@ -13,7 +13,7 @@
 #' @param nburn Number of MCMC iterations to be discarded as burnin.
 #' @param nthin Number of draws taken to obtain one sample.
 #' @param prior List with the entries: sigma = a numeric 2-vector with the shape and rate paramters for the pirior in the error precision (1/sigma^2); betavar = the prior variance for beta; and gamma = the prior variance for the covarites. The priors on beta and gamma are iid normal mean zero.
-#' @param basis.opts List with the entries: type = the type of basis used, either 'face' (default) or "ns"; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.
+#' @param basis.opts List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.
 #' @param seed A seed to be set before each model is run.
 #' @return An object of class 'bdlim'.
 #' @author Ander Wilson
@@ -23,7 +23,7 @@
 
 
 
-bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nburn=500,nthin=1,basis.opts,prior,seed){
+bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nburn=round(niter/2), nthin=1,basis.opts,prior,seed){
 
   # make family a function
   if(is.character(family)){
@@ -40,22 +40,17 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
   if(is.null(prior$beta)) prior$beta <- Inf
   if(is.null(prior$gamma)) prior$gamma <- Inf
 
-
-  #account for missing input in basis function
-  if(missing(basis.opts)) basis.opts <- NULL
-  if(is.null(basis.opts$type)) basis.opts$type <- "face"
-  if(toupper(basis.opts$type)=="FACE"){
-    if(is.null(basis.opts$knots)) basis.opts$knots <- round(ncol(X)/3)
-    if(is.null(basis.opts$pve)) basis.opts$pve <- .99
-  }else if(toupper(basis.opts$type)=="NS"){
-    if(is.null(basis.opts$df) & !is.null(basis.opts$knots)){
-      basis.opts$df <- basis.opts$knots+2
-    }else if(is.null(basis.opts$df)){ 
-      basis.opts$df <- 5
-    }
-  }
+  X <- as.matrix(X)
+  
   #make basis
-  B <- bdlimbasis(as.matrix(X),knots=basis.opts$knots,df=basis.opts$df,pve=basis.opts$pve, type=basis.opts$type)
+  if(is.null(basis.opts)){
+    basis.opts$type <- "face"
+  }else if(toupper(basis.opts$type) %in% c("NS","BS","FACE","GAM")){
+    B <- bdlimbasis(X,basis.opts)
+  }else{
+    stop("basis type not recognized.")
+  }
+  
 
   #scaled data
   x <- X%*%B$psi
@@ -107,10 +102,8 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
         }
 
     }
-  }
-
-  #run for binomial regression.
-  if(family$family=="binomial"){
+  }else{
+      # for GLM
       for(Gmodel in runmods){
         if(!missing(seed)) set.seed(seed)
         cat(paste0("\nFitting: BDLIM-",substring(Gmodel,7,15),"\n"))

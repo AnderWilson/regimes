@@ -5,7 +5,8 @@
 \title{Bayesian distributed lag interaction models}
 \usage{
 bdlim(Y, X, Z, G = NULL, inter.model = "all", family = gaussian,
-  niter = 1000, nburn = 500, nthin = 1, basis.opts, prior, seed)
+  niter = 1000, nburn = round(niter/2), nthin = 1, basis.opts, prior,
+  seed)
 }
 \arguments{
 \item{Y}{Vector of outcomes.}
@@ -26,7 +27,7 @@ bdlim(Y, X, Z, G = NULL, inter.model = "all", family = gaussian,
 
 \item{nthin}{Number of draws taken to obtain one sample.}
 
-\item{basis.opts}{List with the entries: type = the type of basis used, either 'face' (default) or "ns"; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.}
+\item{basis.opts}{List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.}
 
 \item{prior}{List with the entries: sigma = a numeric 2-vector with the shape and rate paramters for the pirior in the error precision (1/sigma^2); betavar = the prior variance for beta; and gamma = the prior variance for the covarites. The priors on beta and gamma are iid normal mean zero.}
 
