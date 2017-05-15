@@ -41,6 +41,9 @@ summary.bdlim <- function(object, inter.model, alphalevel=.05, hpd.interval=FALS
 
 
   ## identify critical windows
+  if(is.null(out$bw$G)){
+    out$bw$G <- 1
+  }
   windows <- data.frame(windows=rep(NA,length(unique(out$bw$G))),row.names=unique(out$bw$G))
     for(g in 1:length(unique(out$bw$G))){
       sig <- out$bw$t[as.character(out$bw$G)==row.names(windows)[g]][ which((out$bw$lower[as.character(out$bw$G)==row.names(windows)[g]] > 0)|(out$bw$upper[as.character(out$bw$G)==row.names(windows)[g]] < 0)) ]
