@@ -42,10 +42,15 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
 
   X <- as.matrix(X)
   
-  #make basis
-  if(is.null(basis.opts)){
+  #deal with missing or null basis.opts
+  if(missing(basis.opts)){
+    basis.opts <- list(type = "face")
+  }else if(is.null(basis.opts)){
     basis.opts$type <- "face"
-  }else if(toupper(basis.opts$type) %in% c("NS","BS","FACE","GAM")){
+  }
+  
+  # build basis or return error.
+  if(toupper(basis.opts$type) %in% c("NS","BS","FACE","GAM")){
     B <- bdlimbasis(X,basis.opts)
   }else{
     stop("basis type not recognized.")
