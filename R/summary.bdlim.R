@@ -75,10 +75,14 @@ summary.bdlim <- function(object, inter.model, alphalevel=.05, hpd.interval=FALS
       }
     }
 
+
   colnames(windows) <- NULL
   out$windows <- windows
   
-  
+
+  if(all(out$bw$G==1)){
+    out$bw$G <- NULL
+  }  
   # summaize other regression coeficients
   out$coefficients <- data.frame(PostMean=colMeans(object[[m]]$gamma), 
                                  PostSD=apply(object[[m]]$gamma,2,sd), 

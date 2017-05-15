@@ -36,7 +36,6 @@ bdlimbasis <- function(X,basis.opts){
     B1 <- bs(seq(1,ncol(X)),df=basis.opts$df, intercept=TRUE)
     X <-  B1 %*% qr.solve(B1,t(X)) 
     eigcorX <- eigen(X%*%t(X))
-    nbases <- min(which(cumsum(eigcorX$values)/sum(eigcorX$values)>basis.opts$pve))
     
     return(list(psi=eigcorX$vectors[,1:ncol(B1)], eigcorX$values[1:ncol(B1)], pve=basis.opts$pve,type=basis.opts$type))
     
