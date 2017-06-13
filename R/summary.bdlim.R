@@ -54,12 +54,14 @@ summary.bdlim <- function(object, inter.model, alphalevel=.05, hpd.interval=FALS
       }else{
 
         windowstemp <- sig[1]
-        for(t in 2:(length(sig[])-1)){
-          if(sig[t-1]!=(sig[t]-1)){
-            windowstemp <- c(windowstemp,Inf,sig[t])
-          }else{
-            if(sig[t]!=(sig[t+1]-1)){
-              windowstemp <- c(windowstemp,-Inf,sig[t])
+        if(length(sig)>2){
+          for(t in 2:(length(sig[])-1)){
+            if(sig[t-1]!=(sig[t]-1)){
+              windowstemp <- c(windowstemp,Inf,sig[t])
+            }else{
+              if(sig[t]!=(sig[t+1]-1)){
+                windowstemp <- c(windowstemp,-Inf,sig[t])
+              }
             }
           }
         }
