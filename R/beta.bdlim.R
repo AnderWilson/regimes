@@ -8,6 +8,7 @@ beta <- function(x, inter.model, alphalevel, hpd.interval) UseMethod("beta")
 #' @param hpd.interval Logical indicating if highest posterior density intervals should be computed (TRUE) or symmetric intervals (FALSE, default)
 #'
 #' @return Data.frame summarizing the posterior distribution.
+#' @importFrom coda effectiveSize
 #' @export
 #'
 #'
@@ -42,9 +43,10 @@ beta.bdlim <- function(fit, inter.model, alphalevel=0.05, hpd.interval=FALSE){
                     sd=apply(as.matrix(fit[[m]]$beta),2,sd),
                     lower=lower,
                     upper=upper,
-                    pr <- colMeans(as.matrix(fit[[m]]$beta)>0)
+                    pr = colMeans(as.matrix(fit[[m]]$beta)>0),
+                    n_eff=effectiveSize(fit[[m]]$beta)
   )
-  colnames(out) <- c("Post. Mean", "Post. SD", paste0("q",100*alphalevel/2), paste0("q",100-100*alphalevel/2), "Pr>0")
+  colnames(out) <- c("mean", "sd", paste0("q",100*alphalevel/2), paste0("q",100-100*alphalevel/2), "Pr>0","n_eff")
   
 
   if(nrow(out)==1){

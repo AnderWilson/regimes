@@ -8,6 +8,7 @@ bw <- function(x, inter.model, alphalevel, hpd.interval) UseMethod("bw")
 #' @param hpd.interval Logical indicating if highest posterior density intervals should be computed (TRUE) or symmetric intervals (FALSE, default)
 #'
 #' @return Data.frame summarizing the posterior distribution.
+#' @importFrom coda effectiveSize
 #' @export
 #'
 #'
@@ -49,7 +50,8 @@ bw.bdlim <- function(fit, inter.model, alphalevel=0.05, hpd.interval=FALSE){
                             t=1:nrow(bwhat),
                             mean=rowMeans(bwhat),
                             lower=lower,
-                            upper=upper
+                            upper=upper,
+                            n_eff=effectiveSize(t(bwhat))
                  ))
 
 
@@ -75,7 +77,8 @@ bw.bdlim <- function(fit, inter.model, alphalevel=0.05, hpd.interval=FALSE){
                             t=1:nrow(bwhat),
                             mean=rowMeans(bwhat),
                             lower=lower,
-                            upper=upper
+                            upper=upper,
+                            n_eff=effectiveSize(t(bwhat))
                  ))
 }
   }else if(m=="BDLIM_b"){
@@ -98,7 +101,8 @@ bw.bdlim <- function(fit, inter.model, alphalevel=0.05, hpd.interval=FALSE){
                                   t=1:nrow(bwhat),
                     mean=rowMeans(bwhat),
                     lower=lower,
-                    upper=upper
+                    upper=upper,
+                    n_eff=effectiveSize(t(bwhat))
     ))
 }
 
@@ -119,7 +123,8 @@ bw.bdlim <- function(fit, inter.model, alphalevel=0.05, hpd.interval=FALSE){
     out <- data.frame(t=1:nrow(bwhat),
                     mean=rowMeans(bwhat),
                     lower=lower,
-                    upper=upper
+                    upper=upper,
+                    n_eff=effectiveSize(t(bwhat))
     )
 
 

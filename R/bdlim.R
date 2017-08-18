@@ -23,7 +23,7 @@
 
 
 
-bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nburn=round(niter/2), nthin=1,basis.opts,prior,seed){
+bdlim <- function(Y,X,Z,G,inter.model="all",family=gaussian,niter=1000,nburn=round(niter/2), nthin=1,basis.opts,prior,seed){
 
   # make family a function
   if(is.character(family)){
@@ -35,10 +35,28 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
 
 
 
-  # make y, G vectors and X a matrix.
+  # check data inputs.
   Y <- drop(Y)
-  G <- drop(G)
+  if(missing(G)){
+    G <- NULL
+  }else if(length(G)==length(Y)){
+    G <- as.factor(drop(G))
+  }else if(!is.null(G)){
+    stop("G must be a factor vector of length equal to the length of Y.")
+  }
   X <- as.matrix(X)
+  if(nrow(X)!=length(Y)){
+    stop("X must be a numeric matrix with the n rows where n is the length of Y.")
+  }
+  if(missing(Z)){
+    if(is.null(G)){
+      Z <- matrix(1,length(Y),1)  
+    }else{
+      Z <- NULL
+    }
+  }else if(is.null(Z) & is.null(G)){
+    Z <- matrix(1,length(Y),1)  
+  }
   
   #deal with missing or null basis.opts
   if(missing(basis.opts)){
@@ -60,13 +78,19 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
     # add an overall intercept if there is no G
     z1 <- model.matrix(~Z)
     inter.model <- c("n")
+  }else if(is.null(Z)){
+    # group specific intercept if there is a G
+    z1 <- model.matrix(~G-1)
   }else{
     # group specific intercept if there is a G
-    if(!is.factor(G)) G <- as.factor(G)
     z1 <- model.matrix(~G+Z-1)
   }
   # deal with multicolinearity
   z1 <- z1[,qr(z1)$pivot[1:qr(z1)$rank]]
+  if(is.numeric(z1) & !is.matrix(z1)){
+    z1 <- as.matrix(z1)
+    colnames(z1) <- "(Intercept)"
+  }
   colnames(x) <- paste0("x",1:ncol(x))
 
 

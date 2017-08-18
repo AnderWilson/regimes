@@ -1,9 +1,9 @@
 Package: regimes
 Type: Package
 Title: Regression in Multivariate Exposure Settings
-Version: 0.2.2
-Date: 2016-2-12
-Author: Ander Wilson, Francesca Dominici, and Brent Coull
+Version: 0.3.0
+Date: 2017-8-20
+Author: Ander Wilson
 Maintainer: Ander Wilson <awilson@hsph.harvard.edu>
 Description: Regression methods for estimating the relationship between
     a multivariate exposure and an outcome. The package is oriented toward
@@ -20,5 +20,6 @@ Imports:
     refund,
     splines,
     ggplot2,
-    mgcv
+    mgcv,
+    coda
 RoxygenNote: 6.0.1

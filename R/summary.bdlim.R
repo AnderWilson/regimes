@@ -11,6 +11,7 @@
 #' @param ... additional arguments
 #'
 #' @return A object of class 'summary.bdlim'.
+#' @importFrom coda effectiveSize
 #' @export
 #'
 #'
@@ -90,7 +91,8 @@ summary.bdlim <- function(object, inter.model, alphalevel=.05, hpd.interval=FALS
                                  PostSD=apply(object[[m]]$gamma,2,sd), 
                                  lower=NA, 
                                  upper=NA, 
-                                 pr=colMeans((object[[m]]$gamma>0)) )
+                                 pr=colMeans((object[[m]]$gamma>0)),
+                                 n_eff=effectiveSize(object[[m]]$gamma))
   
   if(hpd.interval){
     int <- apply(object[[m]]$gamma,2,hpd,alphalevel)
@@ -100,11 +102,9 @@ summary.bdlim <- function(object, inter.model, alphalevel=.05, hpd.interval=FALS
     out$coefficients$upper <- apply(object[[m]]$gamma,2,quantile,1-alphalevel/2)
     out$coefficients$lower <- apply(object[[m]]$gamma,2,quantile,alphalevel/2)
   }
-  colnames(out$coefficients) <- c("Post. Mean", "Post. SD", paste0("q",100*alphalevel/2), paste0("q",100-100*alphalevel/2), "Pr>0")
-  colnames(out$w)[which(colnames(out$w)=="mean")] <- "Post. Mean"
+  colnames(out$coefficients) <- c("mean", "sd", paste0("q",100*alphalevel/2), paste0("q",100-100*alphalevel/2), "Pr>0","n_eff")
   colnames(out$w)[which(colnames(out$w)=="lower")] <- paste0("q",100*alphalevel/2)
   colnames(out$w)[which(colnames(out$w)=="upper")] <- paste0("q",100-100*alphalevel/2)
-  colnames(out$bw)[which(colnames(out$bw)=="mean")] <- "Post. Mean"
   colnames(out$bw)[which(colnames(out$bw)=="lower")] <- paste0("q",100*alphalevel/2)
   colnames(out$bw)[which(colnames(out$bw)=="upper")] <- paste0("q",100-100*alphalevel/2)
   
@@ -125,13 +125,16 @@ print.summary.bdlim <- function(x, ...) {
 
   cat("\nModel fit statistics:\n")
   print(round(x$modelfit,3))
-  cat(paste0("\n\nResults for ",x$model,":\n"))
+  cat(paste0("\n\nPosterior results for ",x$model,":\n"))
   cat("\nBeta:\n")
   print(x$beta,...)
   cat("\nCumulative:\n")
   print(x$cumulative,...)
   cat("\nCritical windows identified weigh the weighted exposures, beta*w(t):\n")
   print(x$windows,...)
+  cat(paste0("\nn_eff for beta*w(t): min ",round(min(x$bw$n_eff),1),", max ",round(max(x$bw$n_eff),1),", mean ",round(mean(x$bw$n_eff),1),", median ",round(median(x$bw$n_eff),1)))
+  cat(paste0("\nn_eff for w(t): min ",round(min(x$w$n_eff),1),", max ",round(max(x$w$n_eff),1),", mean ",round(mean(x$w$n_eff),1),", median ",round(median(x$w$n_eff),1)))
+  
   cat("\n\nCoefficients for covariates:\n\n")
   print(x$coefficients)
 }

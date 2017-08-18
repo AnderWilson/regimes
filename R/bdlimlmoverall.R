@@ -76,15 +76,16 @@ bdlimlmoverall <- function(Y,X,Z,G,B,niter,nburn,nthin,prior){
   beta.keep <-  sqrt(rowSums(thetastar.keep^2))/sqrt(nrow(B$psi)) * sign(colSums(B$psi%*%t(thetastar.keep)))
   theta.keep <- thetastar.keep/beta.keep
   sigma.keep <- drop(sqrt(sigma.keep))
-  colnames(gamma.keep) <- colnames(Z)
+  
 
   #save output
   out <- list(beta=beta.keep[(nburn+1):niter],
               theta=theta.keep[(nburn+1):niter,],
-              gamma=gamma.keep[(nburn+1):niter,],
+              gamma=as.matrix(gamma.keep[(nburn+1):niter,]),
               sigma=sigma.keep[(nburn+1):niter]
   )
-
+  colnames(out$gamma) <- colnames(Z)
+  
   #save DIC
   out$DIC <- data.frame(G="Overall",DIC=sum(DIC),pD=sum(pD),Dbar=sum(Dbar),D=sum(D))
   if(!is.null(G)) out$DIC <- rbind(out$DIC,aggregate(cbind(DIC,pD,Dbar,D), by=list(G=as.character(G)), sum))
