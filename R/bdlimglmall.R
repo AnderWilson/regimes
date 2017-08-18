@@ -90,7 +90,7 @@ bdlimglmall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,family=family){
     for(j in 1:nthin){
 
       #update gamma
-      yslice <- -sum(family$dev.resids(Y,family$linkinv(mu),1))/2 - sum(gamma^2)/2 + log(runif(1))
+      yslice <- -sum(family$dev.resids(Y,family$linkinv(mu),1))/2 + log(runif(1))
       vgamma <-  rnorm(pz)*sqrt(prior$gamma)
       ang <- slicemax <- runif(1)*2*pi
       slicemin <- slicemax-2*pi
@@ -98,7 +98,7 @@ bdlimglmall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,family=family){
       while(notaccepted){
         gamma0 = gamma*cos(ang) + vgamma*sin(ang)
         mu0 <- mu - Z%*%gamma + Z%*%gamma0
-        if(-sum(family$dev.resids(Y,family$linkinv(mu0),1))/2 - sum(gamma0^2)/2  > yslice){
+        if(-sum(family$dev.resids(Y,family$linkinv(mu0),1))/2   > yslice){
           gamma <- gamma0
           mu <- mu0
           notaccepted <- FALSE
@@ -129,7 +129,7 @@ bdlimglmall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,family=family){
             for(gb in ugb[which(ugw==g)]) Xtheta0[Gb==gb & Gw==g,ugb[gb]] <- X[Gb==gb & Gw==g,] %*% theta0
 
             mu0[Gw==g] <- mu[Gw==g] - as.matrix(Xtheta[Gw==g,])%*%kappa + as.matrix(Xtheta0[Gw==g,])%*%kappa
-            if(-sum(family$dev.resids(Y[Gw==g],family$linkinv(mu[Gw==g]),1))/2   > yslice){
+            if(-sum(family$dev.resids(Y[Gw==g],family$linkinv(mu0[Gw==g]),1))/2   > yslice){
               theta[(ugw[g]-1)*px+1:px] <- theta0
               mu[Gw==g] <- mu0[Gw==g]
               notaccepted <- FALSE
