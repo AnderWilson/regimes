@@ -33,10 +33,7 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
       family <- family()
   }
 
-  #account for missing input in priors
-  if(missing(prior)) prior <- NULL
-  if(is.null(prior$beta)) prior$beta <- Inf
-  if(is.null(prior$gamma)) prior$gamma <- Inf
+
 
   # make y, G vectors and X a matrix.
   Y <- drop(Y)
@@ -89,6 +86,10 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
 
   # fit normal linear model
   if(family$family=="gaussian"){
+    #account for missing input in priors
+    if(missing(prior)) prior <- NULL
+    if(is.null(prior$beta)) prior$beta <- Inf
+    if(is.null(prior$gamma)) prior$gamma <- Inf
     if(is.null(prior$sigma)) prior$sigma <- c(0.001,0.001)
 
     for(Gmodel in runmods){
@@ -110,6 +111,10 @@ bdlim <- function(Y,X,Z,G=NULL,inter.model="all",family=gaussian,niter=1000,nbur
 
     }
   }else{
+    #account for missing input in priors
+    if(missing(prior)) prior <- NULL
+    if(is.null(prior$beta)) prior$beta <- 1
+    if(is.null(prior$gamma)) prior$gamma <- 10
       # for GLM
       for(Gmodel in runmods){
         if(!missing(seed)) set.seed(seed)
