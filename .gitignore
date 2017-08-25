@@ -4,8 +4,10 @@
 <<<<<<< Updated upstream
 .Ruserdata
 testcode/*
+testcode2/*
 =======
 src/*.o
 src/*.so
 src/*.dll
+examplecode/testbdlim_logit.R
 >>>>>>> Stashed changes
