@@ -102,6 +102,7 @@ bw.bdlim <- function(fit, inter.model, alphalevel=0.05, hpd.interval=FALSE){
                     mean=rowMeans(bwhat),
                     lower=lower,
                     upper=upper,
+                    pr_gr0 = rowMeans(bwhat>0),
                     n_eff=effectiveSize(t(bwhat))
     ))
 }
@@ -124,6 +125,7 @@ bw.bdlim <- function(fit, inter.model, alphalevel=0.05, hpd.interval=FALSE){
                     mean=rowMeans(bwhat),
                     lower=lower,
                     upper=upper,
+                    pr_gr0 = rowMeans(bwhat>0),
                     n_eff=effectiveSize(t(bwhat))
     )
 
