@@ -5,6 +5,7 @@
 .Ruserdata
 testcode/*
 testcode2/*
+AnalysisData/*
 =======
 src/*.o
 src/*.so
