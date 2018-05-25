@@ -77,7 +77,7 @@ if(print & missing(grid)){
 }
 
 
-p.bw <- ggplot(x$bw, aes_string(x="t",y="mean", ymin=colnames(x$bw)[ncol(x$bw)-3], ymax=colnames(x$bw)[ncol(x$bw)-2])) 
+p.bw <- ggplot(x$bw, aes_string(x="t",y="mean", ymin=colnames(x$bw)[which(colnames(x$bw)=="mean")+1], ymax=colnames(x$bw)[which(colnames(x$bw)=="mean")+2])) 
 if(blackwhite){
   p.bw <- p.bw + geom_ribbon(fill="lightgrey", color=NA, alpha=.6)
 }else{
@@ -97,7 +97,7 @@ if(print & missing(grid)){
   out$bw <- p.bw
 }
 
-p.w <- ggplot(x$w, aes_string(x="t",y="mean", ymin=colnames(x$w)[ncol(x$w)-3], ymax=colnames(x$w)[ncol(x$w)-2])) 
+p.w <- ggplot(x$w, aes_string(x="t",y="mean", ymin=colnames(x$w)[which(colnames(x$w)=="mean")+1], ymax=colnames(x$w)[which(colnames(x$w)=="mean")+2])) 
 if(blackwhite){
   p.w <- p.w + geom_ribbon(fill="lightgrey", color=NA, alpha=.6)
 }else{
