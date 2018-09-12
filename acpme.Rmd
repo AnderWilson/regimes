@@ -14,8 +14,6 @@ output:
 ## Adjustment for Confounding in the Presence of Multivariate Exposures
 [Ander Wilson](http://anderwilson.github.io/)
 
-See tech report for here: [Model-Averaged Confounder Adjustment for Estimating Multivariate Exposure Effects](http://anderwilson.github.io/regimes/papers/ACPME_tech.pdf).
-
 ### An Example
 Load the **regimes** package, simulate data, and fit ACPME.
 ```{r, message=FALSE, results='hide'}
