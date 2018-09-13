@@ -69,7 +69,7 @@ bdlimbasis <- function(X,basis.opts){
     
     eigcorX <- eigen(cor(X))
     nbases <- min(which(cumsum(eigcorX$values)/sum(eigcorX$values)>basis.opts$pve))
-    return(list(psi=eigcorX$vectors[,1:nbases], eigcorX$values[1:nbases], pve=basis.opts$pve,type=basis.opts$type))
+    return(list(psi=eigcorX$vectors[,1:nbases], eigenvalues=eigcorX$values[1:nbases], pve=basis.opts$pve, df=basis.opts$df,type=basis.opts$type))
     
     
   }else{
