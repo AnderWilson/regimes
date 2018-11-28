@@ -1,8 +1,8 @@
 Package: regimes
 Type: Package
 Title: Regression in Multivariate Exposure Settings
-Version: 0.3.0
-Date: 2017-8-20
+Version: 0.4.11
+Date: 2018-10-3
 Author: Ander Wilson
 Maintainer: Ander Wilson <awilson@hsph.harvard.edu>
 Description: Regression methods for estimating the relationship between
@@ -21,5 +21,7 @@ Imports:
     splines,
     ggplot2,
     mgcv,
-    coda
+    coda,
+    Rcpp (>= 0.12.15)
+LinkingTo: Rcpp, RcppArmadillo, GIGrvg
 RoxygenNote: 6.0.1
