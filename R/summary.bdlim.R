@@ -130,7 +130,7 @@ print.summary.bdlim <- function(x, ...) {
   print(x$beta,...)
   cat("\nCumulative:\n")
   print(x$cumulative,...)
-  cat("\nCritical windows identified weigh the weighted exposures, beta*w(t):\n")
+  cat("\nCritical windows identified with weighted exposures, beta*w(t):\n")
   print(x$windows,...)
   cat(paste0("\nn_eff for beta*w(t): min ",round(min(x$bw$n_eff),1),", max ",round(max(x$bw$n_eff),1),", mean ",round(mean(x$bw$n_eff),1),", median ",round(median(x$bw$n_eff),1)))
   cat(paste0("\nn_eff for w(t): min ",round(min(x$w$n_eff),1),", max ",round(max(x$w$n_eff),1),", mean ",round(mean(x$w$n_eff),1),", median ",round(median(x$w$n_eff),1)))
