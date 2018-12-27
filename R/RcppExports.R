@@ -12,10 +12,9 @@
 #' @param n_inner number of MCMC iterations to run in the inner loop.  This is equivelent the the thinning number.  n_outer*n_inner iteraction will be run and n_outer iterations will be saved.
 #' @param n_outer number of MCMC iteration in the outer loop.   The output for each is saved.
 #' @param n_burn number of MCMC iteration to be discarded as burn-in.
-#' @param d the degree of polynomial for a polynomial kernel.
 #' @export
-bkmrdlm_multi_polynomial <- function(yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn, d) {
-    .Call('_regimes_bkmrdlm_multi_polynomial', PACKAGE = 'regimes', yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn, d)
+bkmrdlm_multi <- function(yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn) {
+    .Call('_regimes_bkmrdlm_multi', PACKAGE = 'regimes', yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn)
 }
 
 #' Estimates the BKMR-DLM for a multiple time-varying predictor.
@@ -31,8 +30,8 @@ bkmrdlm_multi_polynomial <- function(yz, Xlist, b1, a1, a2, kappa, n_inner, n_ou
 #' @param n_burn number of MCMC iteration to be discarded as burn-in.
 #' @param d the degree of polynomial for a polynomial kernel.
 #' @export
-bkmrdlm_multi_shrink_polynomial <- function(yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn, d) {
-    .Call('_regimes_bkmrdlm_multi_shrink_polynomial', PACKAGE = 'regimes', yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn, d)
+bkmrdlm_multi_polynomial <- function(yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn, d) {
+    .Call('_regimes_bkmrdlm_multi_polynomial', PACKAGE = 'regimes', yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn, d)
 }
 
 #' Estimates the BKMR-DLM for a multiple time-varying predictor.
@@ -62,8 +61,9 @@ bkmrdlm_multi_shrink <- function(yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer,
 #' @param n_inner number of MCMC iterations to run in the inner loop.  This is equivelent the the thinning number.  n_outer*n_inner iteraction will be run and n_outer iterations will be saved.
 #' @param n_outer number of MCMC iteration in the outer loop.   The output for each is saved.
 #' @param n_burn number of MCMC iteration to be discarded as burn-in.
+#' @param d the degree of polynomial for a polynomial kernel.
 #' @export
-bkmrdlm_multi <- function(yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn) {
-    .Call('_regimes_bkmrdlm_multi', PACKAGE = 'regimes', yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn)
+bkmrdlm_multi_shrink_polynomial <- function(yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn, d) {
+    .Call('_regimes_bkmrdlm_multi_shrink_polynomial', PACKAGE = 'regimes', yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn, d)
 }
 
