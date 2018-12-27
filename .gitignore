@@ -6,6 +6,9 @@
 testcode/*
 testcode2/*
 AnalysisData/*
+BKMRDLM_Analysis/*
+BKMRDLM_Simulation/*
+TAE_Simulations/*
 =======
 src/*.o
 src/*.so
