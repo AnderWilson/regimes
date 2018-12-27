@@ -1,11 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-<<<<<<< Updated upstream
 ^examplecode
 ^testcode
 ^AnalysisData
-^BKMRDLM_Analysis
+^AnalysesForPapers
 ^BKMRDLM_Simulation
-^TAE_Simulations
-=======
->>>>>>> Stashed changes
+^BKMRDLM_Analysis
+^TAE_Simulation

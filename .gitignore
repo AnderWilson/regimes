@@ -1,23 +1,15 @@
 .Rproj.user
 .Rhistory
 .RData
-<<<<<<< Updated upstream
 .Ruserdata
 testcode/*
 testcode2/*
 AnalysisData/*
-<<<<<<< HEAD
-BKMRDLM_Analysis/*
-BKMRDLM_Simulation/*
-=======
 AnalysesForPapers/*
 BKMRDLM_Simulation/*
 BKMRDLM_Analysis/*
->>>>>>> bkmrdlm
 TAE_Simulations/*
-=======
 src/*.o
 src/*.so
 src/*.dll
 examplecode/testbdlim_logit.R
->>>>>>> Stashed changes
