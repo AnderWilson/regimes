@@ -4,8 +4,9 @@
 \alias{bdlim}
 \title{Bayesian distributed lag interaction models}
 \usage{
-bdlim(Y, X, Z, G, inter.model = "all", family = gaussian, niter = 1000,
-  nburn = round(niter/2), nthin = 1, basis.opts, prior, seed)
+bdlim(Y, X, Z, G, inter.model = "all", family = gaussian,
+  niter = 1000, nburn = round(niter/2), nthin = 1, basis.opts, prior,
+  seed)
 }
 \arguments{
 \item{Y}{Vector of outcomes.}

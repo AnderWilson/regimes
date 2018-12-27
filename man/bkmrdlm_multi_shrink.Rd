@@ -4,7 +4,8 @@
 \alias{bkmrdlm_multi_shrink}
 \title{Estimates the BKMR-DLM for a multiple time-varying predictor.}
 \usage{
-bkmrdlm_multi_shrink(yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn)
+bkmrdlm_multi_shrink(yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer,
+  n_burn)
 }
 \arguments{
 \item{yz}{a matrix that is cbind(y,Z) where Z is a matrix of covariates that does not include an intercept and y is the vector of outcomes.}
