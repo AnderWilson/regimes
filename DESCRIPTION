@@ -25,3 +25,5 @@ Imports:
     Rcpp (>= 0.12.15)
 LinkingTo: Rcpp, RcppArmadillo, GIGrvg
 RoxygenNote: 6.1.1
+Encoding: UTF-8
+
