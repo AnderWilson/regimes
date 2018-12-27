@@ -32,6 +32,7 @@ print.dlm <- function(x, ...) {
 #' @param ... additional arguments for plot
 #'
 #' @export
+#' @importFrom graphics matplot
 #'
 plot.dlm <- function(x, ...){
  matplot(x$dlm[,c("estimate","lower","upper")], 

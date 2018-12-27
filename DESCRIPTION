@@ -1,10 +1,10 @@
 Package: regimes
 Type: Package
 Title: Regression in Multivariate Exposure Settings
-Version: 0.4.11
-Date: 2018-10-3
+Version: 0.5.0
+Date: 2018-12-27
 Author: Ander Wilson
-Maintainer: Ander Wilson <awilson@hsph.harvard.edu>
+Maintainer: Ander Wilson <ander.wilson@colostate.edu>
 Description: Regression methods for estimating the relationship between
     a multivariate exposure and an outcome. The package is oriented toward
     environmental health and environmental epidemiology research but is applicable
