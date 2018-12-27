@@ -24,4 +24,4 @@ Imports:
     coda,
     Rcpp (>= 0.12.15)
 LinkingTo: Rcpp, RcppArmadillo, GIGrvg
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
