@@ -27,17 +27,18 @@ bdlimbasis <- function(X,basis.opts){
     
     B1 <- ns(seq(1,ncol(X)),df=basis.opts$df, intercept=TRUE)
     X <-  B1 %*% qr.solve(B1,t(X)) 
-    eigcorX <- eigen(X%*%t(X))
-    return(list(psi=eigcorX$vectors[,1:ncol(B1)], eigcorX$values[1:ncol(B1)], pve=basis.opts$pve,type=basis.opts$type))
+    svdX <- svd(X)
+    
+    return(list(psi=svdX$u[,1:ncol(B1)], lambda=svdX$d[1:ncol(B1)], pve=basis.opts$pve,type=basis.opts$type))
     
   }else if(toupper(basis.opts$type)=="BS"){
     
     if(is.null(basis.opts$df)) basis.opts$df <- round(ncol(X)/5)
     B1 <- bs(seq(1,ncol(X)),df=basis.opts$df, intercept=TRUE)
     X <-  B1 %*% qr.solve(B1,t(X)) 
-    eigcorX <- eigen(X%*%t(X))
+    svdX <- svd(X)
     
-    return(list(psi=eigcorX$vectors[,1:ncol(B1)], eigcorX$values[1:ncol(B1)], pve=basis.opts$pve,type=basis.opts$type))
+    return(list(psi=svdX$u[,1:ncol(B1)], lambda=svdX$d[1:ncol(B1)], pve=basis.opts$pve,type=basis.opts$type))
     
   }else if(toupper(basis.opts$type)=="FACE"){
     
