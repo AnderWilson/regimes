@@ -9,6 +9,7 @@ AnalysisData/*
 AnalysesForPapers/*
 BKMRDLM_Simulation/*
 BKMRDLM_Analysis/*
+TAE_Simulations/*
 =======
 src/*.o
 src/*.so

@@ -16,7 +16,7 @@ print.dlm <- function(x, ...) {
   if(any(which(x$dlm$lower>0 | x$dlm$upper<0))){
     print(x$dlm[which(x$dlm$lower>0 | x$dlm$upper<0),], row.names = FALSE)
   }else{
-    print(none)
+    print("none")
   }
   cat("\nCumulative:\n")
   print(x$cumulative, row.names = FALSE)
