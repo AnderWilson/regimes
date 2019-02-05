@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 PKG_LIBS = $(SHLIB_OPENMP_CFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) 
 PKG_CFLAGS = $(SHLIB_OPENMP_CFLAGS)
 
+=======
+>>>>>>> df3a37837fb11320f4c06a6ee32ac8595f5961df
 PKG_CPPFLAGS = -I../inst/include
