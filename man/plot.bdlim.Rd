@@ -4,10 +4,12 @@
 \alias{plot.bdlim}
 \title{Plot for bdlim summary}
 \usage{
-\method{plot}{bdlim}(x, print = TRUE, ...)
+\method{plot}{bdlim}(x, bs = 14, print = TRUE, ...)
 }
 \arguments{
 \item{x}{An object of class 'bdlim'.}
+
+\item{bs}{Base font size}
 
 \item{print}{A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.}
 

@@ -2,6 +2,7 @@
 #' Plot for bdlim summary
 #'
 #' @param x An object of class 'bdlim'.
+#' @param bs Base font size
 #' @param print A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.
 #' @param ... additional arguments for ggplot theme.
 #'
@@ -10,9 +11,9 @@
 #' @export
 #'
 #'
-plot.bdlim <- function(x, print=TRUE, ...){
+plot.bdlim <- function(x, bs=14, print=TRUE, ...){
 
-  theme_regimes <- function (base_size = 20, base_family = "", ...){
+  theme_regimes <- function (base_size = bs, base_family = "", ...){
     theme_grey (base_size = base_size) +
       theme (axis.title = element_text(size = base_size),
              axis.text = element_text(size = base_size),
