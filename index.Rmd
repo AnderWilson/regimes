@@ -21,13 +21,27 @@ The **regimes** R packages contains regression methods for estimating the relati
 ### Installation
 
 The **regimes** package can be installed using **devtools**.
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
 library(devtools)
-install_github(repo="AnderWilson/regimes")
+devtools::install_github(repo="AnderWilson/regimes")
 library(regimes)
 ```
 
 Note: You may need to install the [**graph**](http://bioconductor.org/packages/release/bioc/html/graph.html) and [**Rgraphviz**](http://bioconductor.org/packages/release/bioc/html/Rgraphviz.html) packages from [Bioconductor](http://bioconductor.org).
+
+
+
+- Alternates if you do not have openMP (Mac users) 
+```{r install-regimes-2, eval=FALSE}
+devtools::install_github("AnderWilson/regimes",
+                         ref="noopenmp")
+```
+
+- Or install from Mac binary after downloading [`regimes_0.5.11.tgz`](https://github.com/AnderWilson/regimes/blob/gh-pages/regimes_0.5.11.tgz)
+```{r install-regimes-3, eval=FALSE}
+install.packages("regimes_0.5.11.tgz", 
+    repos = NULL, type = .Platform$pkgType)
+```
 
 ### Methods
 
