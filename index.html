@@ -23,7 +23,7 @@
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
@@ -59,7 +59,29 @@ code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Doc
 code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
 code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
 code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -96,9 +118,7 @@ h6 {
 
 <link href="data:text/css;charset=utf-8,%0Ah1%20%7B%0Afont%2Dsize%3A%2024px%3B%0A%7D%0Ah2%20%7B%0Afont%2Dsize%3A%2020px%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A%2016px%3B%0A%7D%0Abody%2C%20td%20%7B%0Afont%2Dsize%3A%2014px%3B%0A%7D%0Acode%2Er%7B%0Afont%2Dsize%3A%2014px%3B%0A%7D%0Apre%20%7B%0Afont%2Dsize%3A%2014px%0A%7D%0A" rel="stylesheet" type="text/css" />
 
-</head>
 
-<body>
 
 <style type="text/css">
 .main-container {
@@ -123,22 +143,92 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -172,9 +262,9 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;AnderWilson/regimes&quot;</span>,
                          <span class="dt">ref=</span><span class="st">&quot;noopenmp&quot;</span>)</code></pre></div>
 <ul>
-<li>Or install from Mac binary after downloading <a href="https://github.com/AnderWilson/regimes/blob/gh-pages/regimes_0.5.11.tgz"><code>regimes_0.5.11.tgz</code></a></li>
+<li>Or install from Mac binary after downloading <a href="https://github.com/AnderWilson/regimes/blob/gh-pages/regimes_0.5.13.tgz"><code>regimes_0.5.13.tgz</code></a></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;regimes_0.5.11.tgz&quot;</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;regimes_0.5.13.tgz&quot;</span>, 
     <span class="dt">repos =</span> <span class="ot">NULL</span>, <span class="dt">type =</span> .Platform<span class="op">$</span>pkgType)</code></pre></div>
 </div>
 <div id="methods" class="section level3">

@@ -37,9 +37,9 @@ devtools::install_github("AnderWilson/regimes",
                          ref="noopenmp")
 ```
 
-- Or install from Mac binary after downloading [`regimes_0.5.11.tgz`](https://github.com/AnderWilson/regimes/blob/gh-pages/regimes_0.5.11.tgz)
+- Or install from Mac binary after downloading [`regimes_0.5.13.tgz`](https://github.com/AnderWilson/regimes/blob/gh-pages/regimes_0.5.13.tgz)
 ```{r install-regimes-3, eval=FALSE}
-install.packages("regimes_0.5.11.tgz", 
+install.packages("regimes_0.5.13.tgz", 
     repos = NULL, type = .Platform$pkgType)
 ```
 
