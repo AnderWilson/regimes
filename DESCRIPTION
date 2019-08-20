@@ -1,8 +1,8 @@
 Package: regimes
 Type: Package
 Title: Regression in Multivariate Exposure Settings
-Version: 0.5.12
-Date: 2019-2-5
+Version: 0.5.13
+Date: 2019-8-19
 Author: Ander Wilson
 Maintainer: Ander Wilson <ander.wilson@colostate.edu>
 Description: Regression methods for estimating the relationship between

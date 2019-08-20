@@ -59,7 +59,7 @@ dlm <- function(Y,X,Z,df,family=gaussian){
     theta_upper  <- theta_hat + 
       theta_SE * qt(0.975, fit$df.residual)
     # save in data frame
-    out <- list(dlm = data.frame(time=1:37,
+    out <- list(dlm = data.frame(time=1:ncol(X),
                                  estimate=theta_hat, 
                                  SE=theta_SE, 
                                  lower=theta_lower, 
