@@ -1,0 +1,57 @@
+---
+title: "bkmrdlm {[regimes](http://anderwilson.github.io/regimes/)}"
+output:
+  html_document:
+    css: style.css
+    theme: cerulean
+    highlight: tango
+    includes:
+      before_body: doc_suffix.html
+---
+
+
+
+## Bayesian Kernel Machine Regression Distributed Lag Models
+[Ander Wilson](http://anderwilson.github.io/)
+
+### An Example
+Load the **regimes** package, simulate data, and fit BKMR-DLM with a quadratic kernel. When using BDLIM for data analysis increase the number of iterations.
+```{r, message=FALSE, results='hide'}
+#load package
+library(regimes)
+#simulate data from scenario A
+dat <- simBKMRDLM(n = 200, scenario="A", sd=1, seed=1234)
+# The exposure data is a list. 
+# Each element is a matrix for one exposure with columns representing times and rows individuals
+class(dat$x)
+length(dat$x)
+
+dim(dat$x)
+dim(dat$z)
+length(dat$y)
+
+# Estimate model
+# This may take a few minutes
+# Increase iterations for a real analysis
+fit <- bkmrdlm(y=dat$y,
+                    x=dat$x,
+                    z=dat$z,
+                    niter=2000,
+                    gaussian=FALSE,
+                    polydegree=2)
+```
+
+Now display some results using the summary method.
+```{r}
+#summary
+sfit <- summary(fit)
+names(sfit)
+sfit
+```
+
+Now display some results via plots.
+```{r}
+plot(fit)
+```
+
+

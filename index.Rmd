@@ -27,7 +27,6 @@ devtools::install_github(repo="AnderWilson/regimes")
 library(regimes)
 ```
 
-Note: You may need to install the [**graph**](http://bioconductor.org/packages/release/bioc/html/graph.html) and [**Rgraphviz**](http://bioconductor.org/packages/release/bioc/html/Rgraphviz.html) packages from [Bioconductor](http://bioconductor.org).
 
 
 
@@ -48,3 +47,5 @@ install.packages("regimes_0.5.13.tgz",
 [acpme](http://anderwilson.github.io/regimes/acpme.html): adjustment for confounding in the presence of multivariate exposures
 
 [bdlim](http://anderwilson.github.io/regimes/bdlim.html): Bayesian distributed lag interaction models
+
+[bkmrdlm](http://anderwilson.github.io/regimes/bkmrdlm.html): Bayesian kernel machine regression distributed lag models
