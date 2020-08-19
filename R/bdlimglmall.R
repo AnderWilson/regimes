@@ -98,6 +98,7 @@ bdlimglmall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,family=family){
       while(notaccepted){
         gamma0 = gamma*cos(ang) + vgamma*sin(ang)
         mu0 <- mu - Z%*%gamma + Z%*%gamma0
+        
         if(-sum(family$dev.resids(Y,family$linkinv(mu0),1))/2   > yslice){
           gamma <- gamma0
           mu <- mu0
@@ -212,8 +213,9 @@ bdlimglmall <- function(Y,X,Z,G,B,model,niter,nburn,nthin,prior,family=family){
   if(!is.null(G)){
     bysubgroup <- aggregate(cbind(DIC,pD,Dbar,D), by=list(G=as.character(G)), sum)
     colnames(bysubgroup) <- colnames(out$DIC)
+    out$DIC <- rbind(out$DIC,bysubgroup)
   } 
-  out$DIC <- rbind(out$DIC,bysubgroup)
+  
 
   return(out)
 }
