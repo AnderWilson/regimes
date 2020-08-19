@@ -20,6 +20,22 @@
 #' @author Ander Wilson
 #' @importFrom stats model.matrix sd
 #' @importFrom GIGrvg rgig
+#' @examples  
+#' library(regimes)
+#' #simulate data from scenario A
+#' dat <- simBKMRDLM(n = 200, scenario="A", sd=1, seed=1234)
+#' # Estimate model
+#' # This may take a few minutes
+#' # Increase iterations for a real analysis
+#' fit <- bkmrdlm(y=dat$y,
+#'                x=dat$x,
+#'                z=dat$z,
+#'                niter=100,
+#'                gaussian=FALSE,
+#'                polydegree=2)
+#'                
+#' summary(fit)
+#' plot(fit)
 #' @export
 
 

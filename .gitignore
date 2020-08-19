@@ -13,4 +13,5 @@ src/*.o
 src/*.so
 src/*.dll
 examplecode/testbdlim_logit.R
+PackageExamples/*
 .DS_Store
