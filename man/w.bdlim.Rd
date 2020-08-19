@@ -4,8 +4,7 @@
 \alias{w.bdlim}
 \title{Summary of the weight function for BDLIM}
 \usage{
-\method{w}{bdlim}(fit, inter.model, alphalevel = 0.05,
-  hpd.interval = FALSE)
+\method{w}{bdlim}(fit, inter.model, alphalevel = 0.05, hpd.interval = FALSE)
 }
 \arguments{
 \item{fit}{An object of class 'bdlim'.}

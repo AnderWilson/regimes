@@ -4,8 +4,15 @@
 \alias{acpme}
 \title{Adjustment for confounding in the presence of multivariate exposure}
 \usage{
-acpme(Z, C, y, niter, burnin = round(niter/2), pen.lambda = NA,
-  pen.type = "eigen")
+acpme(
+  Z,
+  C,
+  y,
+  niter,
+  burnin = round(niter/2),
+  pen.lambda = NA,
+  pen.type = "eigen"
+)
 }
 \arguments{
 \item{Z}{Matrix of exposures. This should include any interactions of other functions of exposures.}

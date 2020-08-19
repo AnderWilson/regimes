@@ -4,8 +4,7 @@
 \alias{summary.acpme}
 \title{Default summary for acpme}
 \usage{
-\method{summary}{acpme}(object, ciprob = 0.95, hpd.interval = FALSE,
-  estimate, ...)
+\method{summary}{acpme}(object, ciprob = 0.95, hpd.interval = FALSE, estimate, ...)
 }
 \arguments{
 \item{object}{An object of class 'acpme'.}

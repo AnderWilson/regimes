@@ -4,8 +4,7 @@
 \alias{summary.bdlim}
 \title{Default summary for bldim}
 \usage{
-\method{summary}{bdlim}(object, inter.model, alphalevel = 0.05,
-  hpd.interval = FALSE, ...)
+\method{summary}{bdlim}(object, inter.model, alphalevel = 0.05, hpd.interval = FALSE, ...)
 }
 \arguments{
 \item{object}{An object of class 'bdlim'.}

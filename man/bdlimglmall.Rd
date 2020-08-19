@@ -4,8 +4,7 @@
 \alias{bdlimglmall}
 \title{BDLIM for glm}
 \usage{
-bdlimglmall(Y, X, Z, G, B, model, niter, nburn, nthin, prior,
-  family = family)
+bdlimglmall(Y, X, Z, G, B, model, niter, nburn, nthin, prior, family = family)
 }
 \arguments{
 \item{Y}{Outcome vector}

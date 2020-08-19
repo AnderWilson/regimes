@@ -4,8 +4,7 @@
 \alias{plot.summary.bdlim}
 \title{Plot for bdlim summary}
 \usage{
-\method{plot}{summary.bdlim}(x, print = TRUE, blackwhite = FALSE, grid,
-  bs, ...)
+\method{plot}{summary.bdlim}(x, print = TRUE, blackwhite = FALSE, grid, bs, ...)
 }
 \arguments{
 \item{x}{An object of class 'summary.bdlim'.}

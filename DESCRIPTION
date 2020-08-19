@@ -22,8 +22,7 @@ Imports:
     ggplot2,
     mgcv,
     coda,
-    Rcpp (>= 0.12.15)
+    Rcpp (>= 0.12.17)
 LinkingTo: Rcpp, RcppArmadillo, GIGrvg
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 Encoding: UTF-8
-

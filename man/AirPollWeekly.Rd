@@ -4,7 +4,9 @@
 \name{AirPollWeekly}
 \alias{AirPollWeekly}
 \title{Weekly average NO2 and PM2.5 data}
-\format{An object of class \code{"data.frame"}.}
+\format{
+An object of class \code{"data.frame"}.
+}
 \usage{
 data(AirPollWeekly)
 }

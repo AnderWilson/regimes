@@ -4,10 +4,21 @@
 \alias{bkmrdlm}
 \title{Bayesian kernel machine regression - distributed lag model}
 \usage{
-bkmrdlm(y, x, z, niter, nburn = round(niter/2), nthin = 1,
-  prior_sigma = c(0.1, 0.1), prior_tau = 0.1, kappa = 1,
-  basis.opts = list(type = "gam", pve = 0.9), shrink = FALSE,
-  gaussian = TRUE, polydegree = 2)
+bkmrdlm(
+  y,
+  x,
+  z,
+  niter,
+  nburn = round(niter/2),
+  nthin = 1,
+  prior_sigma = c(0.1, 0.1),
+  prior_tau = 0.1,
+  kappa = 1,
+  basis.opts = list(type = "gam", pve = 0.9),
+  shrink = FALSE,
+  gaussian = TRUE,
+  polydegree = 2
+)
 }
 \arguments{
 \item{y}{Vector of outcomes.}

@@ -4,8 +4,7 @@
 \alias{bw.bdlim}
 \title{Summary of the time-varying effect for BDLIM}
 \usage{
-\method{bw}{bdlim}(fit, inter.model, alphalevel = 0.05,
-  hpd.interval = FALSE)
+\method{bw}{bdlim}(fit, inter.model, alphalevel = 0.05, hpd.interval = FALSE)
 }
 \arguments{
 \item{fit}{An object of class 'bdlim'.}

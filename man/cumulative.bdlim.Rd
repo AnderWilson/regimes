@@ -4,8 +4,7 @@
 \alias{cumulative.bdlim}
 \title{Summary of the cumulative effect for BDLIM}
 \usage{
-\method{cumulative}{bdlim}(fit, inter.model, alphalevel = 0.05,
-  hpd.interval = FALSE)
+\method{cumulative}{bdlim}(fit, inter.model, alphalevel = 0.05, hpd.interval = FALSE)
 }
 \arguments{
 \item{fit}{An object of class 'bdlim'.}

@@ -4,8 +4,13 @@
 \alias{pairwisebdlim}
 \title{Pairwise comparisons betweeng groups for BDLIM}
 \usage{
-pairwisebdlim(object, inter.model, alphalevel = 0.05,
-  hpd.interval = FALSE, ...)
+pairwisebdlim(
+  object,
+  inter.model,
+  alphalevel = 0.05,
+  hpd.interval = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{An object of class 'bdlim'.}

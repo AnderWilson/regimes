@@ -4,8 +4,7 @@
 \alias{beta.bdlim}
 \title{Summary of the beta for BDLIM}
 \usage{
-\method{beta}{bdlim}(fit, inter.model, alphalevel = 0.05,
-  hpd.interval = FALSE)
+\method{beta}{bdlim}(fit, inter.model, alphalevel = 0.05, hpd.interval = FALSE)
 }
 \arguments{
 \item{fit}{An object of class 'bdlim'.}
