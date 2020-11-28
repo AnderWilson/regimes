@@ -5,34 +5,52 @@ output:
     css: style.css
     theme: cerulean
     highlight: tango
+    toc: true
+    toc_float: true
     includes:
       before_body: doc_suffix.html
 ---
 
 
 
-## Bayesian Kernel Machine Regression Distributed Lag Models
+# Bayesian Kernel Machine Regression Distributed Lag Models
 [Ander Wilson](http://anderwilson.github.io/)
 
-### An Example
-Load the **regimes** package, simulate data, and fit BKMR-DLM with a quadratic kernel. When using BDLIM for data analysis increase the number of iterations.
-```{r, message=FALSE, results='hide'}
-#load package
+First, load the **regimes** package.
+
+```{r, message=FALSE, results='hide', cache=TRUE}
 library(regimes)
+```
+
+## Data setup
+
+We simulate data to illustrate the required data structures and the method.
+
+```{r, message=FALSE, results='hide', cache=TRUE}
 #simulate data from scenario A
 dat <- simBKMRDLM(n = 200, scenario="A", sd=1, seed=1234)
-# The exposure data is a list. 
-# Each element is a matrix for one exposure with columns representing times and rows individuals
+```
+
+The exposure data is a list. Each element of the list is a matrix of values for a single exposure. The columns of each matrix are are the ordered measurements at each time point starting with the first time point in the leftmost column. The rows are subjects. Each element of the list must have the same dimensions (same number of individuals and time points).
+
+```{r, message=FALSE,  cache=TRUE}
 class(dat$x)
 length(dat$x)
+lapply(dat$x, dim)
+```
 
-dim(dat$x)
-dim(dat$z)
-length(dat$y)
 
-# Estimate model
-# This may take a few minutes
-# Increase iterations for a real analysis
+The response variable is a vector of length n. This should be continuous. There is also a matrix of covariates that should not include an intercept.
+```{r, message=FALSE,  cache=TRUE}
+dim(dat$z) # covariates
+length(dat$y) # response vector
+```
+
+## Estimation
+
+The main function for estimation is `bkmrdlm`. We fit BKMR-DLM with a quadratic kernel. Use `gaussian=TRUE` for a Gaussian kernel instead of a polynomial kernel. When using BKMR-DLM for real data analysis increase the number of iterations. This may take a few minutes or longer depending the the data size and number of iterations.
+
+```{r, message=FALSE, results='hide', cache=TRUE}
 fit <- bkmrdlm(y=dat$y,
                     x=dat$x,
                     z=dat$z,
@@ -41,17 +59,72 @@ fit <- bkmrdlm(y=dat$y,
                     polydegree=2)
 ```
 
-Now display some results using the summary method.
-```{r}
-#summary
+
+## Summarize results
+
+Now display numerical results using the `summary` method. This reports any critical windows identified and reports estimates of the regression coefficients for the covariates.
+
+```{r, cache=TRUE}
 sfit <- summary(fit)
 names(sfit)
 sfit
 ```
 
-Now display some results via plots.
-```{r}
+## View weights and windows
+
+The `plot` method displays the estimated weight function for each exposure. Times where the displayed 95 percent intervals do not contain zero are considered to be critical windows. The sign of the weight function does not indicate a direction of the association with the outcome. The direction of association is determined by the exposure-response function.
+
+```{r, cache=TRUE}
 plot(fit)
 ```
 
+
+## Exposure response functions
+
+We first illustrate the exposure-response function at the median value of all other exposures. This is one form of the main effect. The first step is to predict the exposure response function at a set of values. This may take some time. The number of `points` is the number of points that the function is predicted at for each exposure.
+
+```{r, results='hide', message=FALSE, cache=TRUE}
+univarpred_quad <- predictUnivariate(fit, points=30) 
+```
+
+After prediction we can visualise the exposure-response function.
+
+```{r, cache=TRUE}
+library(ggplot2)
+p <- ggplot(univarpred_quad, aes(x=E, y=mean, ymin=lower, ymax=upper))
+p <- p + geom_ribbon(alpha=.5) 
+p <- p + geom_line(size=2) + facet_wrap(~reorder(name,m), scales="free_x")
+p <- p + ggtitle("Main effect estimates BKMR-DLM")
+plot(p)
+```
+
+
+## Visualizing interaction
+
+To visualize interactions we can plot the exposure-response function for each exposure at different quantiles of the other exposures. First we estimate the exposure-response function at five quantiles of the other exposures. 
+
+```{r, results='hide', message=FALSE, cache=TRUE}
+# estimate exposure response
+combodat <- NULL
+for(q in c(0.10,0.25,0.75,0.90)){
+  for(m in 1:length(dat$x)){
+    combodat <- rbind(combodat,predictUnivariate(fit, points=30,crossM=m, qtl=q))
+  }
+}
+
+# some formatting
+combodat <- combodat[-which(combodat$m==combodat$cross_m),]
+univarpred_quad2 <- univarpred_quad
+univarpred_quad2$cross <- univarpred_quad2$name
+univarpred_quad2$cross_m <- univarpred_quad2$m
+```
+
+Next we can plot the results.
+
+```{r, cache=TRUE}
+p <- ggplot(combodat)  +
+  geom_line(size=1, aes(x=E, y=mean, color=as.factor(qtl))) +
+  facet_grid(reorder(cross,cross_m)~reorder(name,m), scales="free_x")
+plot(p)
+```
 
