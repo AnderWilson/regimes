@@ -16,7 +16,12 @@ output:
 # Bayesian Kernel Machine Regression Distributed Lag Models
 [Ander Wilson](http://anderwilson.github.io/)
 
-First, load the **regimes** package.
+First, install and load the **regimes** package.
+
+```{r, eval=FALSE, cache=TRUE}
+library(devtools)
+devtools::install_github(repo="AnderWilson/regimes")
+```
 
 ```{r, message=FALSE, results='hide', cache=TRUE}
 library(regimes)
