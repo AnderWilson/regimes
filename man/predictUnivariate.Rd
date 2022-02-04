@@ -2,9 +2,16 @@
 % Please edit documentation in R/predictUnivariate.R
 \name{predictUnivariate}
 \alias{predictUnivariate}
-\title{Predict univariate result for polynomial kernel BKMR-DLM}
+\title{Predict univariate result for BKMR-DLM}
 \usage{
-predictUnivariate(object, points = 20, crossM, qtl = 0.5)
+predictUnivariate(
+  object,
+  points = 20,
+  crossM,
+  qtl = 0.5,
+  return_post = FALSE,
+  center = 3
+)
 }
 \arguments{
 \item{object}{An object of class bkmrdlm.}
@@ -14,10 +21,14 @@ predictUnivariate(object, points = 20, crossM, qtl = 0.5)
 \item{crossM}{Exposure to set a cross section quantile for}
 
 \item{qtl}{quantile for the cross section}
+
+\item{return_post}{Logical indicating if the full posterior should be returned or only the summary. The default is FALSE.}
+
+\item{center}{Indicator of the form of centering. A value of 1 does no centering and the exposure-response function includes an intercept and uncertainty about the intercept. A value of 2 centers the exposure-response to be zero at mean weighted exposure A value results in a mean zero exposure response and remove uncertainty about the intercept. The default is center=3.}
 }
 \value{
 a dataframe containing predicted values.
 }
 \description{
-Predict univariate result for polynomial kernel BKMR-DLM
+Predict univariate result for BKMR-DLM
 }

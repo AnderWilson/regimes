@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // bkmrdlm_multi
 List bkmrdlm_multi(const arma::mat& yz, const Rcpp::List& Xlist, const double& b1, const double& a1, const double& a2, const double& kappa, const int& n_inner, const int& n_outer, const int& n_burn);
 RcppExport SEXP _regimes_bkmrdlm_multi(SEXP yzSEXP, SEXP XlistSEXP, SEXP b1SEXP, SEXP a1SEXP, SEXP a2SEXP, SEXP kappaSEXP, SEXP n_innerSEXP, SEXP n_outerSEXP, SEXP n_burnSEXP) {
@@ -45,51 +50,10 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// bkmrdlm_multi_shrink
-List bkmrdlm_multi_shrink(const arma::mat& yz, const Rcpp::List& Xlist, const double& b1, const double& a1, const double& a2, const double& kappa, const int& n_inner, const int& n_outer, const int& n_burn);
-RcppExport SEXP _regimes_bkmrdlm_multi_shrink(SEXP yzSEXP, SEXP XlistSEXP, SEXP b1SEXP, SEXP a1SEXP, SEXP a2SEXP, SEXP kappaSEXP, SEXP n_innerSEXP, SEXP n_outerSEXP, SEXP n_burnSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat& >::type yz(yzSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type Xlist(XlistSEXP);
-    Rcpp::traits::input_parameter< const double& >::type b1(b1SEXP);
-    Rcpp::traits::input_parameter< const double& >::type a1(a1SEXP);
-    Rcpp::traits::input_parameter< const double& >::type a2(a2SEXP);
-    Rcpp::traits::input_parameter< const double& >::type kappa(kappaSEXP);
-    Rcpp::traits::input_parameter< const int& >::type n_inner(n_innerSEXP);
-    Rcpp::traits::input_parameter< const int& >::type n_outer(n_outerSEXP);
-    Rcpp::traits::input_parameter< const int& >::type n_burn(n_burnSEXP);
-    rcpp_result_gen = Rcpp::wrap(bkmrdlm_multi_shrink(yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn));
-    return rcpp_result_gen;
-END_RCPP
-}
-// bkmrdlm_multi_shrink_polynomial
-List bkmrdlm_multi_shrink_polynomial(const arma::mat& yz, const Rcpp::List& Xlist, const double& b1, const double& a1, const double& a2, const double& kappa, const int& n_inner, const int& n_outer, const int& n_burn, const int& d);
-RcppExport SEXP _regimes_bkmrdlm_multi_shrink_polynomial(SEXP yzSEXP, SEXP XlistSEXP, SEXP b1SEXP, SEXP a1SEXP, SEXP a2SEXP, SEXP kappaSEXP, SEXP n_innerSEXP, SEXP n_outerSEXP, SEXP n_burnSEXP, SEXP dSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat& >::type yz(yzSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::List& >::type Xlist(XlistSEXP);
-    Rcpp::traits::input_parameter< const double& >::type b1(b1SEXP);
-    Rcpp::traits::input_parameter< const double& >::type a1(a1SEXP);
-    Rcpp::traits::input_parameter< const double& >::type a2(a2SEXP);
-    Rcpp::traits::input_parameter< const double& >::type kappa(kappaSEXP);
-    Rcpp::traits::input_parameter< const int& >::type n_inner(n_innerSEXP);
-    Rcpp::traits::input_parameter< const int& >::type n_outer(n_outerSEXP);
-    Rcpp::traits::input_parameter< const int& >::type n_burn(n_burnSEXP);
-    Rcpp::traits::input_parameter< const int& >::type d(dSEXP);
-    rcpp_result_gen = Rcpp::wrap(bkmrdlm_multi_shrink_polynomial(yz, Xlist, b1, a1, a2, kappa, n_inner, n_outer, n_burn, d));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_regimes_bkmrdlm_multi", (DL_FUNC) &_regimes_bkmrdlm_multi, 9},
     {"_regimes_bkmrdlm_multi_polynomial", (DL_FUNC) &_regimes_bkmrdlm_multi_polynomial, 10},
-    {"_regimes_bkmrdlm_multi_shrink", (DL_FUNC) &_regimes_bkmrdlm_multi_shrink, 9},
-    {"_regimes_bkmrdlm_multi_shrink_polynomial", (DL_FUNC) &_regimes_bkmrdlm_multi_shrink_polynomial, 10},
     {NULL, NULL, 0}
 };
 

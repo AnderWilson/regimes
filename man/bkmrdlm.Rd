@@ -15,7 +15,6 @@ bkmrdlm(
   prior_tau = 0.1,
   kappa = 1,
   basis.opts = list(type = "gam", pve = 0.9),
-  shrink = FALSE,
   gaussian = TRUE,
   polydegree = 2
 )
@@ -40,8 +39,6 @@ bkmrdlm(
 \item{kappa}{scale parameter, rho/kappa~chisq(1).}
 
 \item{basis.opts}{List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.}
-
-\item{shrink}{use the shrinkage prior on theta (default FALSE)}
 
 \item{gaussian}{Use a Gaussian kernel (TRUE, default) or a polynomial kernel (FALSE)}
 

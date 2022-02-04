@@ -117,20 +117,20 @@ List bkmrdlm_multi_polynomial(const arma::mat& yz,
   // -------------------------------------
   for(int s_outer=0; s_outer<n_outer; s_outer++){
     for(int s_inner=0; s_inner<n_inner; s_inner++){
-      
+  
       // -------------------------------------
       // Update logtau2
       logtau2_PROP = logtau2 + rnorm(1)(0);
-      
+
       // covariance is Sigma = (I + tau2*K)
       Sigma.diag() = Sigma.diag() - ons;
       Sigma = exp(log(Sigma) - logtau2 +logtau2_PROP);
       Sigma.diag() = Sigma.diag() + ons;
-        
+
       // First evaluation of the log-liklihood (ll)
-      
+
       C1 = arma::chol(Sigma, "lower");
-      
+
       // half of (y,Z)^T * Sigma^{-1} * (y,Z)
       Cyx = arma::solve(trimatl(C1),yz);
       // A1 = y^T * Sigma^{-1} * y
@@ -138,36 +138,36 @@ List bkmrdlm_multi_polynomial(const arma::mat& yz,
       // B = z^T * Sigma^{-1} * y
       B = Cyx.cols(1,p).t() * Cyx.col(0);
       // C2 = chol( z^T * Sigma^{-1} * z)
-      
+
       C2 = arma::chol(Cyx.cols(1,p).t() * Cyx.cols(1,p), "lower");
       C2B = vectorise(arma::solve(trimatl(C2),B));
       A2 = arma::sum(square(C2B));
-       
+
       // proposed ll, prior on log(\tau^2)~N(0,b1), b1 is variance.
       ll_PROP = -logtau2_PROP*logtau2_PROP/(2*b1)
           -  arma::accu(log(C1.diag()))
           -  arma::accu(log(C2.diag()))
           - (   0.5 * (n - p) + a1 ) * log( a2 + 0.5*A1-0.5*A2 );
-         
-       // accept for reject    
+
+       // accept for reject
        if(ll_PROP > ll  - rexp(1)(0) ){
          logtau2 = logtau2_PROP;
          ll = ll_PROP;
        }
-        
+
         // -------------------------------------
         // Update nusq=nu^2
         for(int m=0; m<M; m++){
           nusq[m] = do_rgiglocal(-(Kvec(m)-1)/2, kappa*sum(square(theta[m])), 1) ;
         }
-        
-          
-      
+
+
+
       // -------------------------------------
-      // Update theta  
+      // Update theta
       Sigma.diag() = ons + exp(logtau2);  //reset this
       for(int m=0; m<M; m++){
-        
+
         angle = runif(1)(0)*M_PI;
         amax = angle;
         amin = angle - M_PI;
@@ -177,25 +177,25 @@ List bkmrdlm_multi_polynomial(const arma::mat& yz,
 
             // shrinking slice
             while(ll_PROP < llu){
-              
+
               // new paroposed theta
               theta_PROP = theta[m]*cos(angle) + vec_PROP*sin(angle);
-              
+
               // construct covariance matrix
               Xtheta.col(m) = X[m] * theta_PROP;
-              
-              
+
+
               for(int i=0; i<n; i++){
                 for(int j=i; j<n; j++){
                   Sigma(i,j) = exp(logtau2)*pow(1+  as_scalar( Xtheta.row(i) * Xtheta.row(j).t() ) , d) ;
                   Sigma(j,i) = Sigma(i,j);
-                }  
+                }
                 Sigma(i,i) = Sigma(i,i) + 1;
               }
-              
+
               // First evaluation of the log-liklihood (ll)
               C1 = arma::chol(Sigma, "lower");
-              
+
               // half of (y,Z)^T * Sigma^{-1} * (y,Z)
               Cyx = arma::solve(trimatl(C1),yz);
               // A1 = y^T * Sigma^{-1} * y
@@ -206,14 +206,14 @@ List bkmrdlm_multi_polynomial(const arma::mat& yz,
               C2 = arma::chol(Cyx.cols(1,p).t() * Cyx.cols(1,p), "lower");
               C2B = arma::solve(trimatl(C2),B);
               A2 = arma::sum(square(C2B));
-              
-              // proposed ll 
+
+              // proposed ll
               ll_PROP = -logtau2*logtau2/(2*b1)
                 -  arma::accu(log(C1.diag()))
                 -  arma::accu(log(C2.diag()))
                 - (   0.5 * (n - p) + a1 ) * log( a2 + 0.5*A1-0.5*A2 );
-                
-              
+
+
               if(angle > 0){
                 amax = angle;
               }else{
@@ -221,13 +221,13 @@ List bkmrdlm_multi_polynomial(const arma::mat& yz,
               }
               angle = runif(1)(0)*(amax-amin)+amin;
             }
-            
+
             // save results
             ll =  ll_PROP;
             theta[m] = theta_PROP;
           } // end loop through update of theta
-            
-    }// end inner loop  
+
+    }// end inner loop
     for(int m=0; m<M; m++){
       rhokeep.submat(s_outer,m,s_outer,m) = 1/sum(square(vectorise(theta[m])));
       thetakeepfield[m].row(s_outer) =  theta[m].t()*sqrt(as_scalar(rhokeep.submat(s_outer,m,s_outer,m)));
@@ -235,7 +235,7 @@ List bkmrdlm_multi_polynomial(const arma::mat& yz,
     tau2keep(s_outer) = logtau2;
     sig2invkeep(s_outer) = rgamma( 1 , a1 + .5*(n-p) , 1/(a2 + 0.5*(A1-A2)) )(0);  // function generates a gamma with mean alpha*beta;
     betakeep.row(s_outer) = arma::solve(trimatu(C2) , C2B +  as<arma::vec>(rnorm(p))/sqrt(sig2invkeep(s_outer) )).t();
-    
+
     if(s_outer>=n_burn){
       K = Sigma;
       for(int i=0; i<n; i++){
@@ -243,13 +243,13 @@ List bkmrdlm_multi_polynomial(const arma::mat& yz,
       }
       KV = solve(Sigma , K);
       hmeantemp = KV * (yz.col(0)-yz.cols(1,p)*betakeep.row(s_outer).t());
-      
+
       hmean += hmeantemp/(n_outer-n_burn);
       hcov += KV/(n_outer-n_burn)/sig2invkeep(s_outer) + hmeantemp*hmeantemp.t()  /(n_outer-n_burn);
     }
-    
+
   }// end outer loop
-  
+
   // Convert field to list
   for(int m=0; m<M; m++){
     thetakeep[m] = thetakeepfield[m];

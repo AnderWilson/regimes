@@ -13,7 +13,6 @@
 #' @param prior_tau the prior variance on log(tau^2).
 #' @param kappa scale parameter, rho/kappa~chisq(1).
 #' @param basis.opts List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.
-#' @param shrink use the shrinkage prior on theta (default FALSE)
 #' @param gaussian Use a Gaussian kernel (TRUE, default) or a polynomial kernel (FALSE)
 #' @param polydegree Degree of polynomial when polynomial kernel is used.  Only applies when gaussian=FALSE.
 #' @return An object of class 'bkmrdlm'.
@@ -50,7 +49,6 @@ bkmrdlm <- function(y,
                     prior_tau=0.1,
                     kappa=1, 
                     basis.opts=list(type="gam", pve=.9),
-                    shrink=FALSE,
                     gaussian=TRUE,
                     polydegree=2){
 
@@ -167,55 +165,29 @@ bkmrdlm <- function(y,
   if(toupper(basis.opts$type)=="MEAN"){
     stop("Not available")
   }else{
-    if(shrink){
-      if(gaussian){
-        fit <- bkmrdlm_multi_shrink(yz=cbind(y,Z), 
-                                    Xlist= X, 
-                                    b1=prior_tau[1], 
-                                    a1=prior_sigma[1], 
-                                    a2=prior_sigma[2],
-                                    kappa=kappa,
-                                    n_inner=nthin, 
-                                    n_outer=round(niter/nthin), 
-                                    n_burn=round(nburn/nthin))  
-      }else{
-        fit <- bkmrdlm_multi_shrink_polynomial(yz=cbind(y,Z), 
-                                               Xlist= X, 
-                                               b1=prior_tau[1], 
-                                               a1=prior_sigma[1], 
-                                               a2=prior_sigma[2],
-                                               kappa=kappa,
-                                               n_inner=nthin, 
-                                               n_outer=round(niter/nthin), 
-                                               n_burn=round(nburn/nthin), 
-                                               d=polydegree)  
-      }
-    }else{
-      if(gaussian){
-        fit <- bkmrdlm_multi(yz=cbind(y,Z), 
-                             Xlist= X, 
-                             b1=prior_tau[1], 
-                             a1=prior_sigma[1], 
-                             a2=prior_sigma[2],
-                             kappa=kappa,
-                             n_inner=nthin, 
-                             n_outer=round(niter/nthin), 
-                             n_burn=round(nburn/nthin))  
-      }else{
-        fit <- bkmrdlm_multi_polynomial(         yz=cbind(y,Z), 
-                                                 Xlist= X, 
-                                                 b1=prior_tau[1], 
-                                                 a1=prior_sigma[1], 
-                                                 a2=prior_sigma[2],
-                                                 kappa=kappa,
-                                                 n_inner=nthin, 
-                                                 n_outer=round(niter/nthin), 
-                                                 n_burn=round(nburn/nthin), 
-                                                 d=polydegree)  
-      }
+    if(gaussian){
+      fit <- bkmrdlm_multi(yz=cbind(y,Z), 
+                           Xlist= X, 
+                           b1=prior_tau[1], 
+                           a1=prior_sigma[1], 
+                           a2=prior_sigma[2],
+                           kappa=kappa,
+                           n_inner=nthin, 
+                           n_outer=round(niter/nthin), 
+                           n_burn=round(nburn/nthin))  
+    }else{z
+      fit <- bkmrdlm_multi_polynomial(yz=cbind(y,Z), 
+                                      Xlist= X, 
+                                      b1=prior_tau[1], 
+                                      a1=prior_sigma[1], 
+                                      a2=prior_sigma[2],
+                                      kappa=kappa,
+                                      n_inner=nthin, 
+                                      n_outer=round(niter/nthin), 
+                                      n_burn=round(nburn/nthin), 
+                                      d=polydegree)  
     }
   }
-
   ########################
   ## remove burnin
   ########################

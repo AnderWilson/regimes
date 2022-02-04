@@ -9,7 +9,7 @@ simBKMRDLM(n = 200, scenario = "A", sd = 1, seed, dta)
 \arguments{
 \item{n}{Number of observations.}
 
-\item{scenario}{Simulation scenario.}
+\item{scenario}{Simulation scenario (A, B, C, D, E, F).}
 
 \item{sd}{Error standard deviation.}
 
