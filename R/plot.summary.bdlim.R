@@ -3,9 +3,10 @@
 #'
 #' @param x An object of class 'summary.bdlim'.
 #' @param print A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.
-#' @param blackwhite A logical.  If TRUE the credible regrion ribbons are grey. If FALSE (default) then they are different colors for each group.
-#' @param grid If missing then each plot will appear seperate. Otherwise, numbers between 1 and 5 correspond to different combinations of figures printed together.
+#' @param blackwhite A logical.  If TRUE the credible region ribbons are grey. If FALSE (default) then they are different colors for each group.
+#' @param grid If missing then each plot will appear separate. Otherwise, numbers between 1 and 5 correspond to different combinations of figures printed together.
 #' @param bs Base font size
+#' @param continuous_weight Logical indicating if the weight function interval should be represented with a line and ribbon. If FALSE points and error bars will be used instead.
 #' @param ... additional arguments for ggplot theme.
 #'
 #' @return If print=FALSE then a list of plots is returned.
@@ -15,7 +16,7 @@
 #' @export
 #'
 #'
-plot.summary.bdlim <- function(x,print=TRUE, blackwhite=FALSE, grid, bs,...){
+plot.summary.bdlim <- function(x,print=TRUE, blackwhite=FALSE, grid, bs, continuous_weight=TRUE, ...){
 
   
   if(missing(bs)){
@@ -57,7 +58,7 @@ if(print){
 
 
 x$beta$Group <- row.names(x$beta)
-p.beta <- ggplot(x$beta, aes_string(x="Group", y="mean", ymin=colnames(x$beta)[3], ymax=colnames(x$beta)[4])) + geom_point(size=2) + geom_errorbar(size=1,width=.1)
+p.beta <- ggplot(x$beta, aes_string(x="Group", y="mean", ymin=colnames(x$beta)[3], ymax=colnames(x$beta)[4])) + geom_point() + geom_errorbar(width=0)
 p.beta <- p.beta + theme_regimes()+ theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
 p.beta <- p.beta+ylab("Mean effect size, \u03B2") + xlab("") + ggtitle("Mean Effect Size, \u03B2")
 if(print & missing(grid)){
@@ -67,7 +68,7 @@ if(print & missing(grid)){
 }
 
 x$cumulative$Group <- row.names(x$cumulative)
-p.cumulative <- ggplot(x$cumulative, aes_string(x="Group", y="mean", ymin=colnames(x$cumulative)[3], ymax=colnames(x$cumulative)[4])) + geom_point(size=2) + geom_errorbar(size=1,width=.1)
+p.cumulative <- ggplot(x$cumulative, aes_string(x="Group", y="mean", ymin=colnames(x$cumulative)[3], ymax=colnames(x$cumulative)[4])) + geom_point() + geom_errorbar(width=0)
 p.cumulative <- p.cumulative + theme_regimes() + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 p.cumulative <- p.cumulative+ylab("Cumulative effect") + xlab("")+ ggtitle("Cumulative Effect")
 if(print & missing(grid)){
@@ -79,15 +80,33 @@ if(print & missing(grid)){
 
 p.bw <- ggplot(x$bw, aes_string(x="t",y="mean", ymin=colnames(x$bw)[which(colnames(x$bw)=="mean")+1], ymax=colnames(x$bw)[which(colnames(x$bw)=="mean")+2])) 
 if(blackwhite){
-  p.bw <- p.bw + geom_ribbon(fill="lightgrey", color=NA, alpha=.6)
+  if(continuous_weight){
+    p.bw <- p.bw + geom_ribbon(fill="lightgrey", color=NA, alpha=.6)  
+  }else{
+    p.bw <- p.bw + geom_errorbar(width=0)  
+  }
+  
 }else{
   if(any(colnames(x$bw)=="G")){
-    p.bw <- p.bw + geom_ribbon(aes_string(fill="G"), color=NA, alpha=.6)+ scale_fill_brewer(palette = "Set1")
+    if(continuous_weight){
+      p.bw <- p.bw + geom_ribbon(aes_string(fill="G"), color=NA, alpha=.6) + scale_fill_brewer(palette = "Set1")
+    }else{
+      p.bw <- p.bw + geom_errorbar(width=0) + scale_fill_brewer(palette = "Set1")
+    }
   }else{
-    p.bw <- p.bw + geom_ribbon(fill="blue", color=NA, alpha=.6)
+    if(continuous_weight){
+      p.bw <- p.bw + geom_ribbon(fill="blue", color=NA, alpha=.6)
+    }else{
+      p.bw <- p.bw + geom_errorbar(width=0)  
+    }
   }
 }
-p.bw <- p.bw + geom_line(size=1)
+if(continuous_weight){
+  p.bw <- p.bw + geom_line()  
+}else{
+  p.bw <- p.bw + geom_point()
+}
+
 p.bw <- p.bw + theme_regimes()
 p.bw <- p.bw + ylab("Estimated effect, \u03B2 w(t)") + xlab("time, t") + ggtitle("Time-Varying Exposure, \u03B2 w(t)")
 if(any(colnames(x$bw)=="G")) p.bw <- p.bw + facet_wrap(~G)
@@ -99,15 +118,31 @@ if(print & missing(grid)){
 
 p.w <- ggplot(x$w, aes_string(x="t",y="mean", ymin=colnames(x$w)[which(colnames(x$w)=="mean")+1], ymax=colnames(x$w)[which(colnames(x$w)=="mean")+2])) 
 if(blackwhite){
-  p.w <- p.w + geom_ribbon(fill="lightgrey", color=NA, alpha=.6)
+  if(continuous_weight){
+    p.w <- p.w + geom_ribbon(fill="lightgrey", color=NA, alpha=.6)
+  }else{
+    p.w <- p.w + geom_errorbar(width=0)
+  }
 }else{
   if(any(colnames(x$w)=="G")){
-    p.w <- p.w + geom_ribbon(aes_string(fill="G"), color=NA, alpha=.6)+ scale_fill_brewer(palette = "Set1")
+    if(continuous_weight){
+      p.w <- p.w + geom_ribbon(aes_string(fill="G"), color=NA, alpha=.6) + scale_fill_brewer(palette = "Set1")
+    }else{
+      p.w <- p.w + geom_errorbar(width=0) + scale_fill_brewer(palette = "Set1")
+    }
   }else{
-    p.w <- p.w + geom_ribbon(fill="blue", color=NA, alpha=.6)
+    if(continuous_weight){
+      p.w <- p.w + geom_ribbon(fill="blue", color=NA, alpha=.6)
+    }else{
+      p.w <- p.w + geom_errorbar(width=0)
+    }
   }
 }
-p.w <- p.w + geom_line(size=1)
+if(continuous_weight){
+  p.w <- p.w + geom_line()
+}else{
+  p.w <- p.w + geom_point()
+}
 p.w <- p.w + theme_regimes()
 p.w <- p.w + ylab("Estimated weight function, w(t)") + xlab("time, t")+ ggtitle("Weight Function, w(t)")
 if(any(colnames(x$w)=="G")) p.w <- p.w + facet_wrap(~G)

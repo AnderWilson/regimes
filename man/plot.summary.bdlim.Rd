@@ -4,18 +4,28 @@
 \alias{plot.summary.bdlim}
 \title{Plot for bdlim summary}
 \usage{
-\method{plot}{summary.bdlim}(x, print = TRUE, blackwhite = FALSE, grid, bs, ...)
+\method{plot}{summary.bdlim}(
+  x,
+  print = TRUE,
+  blackwhite = FALSE,
+  grid,
+  bs,
+  continuous_weight = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class 'summary.bdlim'.}
 
 \item{print}{A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.}
 
-\item{blackwhite}{A logical.  If TRUE the credible regrion ribbons are grey. If FALSE (default) then they are different colors for each group.}
+\item{blackwhite}{A logical.  If TRUE the credible region ribbons are grey. If FALSE (default) then they are different colors for each group.}
 
-\item{grid}{If missing then each plot will appear seperate. Otherwise, numbers between 1 and 5 correspond to different combinations of figures printed together.}
+\item{grid}{If missing then each plot will appear separate. Otherwise, numbers between 1 and 5 correspond to different combinations of figures printed together.}
 
 \item{bs}{Base font size}
+
+\item{continuous_weight}{Logical indicating if the weight function interval should be represented with a line and ribbon. If FALSE points and error bars will be used instead.}
 
 \item{...}{additional arguments for ggplot theme.}
 }
