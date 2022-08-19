@@ -9,7 +9,7 @@ bdlimbasis(X, basis.opts)
 \arguments{
 \item{X}{A n x p matrix of observations. Each row has the observations for one individual. The observations should be evenly spaced over a grid.}
 
-\item{basis.opts}{List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.}
+\item{basis.opts}{List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; knot_locations = the location of internal knots for the spline basis; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.}
 }
 \description{
 \code{bdlimbasis} builds the basis for thge BDLIM model using either FACE of natural cubic splines.

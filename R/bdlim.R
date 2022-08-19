@@ -8,12 +8,12 @@
 #' @param Z Design matrix of covariates. The design matrix for G will be added automatically, including an intercept.
 #' @param G Vector indicating group membership. This should be a factor.
 #' @param inter.model Indicator of how G enters the model. If 'bw' both the betas and weight functions will vary between groups. If 'b' then only the betas will vary between groups. If 'w' then only the wieght function will vary by group. If "n" then neither beta or the wieght function will vary by group. If a vector of any combination of the four choices is provided then those models will be run and compared. The option 'all' runs all four models and compares them.
-#' @param family A description of the error distribution and link function to be used in the model. Currently, gaussian and binomial are supported.
+#' @param family A description of the error distribution and link function to be used in the model. Currently, Gaussian and binomial are supported.
 #' @param niter Number of MCMC iterations including burnin.
 #' @param nburn Number of MCMC iterations to be discarded as burnin.
 #' @param nthin Number of draws taken to obtain one sample.
-#' @param prior List with the entries: sigma = a numeric 2-vector with the shape and rate paramters for the pirior in the error precision (1/sigma^2); betavar = the prior variance for beta; and gamma = the prior variance for the covarites. The priors on beta and gamma are iid normal mean zero.
-#' @param basis.opts List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.
+#' @param prior List with the entries: sigma = a numeric 2-vector with the shape and rate parameters for the prior in the error precision (1/sigma^2); betavar = the prior variance for beta; and gamma = the prior variance for the covarites. The priors on beta and gamma are iid normal mean zero.
+#' @param basis.opts List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; knot_locations = the location of internal knots for the spline basis; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.
 #' @param seed A seed to be set before each model is run.
 #' @return An object of class 'bdlim'.
 #' @author Ander Wilson

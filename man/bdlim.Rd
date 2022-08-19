@@ -30,7 +30,7 @@ bdlim(
 
 \item{inter.model}{Indicator of how G enters the model. If 'bw' both the betas and weight functions will vary between groups. If 'b' then only the betas will vary between groups. If 'w' then only the wieght function will vary by group. If "n" then neither beta or the wieght function will vary by group. If a vector of any combination of the four choices is provided then those models will be run and compared. The option 'all' runs all four models and compares them.}
 
-\item{family}{A description of the error distribution and link function to be used in the model. Currently, gaussian and binomial are supported.}
+\item{family}{A description of the error distribution and link function to be used in the model. Currently, Gaussian and binomial are supported.}
 
 \item{niter}{Number of MCMC iterations including burnin.}
 
@@ -38,9 +38,9 @@ bdlim(
 
 \item{nthin}{Number of draws taken to obtain one sample.}
 
-\item{basis.opts}{List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.}
+\item{basis.opts}{List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; knot_locations = the location of internal knots for the spline basis; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.}
 
-\item{prior}{List with the entries: sigma = a numeric 2-vector with the shape and rate paramters for the pirior in the error precision (1/sigma^2); betavar = the prior variance for beta; and gamma = the prior variance for the covarites. The priors on beta and gamma are iid normal mean zero.}
+\item{prior}{List with the entries: sigma = a numeric 2-vector with the shape and rate parameters for the prior in the error precision (1/sigma^2); betavar = the prior variance for beta; and gamma = the prior variance for the covarites. The priors on beta and gamma are iid normal mean zero.}
 
 \item{seed}{A seed to be set before each model is run.}
 }

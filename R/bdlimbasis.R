@@ -5,7 +5,7 @@
 #'
 #' \code{bdlimbasis} builds the basis for thge BDLIM model using either FACE of natural cubic splines.
 #' @param X A n x p matrix of observations. Each row has the observations for one individual. The observations should be evenly spaced over a grid.
-#' @param basis.opts List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.
+#' @param basis.opts List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; knot_locations = the location of internal knots for the spline basis; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.
 #' @seealso \code{\link{fpca.face}}, \code{\link{ns}}, \code{\link{bs}}, and \code{\link{gam}} for details on the methods called.
 #' @author Ander Wilson
 #' @importFrom splines ns bs
@@ -19,13 +19,26 @@ bdlimbasis <- function(X,basis.opts){
   #account for missing input in basis function
   if(toupper(basis.opts$type)=="NS"){
     
-    if(is.null(basis.opts$df) & !is.null(basis.opts$knots)){
-      basis.opts$df <- basis.opts$knots+2
-    }else if(is.null(basis.opts$df)){ 
-      basis.opts$df <- 5
+    if(!is.null(basis.opts$knot_locations)){
+      
+      if(max(basis.opts$knot_locations)>=ncol(X)){
+        stop("internal knot locations outside the range of exposure time.")  
+      }
+      if(min(basis.opts$knot_locations)<=1){
+        stop("internal knot locations outside the range of exposure time.")  
+      }
+      
+      B1 <- ns(seq(1,ncol(X)), knots=basis.opts$knot_locations, intercept=TRUE)
+    }else{
+      if(is.null(basis.opts$df) & !is.null(basis.opts$knots)){
+        basis.opts$df <- basis.opts$knots+2
+      }else if(is.null(basis.opts$df)){ 
+        basis.opts$df <- 5
+      }
+      
+      B1 <- ns(seq(1,ncol(X)),df=basis.opts$df, intercept=TRUE)
     }
     
-    B1 <- ns(seq(1,ncol(X)),df=basis.opts$df, intercept=TRUE)
     X <-  B1 %*% qr.solve(B1,t(X)) 
     svdX <- svd(X)
     
@@ -33,8 +46,25 @@ bdlimbasis <- function(X,basis.opts){
     
   }else if(toupper(basis.opts$type)=="BS"){
     
-    if(is.null(basis.opts$df)) basis.opts$df <- round(ncol(X)/5)
-    B1 <- bs(seq(1,ncol(X)),df=basis.opts$df, intercept=TRUE)
+    if(!is.null(basis.opts$knot_locations)){
+      if(max(basis.opts$knot_locations)>=ncol(X)){
+        stop("internal knot locations outside the range of exposure time.")  
+      }
+      if(min(basis.opts$knot_locations)<=1){
+        stop("internal knot locations outside the range of exposure time.")  
+      }
+      
+      B1 <- bs(seq(1,ncol(X)), knots=basis.opts$knot_locations, intercept=TRUE)
+    }else{
+      if(is.null(basis.opts$df) & !is.null(basis.opts$knots)){
+        basis.opts$df <- basis.opts$knots+4
+      }else if(is.null(basis.opts$df)){ 
+        basis.opts$df <- round(ncol(X)/5)
+      }
+      
+      B1 <- bs(seq(1,ncol(X)),df=basis.opts$df, intercept=TRUE)
+    }
+    
     X <-  B1 %*% qr.solve(B1,t(X)) 
     svdX <- svd(X)
     
