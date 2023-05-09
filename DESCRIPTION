@@ -24,5 +24,5 @@ Imports:
     coda,
     Rcpp (>= 0.12.17)
 LinkingTo: Rcpp, RcppArmadillo, GIGrvg
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.2
 Encoding: UTF-8
