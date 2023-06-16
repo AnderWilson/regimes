@@ -1,4 +1,4 @@
-w <- function(x, inter.model, alphalevel, hpd.interval) UseMethod("w")
+w <- function(fit, inter.model, alphalevel, hpd.interval) UseMethod("w")
 
 #' Summary of the weight function for BDLIM
 #'

@@ -1,4 +1,4 @@
-beta <- function(x, inter.model, alphalevel, hpd.interval) UseMethod("beta")
+beta <- function(fit, inter.model, alphalevel, hpd.interval) UseMethod("beta")
 
 #' Summary of the beta for BDLIM
 #'

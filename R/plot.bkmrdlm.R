@@ -2,6 +2,7 @@
 #'
 #' @param x An object of class 'bkmrdlm'.
 #' @param print A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.
+#' @param projectedmean A logical. If TRUE then the posterior mean projected into the parameter space will be displayed and it will have the mean square values equal to 1. If FALSE then the raw posterior mean will be displayed. The raw posterior mean may not be in the parameter space and in low signal settings may be outside of the 0.95 credible intervals.
 #' @param ... Additional arguments for ggplot theme.
 #'
 #' @return If print=FALSE then an object of class ggplot is returned.
@@ -9,7 +10,7 @@
 #' @export
 #'
 
-plot.bkmrdlm <- function(x, print=TRUE, ...){
+plot.bkmrdlm <- function(x, print=TRUE, projectedmean = TRUE,  ...){
 
   theme_regimes <- function (base_size = 20, base_family = "", ...){
     theme_grey (base_size = base_size) +
@@ -34,6 +35,7 @@ plot.bkmrdlm <- function(x, print=TRUE, ...){
   for(m in Mvec){
     w <- x$basis[[m]]$psi%*%t(x$theta[[m]])
     df <- rbind(df,data.frame(M=m,t=1:nrow(w),mean=rowMeans(w), lower=apply(w,1,quantile,0.025), upper=apply(w,1,quantile,0.975)) )
+    if(projectedmean) df$mean <- df$mean/sqrt(mean(df$mean^2))
   }
 
   p <- ggplot(df, aes_string(x="t",y="mean",ymin="lower", ymax="upper"))

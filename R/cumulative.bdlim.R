@@ -1,4 +1,4 @@
-cumulative <- function(x, inter.model, alphalevel, hpd.interval) UseMethod("cumulative")
+cumulative <- function(fit, inter.model, alphalevel, hpd.interval) UseMethod("cumulative")
 
 #' Summary of the cumulative effect for BDLIM
 #'

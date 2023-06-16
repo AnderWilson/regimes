@@ -1,4 +1,4 @@
-bw <- function(x, inter.model, alphalevel, hpd.interval) UseMethod("bw")
+bw <- function(fit, inter.model, alphalevel, hpd.interval) UseMethod("bw")
 
 #' Summary of the time-varying effect for BDLIM
 #'

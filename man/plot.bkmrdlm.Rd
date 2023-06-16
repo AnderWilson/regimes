@@ -4,12 +4,14 @@
 \alias{plot.bkmrdlm}
 \title{Plot functions for BKMR-DLM}
 \usage{
-\method{plot}{bkmrdlm}(x, print = TRUE, ...)
+\method{plot}{bkmrdlm}(x, print = TRUE, projectedmean = TRUE, ...)
 }
 \arguments{
 \item{x}{An object of class 'bkmrdlm'.}
 
 \item{print}{A logical.  If TRUE then each plot will be printed. If FALSE then a list of plots will be returned.}
+
+\item{projectedmean}{A logical. If TRUE then the posterior mean projected into the parameter space will be displayed and it will have the mean square values equal to 1. If FALSE then the raw posterior mean will be displayed. The raw posterior mean may not be in the parameter space and in low signal settings may be outside of the 0.95 credible intervals.}
 
 \item{...}{Additional arguments for ggplot theme.}
 }

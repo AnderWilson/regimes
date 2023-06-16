@@ -1,8 +1,8 @@
 Package: regimes
 Type: Package
 Title: Regression in Multivariate Exposure Settings
-Version: 0.6.30
-Date: 2022-8-19
+Version: 0.6.40
+Date: 2023-6-16
 Author: Ander Wilson
 Maintainer: Ander Wilson <ander.wilson@colostate.edu>
 Description: Regression methods for estimating the relationship between
@@ -24,5 +24,5 @@ Imports:
     coda,
     Rcpp (>= 0.12.17)
 LinkingTo: Rcpp, RcppArmadillo, GIGrvg
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Encoding: UTF-8
