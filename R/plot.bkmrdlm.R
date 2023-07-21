@@ -34,8 +34,10 @@ plot.bkmrdlm <- function(x, print=TRUE, projectedmean = TRUE,  ...){
     
   for(m in Mvec){
     w <- x$basis[[m]]$psi%*%t(x$theta[[m]])
-    df <- rbind(df,data.frame(M=m,t=1:nrow(w),mean=rowMeans(w), lower=apply(w,1,quantile,0.025), upper=apply(w,1,quantile,0.975)) )
-    if(projectedmean) df$mean <- df$mean/sqrt(mean(df$mean^2))
+    df_temp <- data.frame(M=m,t=1:nrow(w),mean=rowMeans(w), lower=apply(w,1,quantile,0.025), upper=apply(w,1,quantile,0.975))
+    if(projectedmean) df_temp$mean <- df_temp$mean/sqrt(mean(df_temp$mean^2))
+    df <- rbind(df, df_temp)
+    
   }
 
   p <- ggplot(df, aes_string(x="t",y="mean",ymin="lower", ymax="upper"))
