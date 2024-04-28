@@ -11,6 +11,12 @@ output:
 
 
 
+
+# Update on new package: bdlim
+
+**If you are interested in the BDLIM method please see the new package with faster implementation, expanded functionality, and improved user interface:** https://anderwilson.github.io/bdlim/
+
+
 ## Bayesian Distributed Lag Interaction Models
 [Ander Wilson](http://anderwilson.github.io/)
 
