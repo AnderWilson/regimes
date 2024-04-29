@@ -33,6 +33,8 @@ library(regimes)
 
 [acpme](http://anderwilson.github.io/regimes/acpme.html): adjustment for confounding in the presence of multivariate exposures
 
-[bdlim](http://anderwilson.github.io/regimes/bdlim.html): Bayesian distributed lag interaction models
+[new implementation of bdlim](http://anderwilson.github.io/bdlim/): Bayesian distributed lag interaction models implemented in new package bdlim. This is the recommended package to use for BDLIM.
+
+[older implementation of bdlim](http://anderwilson.github.io/regimes/bdlim.html): Bayesian distributed lag interaction models. This will be removed from the package in the future.
 
 [bkmrdlm](http://anderwilson.github.io/regimes/bkmrdlm.html): Bayesian kernel machine regression distributed lag models
