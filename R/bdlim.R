@@ -25,7 +25,9 @@
 
 bdlim <- function(Y,X,Z,G,inter.model="all",family=gaussian,niter=1000,nburn=round(niter/2), nthin=1,basis.opts,prior,seed){
 
-  # make family a function
+  warning("The bdlim function in regimes is deprecated. Please us the bdlim package: http://anderwilson.github.io/bdlim/.")
+
+    # make family a function
   if(is.character(family)){
     family <- get(family, mode = "function", envir = parent.frame())
   }
