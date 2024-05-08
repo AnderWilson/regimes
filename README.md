@@ -1,0 +1,1 @@
+This code accompanies several papers. It has functions to implement Bayesian kenrel machine regression distributed lag models (BKMD-DLM). For Bayesian distributed lag interaction models see the new ```bdlim``` package (http://anderwilson.github.io/bdlim/) for a new implementation. 
