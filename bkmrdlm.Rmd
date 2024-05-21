@@ -16,6 +16,11 @@ output:
 # Bayesian Kernel Machine Regression Distributed Lag Models
 [Ander Wilson](http://anderwilson.github.io/)
 
+**NOTE:** If you are interested in the effects of longitudinally assessed exposure to a mixture please see the Treed Distributed Lag Mixture Model (TDLMM) method in the package [dlmtree](https://danielmork.github.io/dlmtree/). 
+
+
+## Installation
+
 First, install and load the **regimes** package.
 
 ```{r, eval=FALSE, cache=TRUE}
