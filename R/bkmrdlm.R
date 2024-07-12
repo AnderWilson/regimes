@@ -12,7 +12,7 @@
 #' @param prior_sigma Vector of length 2 with the parameters for the gamma prior on sigma^{-2}
 #' @param prior_tau the prior variance on log(tau^2).
 #' @param kappa scale parameter, rho/kappa~chisq(1).
-#' @param basis.opts List with the entries: type = the type of basis used, either 'face' (default) or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method.
+#' @param basis.opts List with the entries: type = the type of basis used, either 'face' or "ns" or "bs" for splines or "gam" for presmoothing the exposure with a gam following defaults from mgcv; knots = the number of knots used for method face; pve = the percent of variance explained by the PCs for method face; df = the df for ns method. The default is natural splines.
 #' @param gaussian Use a Gaussian kernel (TRUE, default) or a polynomial kernel (FALSE)
 #' @param polydegree Degree of polynomial when polynomial kernel is used.  Only applies when gaussian=FALSE.
 #' @return An object of class 'bkmrdlm'.
@@ -48,7 +48,7 @@ bkmrdlm <- function(y,
                     prior_sigma=c(0.1,0.1),
                     prior_tau=0.1,
                     kappa=1, 
-                    basis.opts=list(type="gam", pve=.9),
+                    basis.opts=list(type="ns", df=3),
                     gaussian=TRUE,
                     polydegree=2){
 
